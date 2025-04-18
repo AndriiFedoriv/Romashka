@@ -1,0 +1,28 @@
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мед з фітодобавками. [Назва]</title>
+</head>
+<body style="font-family: Arial, sans-serif; background: #fffdf5; padding: 20px; color: #333;">
+  <h1 style="color:#8B0000;">Мед з фітодобавками. [Назва]</h1>
+
+  <img src="[посилання-на-фото]" alt="Мед [Назва]" style="max-width:100%; height:auto; margin: 20px 0;">
+
+  <p><strong>Вага:</strong> [Вага]</p>
+  <p><strong>Склад:</strong> Натуральний мед, [інгредієнти]</p>
+  <p><strong>Опис:</strong> Ароматна, смачна і надзвичайно корисна паста. Підходить для сніданків, перекусів і як подарунок. Без додавання цукру чи консервантів.</p>
+
+  <h3>Переваги:</h3>
+  <ul>
+    <li>Натуральний продукт</li>
+    <li>Підтримка імунітету</li>
+    <li>Енергетична цінність і користь</li>
+    <li>Гарний смак + горішки/фрукти</li>
+  </ul>
+
+  <p><a href="https://rozetka.com.ua/your-product-link" target="_blank" style="display:inline-block; margin-top:20px; background:#8B4513; color:white; padding:10px 20px; text-decoration:none; border-radius:5px;">Купити на Rozetka</a></p>
+
+  <p style="margin-top:40px;"><a href="index.html">← Назад до всіх товарів</a></p>
+</body>
+</html>
