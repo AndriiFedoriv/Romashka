@@ -1,22 +1,108 @@
+<!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <title>Медова Легенда</title>
-</head>
-<body style="font-family: Arial, sans-serif; background: #fffbea; padding: 20px; color: #333;">
-  <h1 style="text-align:center; color:#8B4513;">Мед з фітодобавками – Натуральна енергія щодня</h1>
-  <p style="text-align:center; max-width: 600px; margin: auto;">Спробуйте унікальну лінійку меду з натуральними добавками. Без додавання цукру. Тільки користь і смак!</p>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Медова Легенда – наші товари</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fffdf5;
+      padding: 20px;
+      color: #333;
+      margin: 0;
+    }
 
-  <ul style="list-style:none; padding: 0; max-width: 600px; margin: 30px auto;">
-    <li><a href="medFitoMix.html">🥄 Мед з фітодобавками. Горішки мікс 470 г</a></li>
-    <li><a href="product-amosova-255.html">🥄 Мед з фітодобавками. Паста Амосова 255 г</a></li>
-    <li><a href="product-garbuz-255.html">🥄 Мед з фітодобавками. Насіння гарбуза 255 г</a></li>
-    <li><a href="product-mygdal-255.html">🥄 Мед з фітодобавками. Мигдаль 255 г</a></li>
-    <li><a href="product-keshyu-255.html">🥄 Мед з фітодобавками. Кеш'ю 255 г</a></li>
-    <li><a href="product-funduk-255.html">🥄 Мед з фітодобавками. Фундук 255 г</a></li>
-    <li><a href="product-gorishky-mix-255.html">🥄 Мед з фітодобавками. Горішки мікс 255 г</a></li>
-  </ul>
+    h1 {
+      color: #8B0000;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 0 10px;
+    }
+
+    .product {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .product:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+
+    .product img {
+      width: 45%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .product p {
+      margin: 10px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 500px) {
+      .product img {
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Наші товари</h1>
+
+  <div class="grid">
+
+    <a href="gorishky-mix-470.html" class="product">
+      <img src="img/gorishky-mix-470.jpg" alt="Горішки Мікс 470 г">
+      <p>Горішки Мікс 470 г</p>
+    </a>
+
+    <a href="pasta-amosova.html" class="product">
+      <img src="img/pasta-amosova.jpg" alt="Паста Амосова 255 г">
+      <p>Паста Амосова 255 г</p>
+    </a>
+
+    <a href="garbuz.html" class="product">
+      <img src="img/garbuz.jpg" alt="Гарбузове насіння 255 г">
+      <p>Гарбузове насіння 255 г</p>
+    </a>
+
+    <a href="mygdal.html" class="product">
+      <img src="img/mygdal.jpg" alt="Мигдаль 255 г">
+      <p>Мигдаль 255 г</p>
+    </a>
+
+    <a href="keshu.html" class="product">
+      <img src="img/keshu.jpg" alt="Кеш'ю 255 г">
+      <p>Кеш'ю 255 г</p>
+    </a>
+
+    <a href="fynduk.html" class="product">
+      <img src="img/fynduk.jpg" alt="Фундук 255 г">
+      <p>Фундук 255 г</p>
+    </a>
+
+    <a href="gorishky-mix-255.html" class="product">
+      <img src="img/gorishky-mix-255.jpg" alt="Горішки Мікс 255 г">
+      <p>Горішки Мікс 255 г</p>
+    </a>
+
+  </div>
+
 </body>
 </html>
