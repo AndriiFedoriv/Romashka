@@ -3,7 +3,7 @@
         <shop>
             <name>Ромашка</name>
             <company>Медова Легенда</company>
-            <url>https://www.abc.ua/</url>
+            <url>https://medovalegenda.pp.ua/</url>
             <currencies>
                 <currency id="UAH" rate="1"/>
                 <currency id="USD" rate="41"/>
@@ -13,10 +13,10 @@
                 <category id="4645608">Мед</category>
             </categories>
             <offers>
-                <offer id="c4645608" available="true">
+                <offer id="1" available="true">
                     <price>900</price>
                     <currencyId>UAH</currencyId>
-                    <categoryId>391</categoryId>
+                    <categoryId>4645608</categoryId>
                     <picture>http://abc.ua/upload/iblock/a53/a5391cddb40be91705.jpg</picture>
                     <picture>http://abc.ua/upload/iblock/9d0/9d06805d219fb525fc.jpg</picture>
                     <picture>http://abc.ua/upload/iblock/93d/93de38537e1cc1f8f2.jpg</picture>
@@ -31,16 +31,14 @@
                     <description_ua>
                         <![CDATA[<p>Одяг<b>Abc clothes</b> сприяє розвитку функцій головного мозку шляхом підтримки дрібної моторики.</p><p>В Abc <b>New Collection</b> буде особливо зручно стрибати, пригати та бігати.</p><p>Завдяки своїй універсальності та багатофункціональності, <b>Abc clothes</b> чудово підійде:</p><ul><li><b>Для весни</b></li><li><b>Для літа</b></li><li><b>Для ранньої осені</b></li></ul><p><b>Склад:</b>• 92% поліестер, 8%еластан, нетоксичність підтверджена в лабораторії.</p><p><b>Вага:</b> 305 г</p>]]>
                     </description_ua>
-                    <param name="Зріст">146 см</param>
-                    <param name="Сезон">Весна-Осінь</param>
-                    <param name="Колір">Чорний</param>
-                    <param name="Особливості моделі">З капюшоном</param>
-                    <param name="Склад">92% поліестер, 8% еластан</param>
-                    <param name="Рекомендації по догляду">
-                        <value lang="uk">Не відбілювати</value>
-                        <value lang="ru">Не отбеливать</value>
-                    </param>
-                    <param name="Країна-виробник товару">Україна</param>
+                    <param name="Готовий до відправлення">так</param>
+                    <param name="Доставка в магазини ROZETKA">так</param>
+                    <param name="Вага">470 г</param>
+                    <param name="Вид меду">Квітковий, Різнотрав'я</param>
+                    <param name="Упаковка">Скляна</param>
+                    <param name="Тип">Бджолиний мед</param>
+                    <param name="Добавки">Горіхи</param>
+                    <param name="Країна-виробник">Україна</param>
                 </offer>
             </offers>
         </shop>
