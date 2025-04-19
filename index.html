@@ -9,97 +9,99 @@
     body {
       font-family: Arial, sans-serif;
       background: #fffdf5;
-      padding: 20px;
-      color: #333;
+      padding: 0;
       margin: 0;
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
     }
 
     h1 {
       color: #8B0000;
-      text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 10px;
     }
 
     p {
       color: #280303;
-      text-align: center;
       margin-bottom: 30px;
     }
 
-    /* Топбар */
-    .top-bar {
-      background-color: #f4a261; /* Медовий колір */
-      padding: 10px;
+    .nav-top {
+      background: #fff;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 10px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: relative;
     }
 
-    .top-bar img {
-      width: 30px;
-      height: 30px;
-    }
-
-    /* Мобільне меню */
-    #menu {
-      display: none;
-      flex-direction: column;
-      position: absolute;
-      top: 60px;
-      left: 0;
-      background-color: #f4a261;
-      width: 100%;
-      padding: 10px;
-      z-index: 1;
-    }
-
-    #menu a {
-      text-decoration: none;
-      color: #fff;
-      padding: 10px;
-      font-size: 18px;
-      text-align: center;
-      border-bottom: 1px solid #fff;
-    }
-
-    #menu a:hover {
-      background-color: #e76f51;
-    }
-
-    .burger {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      width: 25px;
-      height: 20px;
+    .menu-toggle {
+      background: none;
+      border: none;
       cursor: pointer;
+      width: 32px;
+      height: 32px;
     }
 
-    .burger div {
-      width: 25px;
-      height: 3px;
-      background-color: #fff;
+    .menu-toggle img {
+      width: 100%;
       transition: transform 0.3s ease;
     }
 
-    .burger.open div:nth-child(1) {
-      transform: rotate(45deg) translateY(7px);
+    .menu-toggle.active img {
+      transform: rotate(180deg);
     }
 
-    .burger.open div:nth-child(2) {
-      opacity: 0;
+    .menu-panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 250px;
+      background: #fffdf5;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+      padding: 60px 20px;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 10;
     }
 
-    .burger.open div:nth-child(3) {
-      transform: rotate(-45deg) translateY(-7px);
+    .menu-panel.open {
+      transform: translateX(0);
     }
 
-    /* Головний контент */
+    .menu-panel a {
+      display: block;
+      margin-bottom: 20px;
+      font-weight: bold;
+      color: #8B0000;
+      text-decoration: none;
+    }
+
+    .top-icons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .top-icons a img {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.2s ease;
+    }
+
+    .top-icons a:hover img {
+      transform: scale(1.2);
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
-      padding: 0 10px;
+      padding: 20px;
     }
 
     .product {
@@ -138,28 +140,31 @@
   </style>
 </head>
 <body>
-
-  <header class="top-bar">
-    <img src="img/rozetkaSmile.png" alt="Rozetka">
-    <div class="burger" onclick="toggleMenu()">
-      <div></div>
-      <div></div>
-      <div></div>
+  <div class="nav-top">
+    <button class="menu-toggle" id="menuButton">
+      <img src="img/icons/menu.svg" alt="меню">
+    </button>
+    <div class="top-icons">
+      <a href="https://instagram.com/medovalegenda" target="_blank">
+        <img src="img/Instagram_icon.png" alt="Instagram">
+      </a>
+      <a href="https://rozetka.com.ua/" target="_blank">
+        <img src="img/rozetkaSmile.png" alt="Rozetka">
+      </a>
     </div>
-  </header>
-
-  <div id="menu">
-    <a href="med-gorishky-mix-470.html">Горішки Мікс 470 г</a>
-    <a href="pasta-amosova.html">Паста Амосова 255 г</a>
-    <a href="garbuz.html">Гарбузове насіння 255 г</a>
-    <a href="mygdal.html">Мигдаль 255 г</a>
-    <a href="keshu.html">Кеш'ю 255 г</a>
-    <a href="fynduk.html">Фундук 255 г</a>
-    <a href="gorishky-mix-255.html">Горішки Мікс 255 г</a>
   </div>
 
-  <h1>Мед з фітодобавками – Натуральна енергія щодня</h1>
-  <p>Спробуйте унікальну лінійку медових паст з натуральними добавками. Без додавання цукру. Тільки користь і смак!</p>
+  <div class="menu-panel" id="menuPanel">
+    <a href="index.html">🏠 Головна</a>
+    <a href="#">🍯 Про нас</a>
+    <a href="#">📦 Доставка</a>
+    <a href="#">📞 Контакти</a>
+  </div>
+
+  <header>
+    <h1>Мед з фітодобавками – Натуральна енергія щодня</h1>
+    <p>Спробуйте унікальну лінійку медових паст з натуральними добавками. Без додавання цукру. Тільки користь і смак!</p>
+  </header>
 
   <div class="grid">
     <a href="med-gorishky-mix-470.html" class="product">
@@ -193,13 +198,15 @@
   </div>
 
   <script>
-    function toggleMenu() {
-      const menu = document.getElementById("menu");
-      const burger = document.querySelector(".burger");
-      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
-      burger.classList.toggle("open");
-    }
-  </script>
+    const menuButton = document.getElementById('menuButton');
+    const menuPanel = document.getElementById('menuPanel');
+    let isOpen = false;
 
+    menuButton.addEventListener('click', () => {
+      isOpen = !isOpen;
+      menuPanel.classList.toggle('open');
+      menuButton.querySelector('img').src = isOpen ? 'img/icons/close.svg' : 'img/icons/menu.svg';
+    });
+  </script>
 </body>
 </html>
