@@ -1,28 +1,150 @@
+<!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Мед з фітодобавками. Горішки Мікс 470 г.</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fffdf5;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .text {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .main-image {
+      flex: 1;
+      text-align: right;
+      min-width: 280px;
+    }
+
+    .main-image img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .thumbnails {
+      margin-top: 20px;
+    }
+
+    .thumbnails img {
+      width: 80px;
+      height: auto;
+      margin-right: 10px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border 0.2s ease;
+    }
+
+    .thumbnails img:hover {
+      border-color: #8B0000;
+    }
+
+    /* Модальне вікно */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 99;
+      padding-top: 50px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.8);
+    }
+
+    .modal-content {
+      display: block;
+      margin: auto;
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    .modal:target {
+      display: block;
+    }
+
+    .close {
+      position: absolute;
+      top: 30px;
+      right: 50px;
+      font-size: 40px;
+      color: #fff;
+      text-decoration: none;
+    }
+  </style>
 </head>
-<body style="font-family: Arial, sans-serif; background: #fffdf5; padding: 20px; color: #333;">
+<body>
+
   <h1 style="color:#8B0000;">Мед з фітодобавками. Горішки Мікс 470 г.</h1>
 
-  <img src="MedFitodobavkyGorishkyMix470g.webp" alt="Мед з фітодобавками. Горішки Мікс 470 г." style="max-width:50%; height:auto; margin: 20px 0;">
+  <div class="container">
+    <div class="text">
+      <p><strong>Вага:</strong> 470 г</p>
+      <p><strong>Склад:</strong> Натуральний мед, горішки</p>
+      <p><strong>Опис:</strong> Ароматна, смачна і надзвичайно корисний медово-горіховий мікс. Підходить для сніданків, перекусів і як подарунок. Без додавання цукру чи консервантів.</p>
 
-  <p><strong>Вага:</strong> 470гр.</p>
-  <p><strong>Склад:</strong> Натуральний мед, горішки</p>
-  <p><strong>Опис:</strong> Ароматна, смачна і надзвичайно корисний медово-горіховий мікс . Підходить для сніданків, перекусів і як подарунок. Без додавання цукру чи консервантів.</p>
+      <h3>Переваги:</h3>
+      <ul>
+        <li>Натуральний продукт</li>
+        <li>Підтримка імунітету</li>
+        <li>Енергетична цінність і користь</li>
+        <li>Гарний смак + горішки</li>
+      </ul>
 
-  <h3>Переваги:</h3>
-  <ul>
-    <li>Натуральний продукт</li>
-    <li>Підтримка імунітету</li>
-    <li>Енергетична цінність і користь</li>
-    <li>Гарний смак + горішки</li>
-  </ul>
+      <p>
+        <a href="https://rozetka.com.ua/" target="_blank"
+           style="display:inline-block; margin-top:20px; background:#8B4513; color:white; padding:10px 20px; text-decoration:none; border-radius:5px;">
+          Купити на Rozetka
+        </a>
+      </p>
+      <p style="margin-top:40px;">
+        <a href="index.html">← Назад до всіх товарів</a>
+      </p>
+    </div>
 
-  <p><a href="https://rozetka.com.ua/your-product-link" target="_blank" style="display:inline-block; margin-top:20px; background:#8B4513; color:white; padding:10px 20px; text-decoration:none; border-radius:5px;">Купити на Rozetka</a></p>
+    <div class="main-image">
+      <a href="#modal1">
+        <img src="MedFitodobavkyGorishkyMix470g.webp" alt="Горішки Мікс" />
+      </a>
 
-  <p style="margin-top:40px;"><a href="index.html">← Назад до всіх товарів</a></p>
+      <div class="thumbnails">
+        <a href="#modal1"><img src="MedFitodobavkyGorishkyMix470g.webp" alt="thumb1"></a>
+        <a href="#modal2"><img src="MedFitodobavkyGorishkyMix470g.webp" alt="thumb2"></a>
+        <a href="#modal3"><img src="MedFitodobavkyGorishkyMix470g.webp" alt="thumb3"></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальне зображення 1 -->
+  <div id="modal1" class="modal">
+    <a href="#" class="close">&times;</a>
+    <img class="modal-content" src="MedFitodobavkyGorishkyMix470g.webp" alt="Горішки Мікс">
+  </div>
+
+  <!-- Додаткові модальні вікна -->
+  <div id="modal2" class="modal">
+    <a href="#" class="close">&times;</a>
+    <img class="modal-content" src="MedFitodobavkyGorishkyMix470g.webp" alt="Фото 2">
+  </div>
+
+  <div id="modal3" class="modal">
+    <a href="#" class="close">&times;</a>
+    <img class="modal-content" src="MedFitodobavkyGorishkyMix470g.webp" alt="Фото 3">
+  </div>
+
 </body>
 </html>
