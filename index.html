@@ -102,6 +102,47 @@
       opacity: 1;
       pointer-events: all;
     }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .product {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .product:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+
+    .product img {
+      width: 40%;
+      height: 180px;
+      background-color: #f7f7f7;
+      object-fit: contain;
+    }
+
+    .product p {
+      margin: 10px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 500px) {
+      .product img {
+        height: 150px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -129,6 +170,37 @@
     <h1>Мед з фітодобавками – Натуральна енергія щодня</h1>
     <p>Спробуйте унікальну лінійку медових паст з натуральними добавками. Без додавання цукру. Тільки користь і смак!</p>
   </main>
+
+  <div class="grid">
+    <a href="med-gorishky-mix-470.html" class="product">
+      <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Горішки Мікс 470 г">
+      <p>Горішки Мікс 470 г</p>
+    </a>
+    <a href="pasta-amosova.html" class="product">
+      <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Паста Амосова 255 г">
+      <p>Паста Амосова 255 г</p>
+    </a>
+    <a href="garbuz.html" class="product">
+      <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Гарбузове насіння 255 г">
+      <p>Гарбузове насіння 255 г</p>
+    </a>
+    <a href="mygdal.html" class="product">
+      <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Мигдаль 255 г">
+      <p>Мигдаль 255 г</p>
+    </a>
+    <a href="keshu.html" class="product">
+      <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Кеш'ю 255 г">
+      <p>Кеш'ю 255 г</p>
+    </a>
+    <a href="fynduk.html" class="product">
+      <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Фундук 255 г">
+      <p>Фундук 255 г</p>
+    </a>
+    <a href="gorishky-mix-255.html" class="product">
+      <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Горішки Мікс 255 г">
+      <p>Горішки Мікс 255 г</p>
+    </a>
+  </div>
 
   <script>
     function toggleMenu() {
