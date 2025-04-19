@@ -30,7 +30,7 @@
     }
 
     .nav-top {
-      background: #e4f46d;
+      background: #e6f394;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -39,7 +39,7 @@
       position: relative;
     }
 
-    .menu-toggle {
+    .burger {
       background: none;
       border: none;
       cursor: pointer;
@@ -50,22 +50,22 @@
       justify-content: space-between;
     }
 
-    .menu-toggle div {
+    .burger div {
       width: 30px;
       height: 3px;
       background-color: #333;
       transition: transform 0.3s ease;
     }
 
-    .menu-toggle.open div:nth-child(1) {
+    .burger.open div:nth-child(1) {
       transform: rotate(45deg) translateY(8px);
     }
 
-    .menu-toggle.open div:nth-child(2) {
+    .burger.open div:nth-child(2) {
       opacity: 0;
     }
 
-    .menu-toggle.open div:nth-child(3) {
+    .burger.open div:nth-child(3) {
       transform: rotate(-45deg) translateY(-8px);
     }
 
@@ -78,13 +78,13 @@
       background: #fffdf5;
       box-shadow: 2px 0 10px rgba(0,0,0,0.1);
       padding: 60px 20px;
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
+      display: none;
       z-index: 10;
     }
 
     .menu-panel.open {
-      transform: translateX(0);
+      display: flex;
+      flex-direction: column;
     }
 
     .menu-panel a {
@@ -154,7 +154,7 @@
 </head>
 <body>
   <div class="nav-top">
-    <button class="menu-toggle" id="menuButton">
+    <button class="burger" id="menuButton" onclick="toggleMenu()">
       <div></div>
       <div></div>
       <div></div>
@@ -213,13 +213,12 @@
   </div>
 
   <script>
-    const menuButton = document.getElementById('menuButton');
-    const menuPanel = document.getElementById('menuPanel');
-
-    menuButton.addEventListener('click', () => {
-      menuPanel.classList.toggle('open');
-      menuButton.classList.toggle('open');
-    });
+    function toggleMenu() {
+      const menu = document.getElementById("menuPanel");
+      const burger = document.querySelector(".burger");
+      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+      burger.classList.toggle("open");
+    }
   </script>
 </body>
 </html>
