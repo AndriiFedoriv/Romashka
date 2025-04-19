@@ -2,7 +2,7 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #fffdf5;
-    padding: 0;
+    padding: 0 20px;
     color: #333;
     max-width: 1200px;
     margin-left: auto;
@@ -80,6 +80,7 @@ body {
     text-decoration: none;
     font-size: 1.1em;
     font-weight: bold;
+    transition: right 0.3s ease, visibility 0.3s;
   }
   
   .overlay {
