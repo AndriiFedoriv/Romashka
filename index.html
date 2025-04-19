@@ -9,28 +9,125 @@
     body {
       font-family: Arial, sans-serif;
       background: #fffdf5;
-      padding: 20px;
       color: #333;
       margin: 0;
+    }
+
+    header {
+      background-color: #ffd700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      position: relative;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #8B0000;
+    }
+
+    .burger {
+      cursor: pointer;
+      width: 30px;
+      height: 25px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .burger span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background: #8B0000;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    .burger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .burger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .burger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      height: 100%;
+      width: 250px;
+      background: #fff;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+      transition: left 0.3s ease;
+      padding: 60px 20px;
+      z-index: 999;
+    }
+
+    .nav.active {
+      left: 0;
+    }
+
+    .nav a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 15px 0;
+      color: #333;
+      text-decoration: none;
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+
+    .nav a img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 998;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      pointer-events: all;
     }
 
     h1 {
       color: #8B0000;
       text-align: center;
-      margin-bottom: 30px;
+      margin: 30px 20px 10px;
     }
 
     p {
       color: #280303;
       text-align: center;
-      margin-bottom: 30px;
+      margin: 0 20px 30px;
     }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
-      padding: 0 10px;
+      padding: 0 10px 40px;
     }
 
     .product {
@@ -69,49 +166,72 @@
   </style>
 </head>
 <body>
-<header>
-  <h1>Мед з фітодобавками – Натуральна енергія щодня</h1>
-  <p>Спробуйте унікальну лінійку медових паст з натуральними добавками. Без додавання цукру. Тільки користь і смак!</p>
-</header>
 
-  <div class="grid">
+  <header>
+    <div class="logo">🍯 Медова Легенда</div>
+    <div class="burger" id="burger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
 
-    <a href="med-gorishky-mix-470.html" class="product">
-      <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Горішки Мікс 470 г">
-      <p>Горішки Мікс 470 г</p>
-    </a>
+  <nav class="nav" id="navLinks">
+    <a href="index.html"><img src="img/home.svg" alt="Головна">Головна</a>
+    <a href="med-gorishky-mix-470.html"><img src="img/honey.svg" alt="Горішки">Горішки Мікс 470 г</a>
+    <a href="pasta-amosova.html"><img src="img/jar.svg" alt="Паста">Паста Амосова</a>
+    <a href="contact.html"><img src="img/contact.svg" alt="Контакти">Контакти</a>
+    <a href="https://www.instagram.com/your_instagram" target="_blank"><img src="img/instagram.svg" alt="Instagram">Instagram</a>
+  </nav>
 
-    <a href="pasta-amosova.html" class="product">
-      <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Паста Амосова 255 г">
-      <p>Паста Амосова 255 г</p>
-    </a>
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-    <a href="garbuz.html" class="product">
-      <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Гарбузове насіння 255 г">
-      <p>Гарбузове насіння 255 г</p>
-    </a>
+  <main>
+    <h1>Мед з фітодобавками – Натуральна енергія щодня</h1>
+    <p>Спробуйте унікальну лінійку медових паст з натуральними добавками. Без додавання цукру. Тільки користь і смак!</p>
 
-    <a href="mygdal.html" class="product">
-      <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Мигдаль 255 г">
-      <p>Мигдаль 255 г</p>
-    </a>
+    <div class="grid">
+      <a href="med-gorishky-mix-470.html" class="product">
+        <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Горішки Мікс 470 г">
+        <p>Горішки Мікс 470 г</p>
+      </a>
+      <a href="pasta-amosova.html" class="product">
+        <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Паста Амосова 255 г">
+        <p>Паста Амосова 255 г</p>
+      </a>
+      <a href="garbuz.html" class="product">
+        <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Гарбузове насіння 255 г">
+        <p>Гарбузове насіння 255 г</p>
+      </a>
+      <a href="mygdal.html" class="product">
+        <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Мигдаль 255 г">
+        <p>Мигдаль 255 г</p>
+      </a>
+      <a href="keshu.html" class="product">
+        <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Кеш'ю 255 г">
+        <p>Кеш'ю 255 г</p>
+      </a>
+      <a href="fynduk.html" class="product">
+        <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Фундук 255 г">
+        <p>Фундук 255 г</p>
+      </a>
+      <a href="gorishky-mix-255.html" class="product">
+        <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Горішки Мікс 255 г">
+        <p>Горішки Мікс 255 г</p>
+      </a>
+    </div>
+  </main>
 
-    <a href="keshu.html" class="product">
-      <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Кеш'ю 255 г">
-      <p>Кеш'ю 255 г</p>
-    </a>
+  <script>
+    function toggleMenu() {
+      const burger = document.getElementById('burger');
+      const nav = document.getElementById('navLinks');
+      const overlay = document.getElementById('overlay');
 
-    <a href="fynduk.html" class="product">
-      <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Фундук 255 г">
-      <p>Фундук 255 г</p>
-    </a>
-
-    <a href="gorishky-mix-255.html" class="product">
-      <img src="img/MedFitodobavkyGorishkyMix470g.webp" alt="Мед + Горішки Мікс 255 г">
-      <p>Горішки Мікс 255 г</p>
-    </a>
-
-  </div>
-
+      burger.classList.toggle('active');
+      nav.classList.toggle('active');
+      overlay.classList.toggle('active');
+    }
+  </script>
 </body>
 </html>
