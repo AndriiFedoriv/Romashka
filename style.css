@@ -82,6 +82,36 @@ body {
     font-weight: bold;
     transition: right 0.3s ease, visibility 0.3s;
   }
+
+  .nav {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.9);
+  }
+  
+  .nav a {
+    opacity: 0;
+    transform: translateX(20px);
+    animation: slideIn 0.6s forwards;
+    animation-delay: var(--delay);
+  }
+  
+  .nav.active a {
+    opacity: 1;
+  }
+  
+  @keyframes slideIn {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .nav a:nth-child(1) { --delay: 0.1s; }
+  .nav a:nth-child(2) { --delay: 0.2s; }
+  .nav a:nth-child(3) { --delay: 0.3s; }
+  .nav a:nth-child(4) { --delay: 0.4s; }
+  .nav a:nth-child(5) { --delay: 0.5s; }
+  .nav a:nth-child(6) { --delay: 0.6s; } 
   
   .overlay {
     position: fixed;
