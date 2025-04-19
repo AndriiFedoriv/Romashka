@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <yml_catalog date="2025-04-18 10:58">
+        <shop>
+            <name>Ромашка</name>
+            <company>Медова Легенда</company>
+            <url>https://www.abc.ua/</url>
+            <currencies>
+                <currency id="UAH" rate="1"/>
+                <currency id="USD" rate="41"/>
+                <currency id="EUR" rate="45"/>
+            </currencies>
+            <categories>
+                <category id="4645608">Мед</category>
+            </categories>
+            <offers>
+                <offer id="c4645608" available="true">
+                    <price>900</price>
+                    <currencyId>UAH</currencyId>
+                    <categoryId>391</categoryId>
+                    <picture>http://abc.ua/upload/iblock/a53/a5391cddb40be91705.jpg</picture>
+                    <picture>http://abc.ua/upload/iblock/9d0/9d06805d219fb525fc.jpg</picture>
+                    <picture>http://abc.ua/upload/iblock/93d/93de38537e1cc1f8f2.jpg</picture>
+                    <vendor>Медова Легенда</vendor>
+                    <article>0001med</article>
+                    <stock_quantity>100</stock_quantity>
+                    <name>Мёд с фитодобавками. Орешки Микс 470 г (0001med)</name>
+                    <name_ua>Мед з фітодобавками. Горішки Мікс 470 г (0001med)</name_ua>
+                    <description>
+                        <![CDATA[<p>Одежда<b>Abc clothes</b> способствует развитию функций головного мозга за счет поощрения мелкой моторики.</p><p>В Abc <b>New Collection</b> будет особенно удобно лазать, прыгать, бегать.</p><p>За счет своей универсальноcти и многофункциональности, <b>Abc clothes</b> отлично подходит:</p><ul><li><b>Для весны</b></li><li><b>Для лета</b></li><li><b>Для ранней осени</b></li></ul><p><b>Состав:</b>• 92% полиэстер, 8%эластан, не токсичность подтверждена лабораторно.</p><p><b>Вес:</b> 305 г</p>]]>
+                    </description>
+                    <description_ua>
+                        <![CDATA[<p>Одяг<b>Abc clothes</b> сприяє розвитку функцій головного мозку шляхом підтримки дрібної моторики.</p><p>В Abc <b>New Collection</b> буде особливо зручно стрибати, пригати та бігати.</p><p>Завдяки своїй універсальності та багатофункціональності, <b>Abc clothes</b> чудово підійде:</p><ul><li><b>Для весни</b></li><li><b>Для літа</b></li><li><b>Для ранньої осені</b></li></ul><p><b>Склад:</b>• 92% поліестер, 8%еластан, нетоксичність підтверджена в лабораторії.</p><p><b>Вага:</b> 305 г</p>]]>
+                    </description_ua>
+                    <param name="Зріст">146 см</param>
+                    <param name="Сезон">Весна-Осінь</param>
+                    <param name="Колір">Чорний</param>
+                    <param name="Особливості моделі">З капюшоном</param>
+                    <param name="Склад">92% поліестер, 8% еластан</param>
+                    <param name="Рекомендації по догляду">
+                        <value lang="uk">Не відбілювати</value>
+                        <value lang="ru">Не отбеливать</value>
+                    </param>
+                    <param name="Країна-виробник товару">Україна</param>
+                </offer>
+            </offers>
+        </shop>
+    </yml_catalog>
