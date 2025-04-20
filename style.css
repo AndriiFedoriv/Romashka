@@ -31,7 +31,27 @@ header {
   font-size: 1.5em;
   font-weight: bold;
   color: #8B0000;
+  text-decoration: none;
+  animation: pulseLogo 4s infinite;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
+
+.logo:hover {
+  transform: scale(1.05) rotate(-1deg);
+  color: #b30000;
+  text-shadow: 0 0 5px rgba(139,0,0,0.4);
+}
+
+/* Анімація — пульс */
+@keyframes pulseLogo {
+  0%, 100% {
+    text-shadow: 0 0 5px #f5deb3, 0 0 10px #ffa500;
+  }
+  50% {
+    text-shadow: 0 0 10px #ffd700, 0 0 20px #ff8c00;
+  }
+}
+
 
 .burger {
   cursor: pointer;
@@ -86,10 +106,12 @@ header {
   position: fixed;
   top: 0;
   right: 0;
+  left: auto;
   transform: translateX(100%);
   transition: transform 0.3s ease;
   height: 100%;
   width: 250px;
+  max-width: 100vw;
   backdrop-filter: blur(10px);
   background: rgba(255, 255, 255, 0.9);
   box-shadow: -2px 0 8px rgba(0,0,0,0.1);
@@ -350,6 +372,6 @@ header {
 /* ===== Адаптивність для меню ===== */
 @media (max-width: 600px) {
   .nav {
-    width: 100%;
+    width: 100vw;
   }
 }
