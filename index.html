@@ -69,17 +69,38 @@
     © 2025 Медова Легенда. Усі права захищено.
   </footer>  
 
-  <script>
-    function toggleMenu() {
-      const burger = document.getElementById('burger');
-      const nav = document.getElementById('navLinks');
-      const overlay = document.getElementById('overlay');
+<script>
+  function toggleMenu() {
+    const burger = document.getElementById('burger');
+    const nav = document.getElementById('navLinks');
+    const overlay = document.getElementById('overlay');
 
-      burger.classList.toggle('active');
-      nav.classList.toggle('active');
-      overlay.classList.toggle('active');
+    const isOpen = nav.classList.contains('active');
+
+    if (isOpen) {
+      nav.classList.remove('active');
+      overlay.classList.remove('active');
+      burger.classList.remove('active');
+    } else {
+      nav.classList.add('active');
+      overlay.classList.add('active');
+      burger.classList.add('active');
     }
-  </script>
+  }
+
+  // Закриття при кліку на пункт + плавний скролл
+  document.querySelectorAll('.nav a').forEach(link => {
+    link.addEventListener('click', e => {
+      const href = link.getAttribute('href');
+      if (href.startsWith('#')) {
+        e.preventDefault();
+        document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+      }
+      toggleMenu();
+    });
+  });
+</script>
+
 
 </body>
 </html>
