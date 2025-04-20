@@ -1,345 +1,312 @@
+/* ===== Загальне оформлення ===== */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #fffdf5;
-    padding: 0 20px;
-    color: #333;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  header {
-    background-color: #ffd700;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    position: relative;
-    z-index: 1000;
-  }
-  
-  .logo {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #8B0000;
-  }
-  
-  .burger {
-    cursor: pointer;
-    width: 30px;
-    height: 25px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .burger span {
-    display: block;
-    height: 3px;
-    width: 100%;
-    background: #8B0000;
-    border-radius: 5px;
-    transition: 0.3s;
-  }
-  
-  .burger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-  
-  .burger.active span:nth-child(2) {
-    opacity: 0;
-  }
-  
-  .burger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
-  }
-  
-  .nav {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    height: 100%;
-    width: 250px;
-    background: #fff;
-    box-shadow: -2px 0 8px rgba(0,0,0,0.1);
-    transition: right 0.3s ease;
-    padding: 60px 20px;
-    z-index: 999;
-  }
-  
-  .nav.active {
-    right: 0;
-  }
-  
-  .nav a {
-    display: block;
-    margin: 15px 0;
-    color: #333;
-    text-decoration: none;
-    font-size: 1.1em;
-    font-weight: bold;
-    transition: right 0.3s ease, visibility 0.3s;
-  }
+  margin: 0 auto;
+  padding: 0 20px;
+  max-width: 1200px;
+  font-family: Arial, sans-serif;
+  background: #fffdf5;
+  color: #333;
+}
 
-  .nav {
-    backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.9);
-  }
-  
-  .nav a {
-    opacity: 0;
-    transform: translateX(20px);
-    animation: slideIn 0.6s forwards;
-    animation-delay: var(--delay);
-  }
-  
-  .nav.active a {
-    opacity: 1;
-  }
-  
-  @keyframes slideIn {
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-  
-  .nav a:nth-child(1) { --delay: 0.1s; }
-  .nav a:nth-child(2) { --delay: 0.2s; }
-  .nav a:nth-child(3) { --delay: 0.3s; }
-  .nav a:nth-child(4) { --delay: 0.4s; }
-  .nav a:nth-child(5) { --delay: 0.5s; }
-  .nav a:nth-child(6) { --delay: 0.6s; } 
-  
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    z-index: 998;
-  }
-  
-  .overlay.active {
-    opacity: 1;
-    pointer-events: all;
-  }
-  
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .product {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    overflow: hidden;
-    text-align: center;
-    transition: transform 0.2s ease;
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  .product:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-  }
-  
-  .product img {
-    width: 40%;
-    height: 180px;
-    background-color: #f7f7f7;
-    object-fit: contain;
-  }
-  
-  .product p {
-    margin: 10px;
-    font-weight: bold;
-  }
-  
-  @media (max-width: 500px) {
-    .product img {
-      height: 150px;
-    }
-  }
-  
-  .container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 20px;
-  }
-  
-  .main-image {
-    flex: 1;
-    min-width: 280px;
-  }
-  
-  .main-image img {
-    max-width: 45%;
-    height: auto;
-  }
-  
-  .text {
-    flex: 1;
-    min-width: 280px;
-  }
-  
-  .thumbnails {
-    margin-top: 20px;
-  }
-  
-  .thumbnails img {
-    width: 80px;
-    height: auto;
-    margin-right: 10px;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: border 0.2s ease;
-  }
-  
-  .thumbnails img:hover {
-    border-color: #8B0000;
-  }
-  
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 99;
-    padding-top: 50px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.8);
-  }
-  
-  .modal-content {
-    display: block;
-    margin: auto;
-    max-width: 90%;
-    max-height: 90%;
-  }
-  
-  .modal:target {
-    display: block;
-  }
-  
-  .close {
-    position: absolute;
-    top: 30px;
-    right: 50px;
-    font-size: 40px;
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  .rozetka-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: #00B359;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background 0.3s ease, transform 0.2s ease;
-  }
-  
-  .rozetka-button:hover {
-    background: #00a14f;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  .rozetka-button img {
-    height: 20px;
-    width: 20px;
-  }
-  
-  .instagram-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
-  }
-  
-  .instagram-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(221, 42, 123, 0.5);
-  }
-  
-  .instagram-button img {
-    height: 20px;
-    width: 20px;
-  }
-  
-  .back-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #f5f5f5;
-    color: #333;
-    padding: 10px 18px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: background 0.3s ease, transform 0.2s ease;
-  }
-  
-  .back-button:hover {
-    background: #e0e0e0;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  }
-  
-  .back-button img {
-    height: 18px;
-    width: 18px;
-  }
+html {
+  scroll-behavior: smooth;
+}
 
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  .nav {
-    position: fixed;
-    top: 0;
-    right: 0;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-  }
-  
-  .nav.active {
+/* ===== Хедер та бургер ===== */
+header {
+  position: sticky;
+  top: 0;
+  background-color: #ffd700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s ease;
+}
+
+.logo {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #8B0000;
+}
+
+.burger {
+  cursor: pointer;
+  width: 30px;
+  height: 25px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.burger span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: #8B0000;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.burger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.burger.active span:nth-child(2) {
+  opacity: 0;
+}
+.burger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* ===== Меню навігації ===== */
+.nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  height: 100%;
+  width: 250px;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+  padding: 60px 20px;
+  z-index: 999;
+}
+
+.nav.active {
+  transform: translateX(0);
+}
+
+.nav a {
+  display: block;
+  margin: 15px 0;
+  color: #333;
+  text-decoration: none;
+  font-size: 1.1em;
+  font-weight: bold;
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.nav.active a {
+  animation: slideIn 0.6s forwards;
+  animation-delay: var(--delay);
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
     transform: translateX(0);
   }
+}
 
-  .overlay {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
+.nav a:nth-child(1) { --delay: 0.1s; }
+.nav a:nth-child(2) { --delay: 0.2s; }
+.nav a:nth-child(3) { --delay: 0.3s; }
+.nav a:nth-child(4) { --delay: 0.4s; }
+.nav a:nth-child(5) { --delay: 0.5s; }
+.nav a:nth-child(6) { --delay: 0.6s; }
+
+/* ===== Оверлей ===== */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 998;
+}
+
+.overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ===== Продукти ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.product {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.product:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.product img {
+  width: 40%;
+  height: 180px;
+  background-color: #f7f7f7;
+  object-fit: contain;
+}
+
+.product p {
+  margin: 10px;
+  font-weight: bold;
+}
+
+@media (max-width: 500px) {
+  .product img {
+    height: 150px;
   }
-  
-  .overlay.active {
-    opacity: 1;
-    pointer-events: all;
+}
+
+/* ===== Сторінка товару ===== */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.main-image {
+  flex: 1;
+  min-width: 280px;
+}
+
+.main-image img {
+  max-width: 45%;
+  height: auto;
+}
+
+.text {
+  flex: 1;
+  min-width: 280px;
+}
+
+.thumbnails {
+  margin-top: 20px;
+}
+
+.thumbnails img {
+  width: 80px;
+  height: auto;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.2s ease;
+}
+
+.thumbnails img:hover {
+  border-color: #8B0000;
+}
+
+/* ===== Модальне вікно ===== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 99;
+  padding-top: 50px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+  display: block;
+  margin: auto;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.modal:target {
+  display: block;
+}
+
+.close {
+  position: absolute;
+  top: 30px;
+  right: 50px;
+  font-size: 40px;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* ===== Кнопки ===== */
+.rozetka-button,
+.instagram-button,
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.rozetka-button {
+  background: #00B359;
+  color: white;
+}
+.rozetka-button:hover {
+  background: #00a14f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.rozetka-button img {
+  height: 20px;
+  width: 20px;
+}
+
+.instagram-button {
+  background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af);
+  color: white;
+}
+.instagram-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(221, 42, 123, 0.5);
+}
+.instagram-button img {
+  height: 20px;
+  width: 20px;
+}
+
+.back-button {
+  background: #f5f5f5;
+  color: #333;
+  gap: 8px;
+  padding: 10px 18px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.back-button:hover {
+  background: #e0e0e0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.back-button img {
+  height: 18px;
+  width: 18px;
+}
+
+/* ===== Адаптивність для меню ===== */
+@media (max-width: 600px) {
+  .nav {
+    width: 100%;
   }
-  
+}
