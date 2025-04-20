@@ -1,6 +1,6 @@
 /* ===== Загальне оформлення ===== */
 body {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;    /* по центру */
   padding: 0 20px;   /* трохи відступів з боків */
   font-family: Arial, sans-serif;
@@ -246,7 +246,7 @@ header {
 
 /* ===== Сторінка товару ===== */
 .container {
-  max-width: 1200px; /* або 1000px, як тобі зручно */
+  max-width: 1000px; /* або 1000px, як тобі зручно */
   margin: 0 auto;    /* по центру */
   padding: 0 20px;   /* трохи відступів з боків */
   display: flex;
