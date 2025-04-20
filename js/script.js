@@ -16,21 +16,21 @@ window.addEventListener('scroll', function () {
 
 // Скрипт для бургер-меню та плавного скролу
 function toggleMenu() {
-  const burger = document.getElementById('burger');
-  const nav = document.getElementById('navLinks');
-  const overlay = document.getElementById('overlay');
-
-  const isOpen = nav.classList.contains('active');
-
-  if (isOpen) {
-    nav.classList.remove('active');
-    overlay.classList.remove('active');
-    burger.classList.remove('active');
-  } else {
-    nav.classList.add('active');
-    overlay.classList.add('active');
-    burger.classList.add('active');
-  }
+    const burger = document.getElementById('burger');
+    const nav = document.getElementById('navLinks');
+    const overlay = document.getElementById('overlay');
+  
+    const isOpen = nav.classList.contains('active');
+  
+    if (isOpen) {
+      nav.classList.remove('active');
+      overlay.classList.remove('active');
+      burger.classList.remove('active');
+    } else {
+      nav.classList.add('active');
+      overlay.classList.add('active');
+      burger.classList.add('active');
+    }
 }
 
 // Закриття меню при кліку на пункт + плавний скролл
