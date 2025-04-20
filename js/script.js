@@ -1,4 +1,3 @@
-// Дочекаємось, поки сторінка повністю завантажиться
 window.onload = function () {
 
     // Вставляємо header з окремого файлу
@@ -12,7 +11,10 @@ window.onload = function () {
       });
   
     function initHeaderBehavior() {
+      // Перевіряємо, чи є елементи
       const header = document.querySelector('header');
+      if (!header) return; // Якщо немає хедера, то нічого не робимо
+  
       let lastScrollTop = 0;
   
       window.addEventListener('scroll', function () {
@@ -32,7 +34,9 @@ window.onload = function () {
       const nav = document.getElementById('navLinks');
       const overlay = document.getElementById('overlay');
   
-      burger.addEventListener('click', () => toggleMenu());
+      if (burger && nav && overlay) {
+        burger.addEventListener('click', () => toggleMenu());
+      }
   
       function toggleMenu() {
         nav.classList.toggle('active');
@@ -53,7 +57,9 @@ window.onload = function () {
       });
   
       // Клік на overlay закриває меню
-      overlay.addEventListener('click', toggleMenu);
+      if (overlay) {
+        overlay.addEventListener('click', toggleMenu);
+      }
     }
   
   };
