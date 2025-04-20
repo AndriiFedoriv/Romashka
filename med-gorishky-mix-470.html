@@ -2,12 +2,42 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Медова Легенда - натуральні медові пасти з фітодобавками. Без цукру, тільки користь і смак!" />
+  <meta name="keywords" content="мед, фітодобавки, натуральний мед, медові пасти, без цукру" />
+  <meta name="author" content="Медова Легенда" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Медова Легенда - натуральні медові пасти з фітодобавками" />
+  <meta property="og:description" content="Спробуйте унікальну лінійку медових паст з натуральними добавками. Без додавання цукру. Тільки користь і смак!" />
+  <meta property="og:image" content="img/MedFitodobavkyGorishkyMix470g.webp" />
+  <meta property="og:url" content="https://medova-legenda.com" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Медова Легенда" />
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <title>Мед з фітодобавками. Горішки Мікс 470 г.</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <header>
+    <a href="index.html" class="logo">🍯 Медова Легенда</a>
+    <div class="burger" id="burger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>    
+  </header>
+
+  <nav class="nav" id="navLinks">
+    <a href="index.html">Головна</a>
+    <a href="med-gorishky-mix-470.html">🍯 + Горішки Мікс 470г</a>
+    <a href="pasta-amosova.html">🍯 + Паста Амосова</a>
+    <a href="contact.html">Контакти</a>
+    <a href="https://rozetka.com.ua/" target="_blank">Ми на Розетці</a>
+    <a href="https://www.instagram.com/" target="_blank">Ми в Instagram</a>
+  </nav>
+
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
   <h1 style="color:#8B0000;">Мед з фітодобавками. Горішки Мікс 470 г.</h1>
 
@@ -101,6 +131,10 @@
   <footer style="text-align:center; padding:20px; font-size:0.9em; color:#888;">
     © 2025 Медова Легенда. Усі права захищено.
   </footer>  
+
+  <script src="js/script.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
 </body>
 </html>
