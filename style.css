@@ -452,32 +452,32 @@ header {
   }
 }
 
-/* Загальні стилі для футера */
+.footer-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
 footer {
   background-color: #f8f8f8;
   padding: 20px 0;
   font-size: 0.9em;
   color: #888;
+  width: 100%;
 }
 
 .footer-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+  flex-wrap: wrap;
 }
 
 .footer-contacts {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-}
-
-.footer-contacts p {
-  margin: 5px 0;
+  gap: 6px;
 }
 
 .footer-contacts a {
@@ -485,58 +485,72 @@ footer {
   text-decoration: none;
   transition: color 0.3s;
 }
-
 .footer-contacts a:hover {
   color: #ff6347;
+  text-shadow: 0 0 4px rgba(255, 99, 71, 0.4);
 }
 
-/* Стилі для соціальних іконок */
+.footer-bottom-bar {
+  background-color: #eaeaea;
+  text-align: center;
+  font-size: 0.8em;
+  color: #666;
+  padding: 10px 15px;
+  border-top: 1px solid #ddd;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.05);
+}
+
 .footer-socials {
   display: flex;
   gap: 15px;
 }
-
+.footer-socials a {
+  display: inline-block;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
 .social-icon img {
   width: 25px;
   height: 25px;
-  transition: transform 0.3s ease;
 }
-
 .social-icon:hover img {
-  transform: scale(1.2); /* Додаємо ефект при наведенні */
+  transform: scale(1.2) rotate(5deg);
+  filter: drop-shadow(0 0 5px #ffd700);
 }
 
-/* Мобільні стилі */
-@media (max-width: 768px) {
-  footer {
-    padding: 15px;
-  }
+/* Десктопна версія соцмереж */
+.desktop-socials {
+  display: flex;
+}
+.mobile-socials {
+  display: none;
+}
 
+/* Мобільна адаптація */
+@media (max-width: 768px) {
   .footer-content {
     flex-direction: column;
+    align-items: center;
     text-align: center;
+    gap: 20px;
   }
 
   .footer-contacts {
-    margin-bottom: 15px;
+    align-items: center;
   }
 
-  .footer-socials {
+  .desktop-socials {
+    display: none;
+  }
+
+  .mobile-socials {
+    display: flex;
+    margin-top: 10px;
+    gap: 15px;
     justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-  footer {
-    padding: 10px;
-  }
-
-  .footer-contacts p {
-    font-size: 0.8em;
   }
 
   .social-icon img {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
   }
 }
