@@ -18,6 +18,12 @@ html {
   scroll-behavior: smooth;
 }
 
+h3 {
+  font-size: 1.5em;
+  margin: 20px 0;
+  color: #8B0000;
+}
+
 /* ===== Хедер та бургер ===== */
 header {
   position: sticky;
@@ -27,7 +33,7 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 10px 20px;
-  z-index: 1000;
+  z-index: 1001;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
   transition: background-color 0.3s ease;
   transition: top 0.4s ease;
@@ -210,11 +216,37 @@ header {
   padding: 20px;
 }
 
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.product-card {
+  text-decoration: none;
+  color: inherit;
+  width: 140px;
+  text-align: center;
+  display: inline-block;
+}
+
+.product-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.product-card p {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+
 .product {
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  overflow: hidden;
+  overflow: hidden; 
   text-align: center;
   transition: transform 0.2s ease;
   text-decoration: none;
@@ -339,6 +371,7 @@ header {
 }
 
 .rozetka-button {
+  margin-top: 30px;
   background: #00B359;
   color: white;
 }
@@ -353,6 +386,7 @@ header {
 }
 
 .instagram-button {
+  margin-top: 20px;
   background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af);
   color: white;
 }

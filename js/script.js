@@ -10,24 +10,24 @@ window.onload = function () {
         initHeaderBehavior();
       });
   
-    function initHeaderBehavior() {
-      // Перевіряємо, чи є елементи
-      const header = document.querySelector('header');
-      if (!header) return; // Якщо немає хедера, то нічого не робимо
-  
-      let lastScrollTop = 0;
-  
-      window.addEventListener('scroll', function () {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  
-        if (scrollTop > lastScrollTop) {
-          header.style.top = "-100px"; // Скрол вниз — ховаємо
-        } else {
-          header.style.top = "0"; // Скрол вгору — показуємо
-        }
-  
-        lastScrollTop = Math.max(scrollTop, 0);
-      });
+      function initHeaderBehavior() {
+        // Перевіряємо, чи є елементи
+        const header = document.querySelector('header');
+        if (!header) return; // Якщо немає хедера, то нічого не робимо
+    
+        let lastScrollTop = 0;
+    
+        window.addEventListener('scroll', function () {
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+          if (scrollTop > lastScrollTop) {
+            header.style.top = "-100px"; // Скрол вниз — ховаємо
+          } else {
+            header.style.top = "0"; // Скрол вгору — показуємо
+          }
+    
+          lastScrollTop = Math.max(scrollTop, 0);
+        });
   
       // Клік по бургеру
       const burger = document.getElementById('burger');
@@ -63,4 +63,10 @@ window.onload = function () {
     }
   
   };
+
+  fetch('products.html')
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById('products-placeholder').innerHTML = data;
+  });
   
