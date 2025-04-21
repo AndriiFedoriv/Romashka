@@ -452,9 +452,91 @@ header {
   }
 }
 
-.footer {
-  text-align: center;
-  padding: 20px;
+/* Загальні стилі для футера */
+footer {
+  background-color: #f8f8f8;
+  padding: 20px 0;
   font-size: 0.9em;
   color: #888;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-contacts {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-contacts p {
+  margin: 5px 0;
+}
+
+.footer-contacts a {
+  color: #888;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-contacts a:hover {
+  color: #ff6347;
+}
+
+/* Стилі для соціальних іконок */
+.footer-socials {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icon img {
+  width: 25px;
+  height: 25px;
+  transition: transform 0.3s ease;
+}
+
+.social-icon:hover img {
+  transform: scale(1.2); /* Додаємо ефект при наведенні */
+}
+
+/* Мобільні стилі */
+@media (max-width: 768px) {
+  footer {
+    padding: 15px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-contacts {
+    margin-bottom: 15px;
+  }
+
+  .footer-socials {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  footer {
+    padding: 10px;
+  }
+
+  .footer-contacts p {
+    font-size: 0.8em;
+  }
+
+  .social-icon img {
+    width: 20px;
+    height: 20px;
+  }
 }

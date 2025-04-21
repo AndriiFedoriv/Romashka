@@ -76,11 +76,9 @@ window.onload = function () {
     document.getElementById('footer-placeholder').innerHTML = data;
   });
 
-  const footerEl = document.getElementById('footer-placeholder');
-if (footerEl) {
   fetch('footer.html')
-    .then(res => res.text())
-    .then(data => {
-      footerEl.innerHTML = data;
-    });
-}
+  .then(res => res.text())
+  .then(data => {
+    const el = document.getElementById('footer-placeholder');
+    if (el) el.innerHTML = data;
+  });
