@@ -346,12 +346,15 @@ header {
 .main-image {
   flex: 1;
   min-width: 280px;
+  position: relative;
+  overflow: hidden; /* Запобігає виходу зображення за межі */
 }
 
 .main-image img {
   max-width: 45%;
   height: auto;
 }
+
 
 .text {
   flex: 1;
