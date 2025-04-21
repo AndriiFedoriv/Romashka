@@ -70,3 +70,17 @@ window.onload = function () {
     document.getElementById('products-placeholder').innerHTML = data;
   });
   
+  fetch('footer.html')
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById('footer-placeholder').innerHTML = data;
+  });
+
+  const footerEl = document.getElementById('footer-placeholder');
+if (footerEl) {
+  fetch('footer.html')
+    .then(res => res.text())
+    .then(data => {
+      footerEl.innerHTML = data;
+    });
+}
