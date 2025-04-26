@@ -9,9 +9,10 @@ function initHeader() {
     .then(res => res.text())
     .then(html => {
       const headerPlaceholder = document.getElementById("header-placeholder");
-      if (!headerPlaceholder) return;
-      headerPlaceholder.innerHTML = html;
-      setupHeaderBehavior();
+      if (headerPlaceholder) {
+        headerPlaceholder.innerHTML = html;
+        setupHeaderBehavior();
+      }
     });
 }
 
@@ -72,22 +73,16 @@ function initProducts() {
   const currentPage = decodeURIComponent(location.pathname.split("/").pop());
 
   if (productDetail && tag) {
-    // Якщо ми на сторінці продукту і є параметр tag — перенаправляємо на головну
     const redirectUrl = `index.html?tag=${encodeURIComponent(tag)}`;
     window.location.href = redirectUrl;
-    return; // Важливо! Щоб далі код не продовжував виконуватись
+    return; // Stop further execution
   }
 
   fetch("/products.json")
     .then(res => res.json())
     .then(products => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const tag = urlParams.get("tag");
-
       if (productContainer) {
-        const filtered = tag
-          ? products.filter(p => p.hashtags?.includes(tag))
-          : products;
+        const filtered = tag ? products.filter(p => p.hashtags?.includes(tag)) : products;
         renderProducts(filtered, productContainer);
       }
 
@@ -106,18 +101,15 @@ function initProducts() {
         if (e.target.classList.contains("hashtag")) {
           e.preventDefault();
           const selectedTag = e.target.dataset.tag;
-      
           if (document.getElementById("product-detail")) {
-            // Ми на сторінці продукту: потрібно редіректнути на головну
             window.location.href = `index.html?tag=${encodeURIComponent(selectedTag)}`;
           } else {
-            // Ми на index.html: просто фільтруємо продукти без перезавантаження
             const filtered = products.filter(p => p.hashtags?.includes(selectedTag));
             if (productContainer) renderProducts(filtered, productContainer);
             history.pushState({ tag: selectedTag }, "", `?tag=${encodeURIComponent(selectedTag)}`);
           }
         }
-      });      
+      });
 
       window.addEventListener("popstate", e => {
         const poppedTag = e.state?.tag;
@@ -131,24 +123,20 @@ function initProducts() {
 }
 
 function renderProducts(products, container) {
-    // Спочатку плавно ховаємо
-    container.style.opacity = "0";
+  container.style.opacity = "0"; // Hide first
 
-    // Чекаємо завершення анімації приховування
+  setTimeout(() => {
+    container.innerHTML = products.map(product => `
+      <a href="${product.url}" class="product">
+        <img src="${product.img}" alt="${product.alt}">
+        <p><strong>${product.name}</strong></p>
+      </a>
+    `).join("");
+
     setTimeout(() => {
-      container.innerHTML = products.map(product => `
-        <a href="${product.url}" class="product">
-          <img src="${product.img}" alt="${product.alt}">
-          <p><strong>${product.name}</strong></p>
-        </a>
-      `).join("");
-  
-      // Після оновлення плавно показуємо
-      setTimeout(() => {
-        container.style.opacity = "1";
-      }, 50); // трошки почекаємо, щоб браузер встиг застосувати innerHTML
-    }, 300); // тривалість приховування (300мс)
-  
+      container.style.opacity = "1"; // Fade in
+    }, 50);
+  }, 300);
 }
 
 function renderProductDetail(product, detailContainer, modalsPlaceholder) {
