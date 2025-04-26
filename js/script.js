@@ -131,12 +131,24 @@ function initProducts() {
 }
 
 function renderProducts(products, container) {
-  container.innerHTML = products.map(product => `
-    <a href="${product.url}" class="product">
-      <img src="${product.img}" alt="${product.alt}">
-      <p><strong>${product.name}</strong></p>
-    </a>
-  `).join("");
+    // Спочатку плавно ховаємо
+    container.style.opacity = "0";
+
+    // Чекаємо завершення анімації приховування
+    setTimeout(() => {
+      container.innerHTML = products.map(product => `
+        <a href="${product.url}" class="product">
+          <img src="${product.img}" alt="${product.alt}">
+          <p><strong>${product.name}</strong></p>
+        </a>
+      `).join("");
+  
+      // Після оновлення плавно показуємо
+      setTimeout(() => {
+        container.style.opacity = "1";
+      }, 50); // трошки почекаємо, щоб браузер встиг застосувати innerHTML
+    }, 300); // тривалість приховування (300мс)
+  
 }
 
 function renderProductDetail(product, detailContainer, modalsPlaceholder) {
