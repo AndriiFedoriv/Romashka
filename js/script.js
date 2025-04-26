@@ -12,6 +12,7 @@ function initHeader() {
       if (headerPlaceholder) {
         headerPlaceholder.innerHTML = html;
         setupHeaderBehavior();
+        initProductLinks();
       }
     });
 }
@@ -51,6 +52,8 @@ function setupHeaderBehavior() {
       }
     });
   });
+
+  highlightActiveLink(); // 👈 Додаємо підсвітку тут одразу після побудови хедера
 }
 
 function initFooter() {
@@ -75,7 +78,7 @@ function initProducts() {
   if (productDetail && tag) {
     const redirectUrl = `index.html?tag=${encodeURIComponent(tag)}`;
     window.location.href = redirectUrl;
-    return; // Stop further execution
+    return;
   }
 
   fetch("/products.json")
@@ -123,7 +126,7 @@ function initProducts() {
 }
 
 function renderProducts(products, container) {
-  container.style.opacity = "0"; // Hide first
+  container.style.opacity = "0";
 
   setTimeout(() => {
     container.innerHTML = products.map(product => `
@@ -134,7 +137,7 @@ function renderProducts(products, container) {
     `).join("");
 
     setTimeout(() => {
-      container.style.opacity = "1"; // Fade in
+      container.style.opacity = "1";
     }, 50);
   }, 300);
 }
@@ -216,3 +219,48 @@ function setupModals() {
     }
   });
 }
+
+function initProductLinks() {
+  const linksContainer = document.getElementById("products-links");
+  const toggleButton = document.getElementById("toggle-products");
+  if (!linksContainer || !toggleButton) return;
+
+  fetch("/products.json")
+    .then(res => res.json())
+    .then(products => {
+      linksContainer.innerHTML = products.map(product => `
+        <a href="${product.url}">${product.name}</a>
+      `).join("");
+
+      highlightActiveLink(); // Щоб підсвітити після завантаження
+    })
+    .catch(err => console.error("Не вдалося завантажити товари у меню:", err));
+
+  toggleButton.addEventListener("click", () => {
+    const isVisible = linksContainer.style.display === "block";
+    linksContainer.style.display = isVisible ? "none" : "block";
+  });
+}
+
+function highlightActiveLink() {
+  const links = document.querySelectorAll("nav a, #products-links a");
+  if (!links.length) return;
+
+  const currentPage = location.pathname.split("/").pop() || "index.html";
+
+  links.forEach(link => {
+    const linkPage = link.getAttribute("href");
+
+    if (linkPage === currentPage || linkPage === `/${currentPage}`) {
+      link.classList.add("active-link");
+    } else {
+      link.classList.remove("active-link");
+    }
+  });
+}
+
+// Викликаємо підсвітку відразу
+highlightActiveLink();
+
+// Слухаємо зміни історії браузера (назад/вперед)
+window.addEventListener("popstate", highlightActiveLink);
