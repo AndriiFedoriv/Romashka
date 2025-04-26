@@ -583,7 +583,7 @@ footer {
 .close {
   position: absolute;
   top: 10px; right: 25px;
-  color: rgb(245, 239, 155);
+  color: #ffd700;
   font-size: 35px;
   font-weight: bold;
   text-decoration: none;
@@ -593,5 +593,30 @@ footer {
 .close:hover, .close:focus {
   color: #bbb;
   text-decoration: none;
+  cursor: pointer;
+}
+
+/* ===== Хештеги ===== */
+
+.hashtags {
+  margin-top: 1rem;
+}
+
+.hashtag {
+  display: inline-block;
+  background: #ffe066;
+  color: #6c584c;
+  padding: 0.3em 0.8em;
+  margin: 0.2em;
+  border-radius: 20px;
+  font-size: 0.9em;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+  text-decoration: none;
+}
+
+.hashtag:hover {
+  background: #ffd43b;
+  color: #495057;
   cursor: pointer;
 }
