@@ -1,7 +1,7 @@
 /* ===== Загальне оформлення ===== */
 body {
   max-width: 1200px;
-  margin: 0;    /* по центру */
+  margin: 0 auto;    /* по центру */
   padding: 0 20px;   /* трохи відступів з боків */
   font-family: Arial, sans-serif;
   background: #fffdf5;
