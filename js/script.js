@@ -194,6 +194,10 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
                   <span class="new-price">${product.price} грн</span>
                 </p>
               `}
+
+              <button onclick='addToCart({name: "${product.name}", price: "${product.price}"})'>Додати до кошика</button>
+              <button onclick='openCart()'>Відкрити кошик</button>
+
             </div>
 
               <p>
@@ -322,3 +326,61 @@ window.addEventListener('load', function () {
     document.body.appendChild(banner);
   }
 });
+
+function openCart() {
+  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  const cartItems = document.getElementById("cartItems");
+  const totalPriceEl = document.getElementById("totalPrice");
+  let total = 0;
+  cartItems.innerHTML = "";
+
+  cart.forEach((item, i) => {
+    total += +item.price;
+    cartItems.innerHTML += `
+      <div>
+        <strong>${item.name}</strong> — ${item.price} грн
+        <button onclick="removeItem(${i})">🗑️</button>
+      </div>`;
+  });
+
+  totalPriceEl.textContent = total + " грн";
+  document.getElementById("cartModal").style.display = "block";
+}
+
+function closeCart() {
+  document.getElementById("cartModal").style.display = "none";
+}
+
+function addToCart(product) {
+  let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  cart.push(product);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert("Додано до кошика!");
+}
+
+function removeItem(index) {
+  let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  cart.splice(index, 1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  openCart();
+}
+
+function sendOrder() {
+  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  if (!cart.length) return alert("Кошик порожній!");
+
+  let message = "Замовлення:\n";
+  let total = 0;
+  cart.forEach(p => {
+    message += `• ${p.name} — ${p.price} грн\n`;
+    total += +p.price;
+  });
+  message += `Разом: ${total} грн`;
+
+  const viber = `viber://chat?number=%2B380667798932&text=${encodeURIComponent(message)}`;
+  const mail = `mailto:fedorivandrij@gmail.com?subject=Замовлення&body=${encodeURIComponent(message)}`;
+
+  window.open(viber, "_blank");
+  window.open(mail, "_blank");
+  closeCart();
+}

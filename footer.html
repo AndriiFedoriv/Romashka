@@ -36,3 +36,12 @@
     
   </div>
 </footer>
+
+<div id="cartModal" style="display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%);
+     background:#fff; padding:20px; border:1px solid #ccc; z-index:9999;">
+  <h2>🛒 Ваш кошик</h2>
+  <div id="cartItems"></div>
+  <p><strong>Разом:</strong> <span id="totalPrice"></span></p>
+  <button onclick="sendOrder()">📤 Замовити</button>
+  <button onclick="closeCart()">❌ Закрити</button>
+</div>
