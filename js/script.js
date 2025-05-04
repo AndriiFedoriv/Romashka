@@ -163,7 +163,7 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
         </div>
       </div>
       <div class="text">
-        <p><strong>Вага:</strong> ${product.weight || "470 г"}</p>
+        <p><strong>Вага:</strong> ${product.weight || "470"} <i>грамів</i></p>
         <p><strong>Склад:</strong> ${product.ingredients || "Натуральний мед, горішки"}</p>
         <p><strong>Опис:</strong> ${product.description}</p>
         <h3>Переваги:</h3>
