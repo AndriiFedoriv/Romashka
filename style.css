@@ -395,6 +395,23 @@ header {
   border-color: #8B0000;
 }
 
+.price-section {
+  margin: 16px 0;
+}
+.price {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.old-price {
+  color: #999;
+  text-decoration: line-through;
+  margin-right: 10px;
+}
+.new-price {
+  color: #d80000;
+}
+
+
 /* ===== Кнопки ===== */
 .rozetka-button,
 .instagram-button,

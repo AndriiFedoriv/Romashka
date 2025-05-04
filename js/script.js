@@ -182,6 +182,20 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
             `).join('')}
           </div>
         ` : ""}
+
+            <div class="price-section">
+              ${product.oldPrice ? `
+                <p class="price">
+                  <span class="old-price">${product.oldPrice} грн</span>
+                  <span class="new-price">${product.price} грн</span>
+                </p>
+              ` : `
+                <p class="price">
+                  <span class="new-price">${product.price} грн</span>
+                </p>
+              `}
+            </div>
+
               <p>
                 <a href="${product.buyLink || 'https://rozetka.com.ua/'}" class="rozetka-button" target="_blank">
                   <img src="img/rozetkaSmile.png" alt="Купити на Rozetka">
