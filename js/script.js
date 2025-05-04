@@ -182,6 +182,19 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
             `).join('')}
           </div>
         ` : ""}
+              <p>
+                <a href="${product.buyLink || 'https://rozetka.com.ua/'}" class="rozetka-button" target="_blank">
+                  <img src="img/rozetkaSmile.png" alt="Купити на Rozetka">
+                  Купити на Rozetka
+                </a>
+              </p>
+
+              <p>
+                <a href="${product.instagram || 'https://instagram.com/'}" class="instagram-button" target="_blank">
+                  <img src="img/Instagram_icon.png" alt="Ми в Instagram">
+                  Ми в Instagram
+                </a>
+              </p>
       </div>
     </div>
   `;
