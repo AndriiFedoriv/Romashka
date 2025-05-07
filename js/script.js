@@ -1,12 +1,53 @@
-window.onload = () => {
+document.addEventListener("DOMContentLoaded", () => {
+  insertCartModal();
   initHeader();
   initFooter();
   initProducts();
-};
+  highlightActiveLink();
+
+  // Переконаємося, що cartCount існує перед викликом
+  const tryUpdateCartCount = () => {
+    const el = document.getElementById("cartCount");
+    if (el) {
+      updateCartCount();
+    } else {
+      setTimeout(tryUpdateCartCount, 100);
+    }
+  };
+  tryUpdateCartCount();
+});
+
+function insertCartModal() {
+  const cartHTML = `
+    <div id="cartOverlay" class="cart-overlay">
+      <div id="cartModal" class="cartmodal">
+        <h2>🛒 Ваш кошик</h2>
+        <div id="cartItems" class="cart-items"></div>
+        <p class="cart-total"><strong>Разом: <span id="totalPrice">0 грн</span></strong></p>
+        <hr>
+        <h3>📦 Інформація про замовника</h3>
+        <form id="orderForm" autocomplete="on">
+          <input type="text" id="customerName" placeholder="Ім’я та Прізвище" required>
+          <input type="tel" id="customerPhone" placeholder="Номер телефону" required pattern="^\\+?[\\d\\s\\-]{10,15}$">
+          <input type="text" id="customerCity" placeholder="Місто" required>
+          <input type="text" id="customerAddress" placeholder="Номер відділення" required>
+          <div class="cart-buttons">
+            <button type="button" class="honey-btn" onclick="sendOrder()">🍯 Замовити</button>
+            <button type="button" class="honey-btn cancel" onclick="closeCart()">❌ Закрити</button>
+          </div>    
+        </form>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML("beforeend", cartHTML);
+}
 
 function initHeader() {
   fetch("header.html")
-    .then(res => res.text())
+    .then(res => {
+      if (!res.ok) throw new Error("Помилка завантаження header.html");
+      return res.text();
+    })
     .then(html => {
       const headerPlaceholder = document.getElementById("header-placeholder");
       if (headerPlaceholder) {
@@ -14,7 +55,8 @@ function initHeader() {
         setupHeaderBehavior();
         initProductLinks();
       }
-    });
+    })
+    .catch(err => console.error(err.message));
 }
 
 function setupHeaderBehavior() {
@@ -53,16 +95,20 @@ function setupHeaderBehavior() {
     });
   });
 
-  highlightActiveLink(); // 👈 Додаємо підсвітку тут одразу після побудови хедера
+  highlightActiveLink();
 }
 
 function initFooter() {
   fetch("footer.html")
-    .then(res => res.text())
+    .then(res => {
+      if (!res.ok) throw new Error("Помилка завантаження footer.html");
+      return res.text();
+    })
     .then(html => {
       const footerPlaceholder = document.getElementById("footer-placeholder");
       if (footerPlaceholder) footerPlaceholder.innerHTML = html;
-    });
+    })
+    .catch(err => console.error(err.message));
 }
 
 function initProducts() {
@@ -82,7 +128,10 @@ function initProducts() {
   }
 
   fetch("/products.json")
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) throw new Error("Помилка завантаження products.json");
+      return res.json();
+    })
     .then(products => {
       if (productContainer) {
         const filtered = tag ? products.filter(p => p.hashtags?.includes(tag)) : products;
@@ -122,7 +171,7 @@ function initProducts() {
         if (productContainer) renderProducts(filtered, productContainer);
       });
     })
-    .catch(err => console.error("Помилка завантаження продуктів:", err));
+    .catch(err => console.error(err.message));
 }
 
 function renderProducts(products, container) {
@@ -195,8 +244,10 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
                 </p>
               `}
 
-              <button onclick='addToCart({name: "${product.name}", price: "${product.price}"})'>Додати до кошика</button>
-              <button onclick='openCart()'>Відкрити кошик</button>
+              <div class="product-actions">
+                <button class="honey-btn" onclick='addToCart({name: "${product.name}", price: "${product.price}"})'>Додати до кошика</button>
+                <button class="honey-btn secondary" onclick='openCart()'>Відкрити кошик</button>
+              </div>
 
             </div>
 
@@ -290,9 +341,6 @@ function highlightActiveLink() {
   });
 }
 
-// Викликаємо підсвітку відразу
-highlightActiveLink();
-
 // Слухаємо зміни історії браузера (назад/вперед)
 window.addEventListener("popstate", highlightActiveLink);
 
@@ -329,32 +377,75 @@ window.addEventListener('load', function () {
 
 function openCart() {
   const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  const cartOverlay = document.getElementById("cartOverlay");
   const cartItems = document.getElementById("cartItems");
   const totalPriceEl = document.getElementById("totalPrice");
-  let total = 0;
+
+  if (!cartOverlay || !cartItems || !totalPriceEl) {
+    console.error("Кошик: відсутні необхідні елементи в DOM");
+    return;
+  }
+
   cartItems.innerHTML = "";
+  let total = 0;
 
   cart.forEach((item, i) => {
-    total += +item.price;
+    const itemTotal = item.price * item.quantity;
+    total += itemTotal;
     cartItems.innerHTML += `
       <div>
-        <strong>${item.name}</strong> — ${item.price} грн
+        <strong>${item.name}</strong> — ${item.price} грн × ${item.quantity} = ${itemTotal} грн
+        <button onclick="decreaseQuantity(${i})">➖</button>
+        <button onclick="increaseQuantity(${i})">➕</button>
         <button onclick="removeItem(${i})">🗑️</button>
       </div>`;
   });
 
-  totalPriceEl.textContent = total + " грн";
-  document.getElementById("cartModal").style.display = "block";
+  totalPriceEl.textContent = `Разом: ${total} грн`;
+  cartOverlay.style.display = "block";
 }
 
 function closeCart() {
-  document.getElementById("cartModal").style.display = "none";
+  console.log("Функція closeCart викликається");
+  const cartOverlay = document.getElementById("cartOverlay");
+  if (cartOverlay) {
+    cartOverlay.style.display = "none";
+  }
 }
+
+// Закриття по кліку за межами вікна
+document.addEventListener("click", function (e) {
+  const overlay = document.getElementById("cartOverlay");
+  const modal = document.getElementById("cartModal");
+  const cartBtn = document.getElementById("cartBtn");
+
+  if (
+    overlay &&
+    modal &&
+    overlay.style.display === "block" &&
+    !modal.contains(e.target) &&
+    cartBtn &&
+    !cartBtn.contains(e.target)
+  ) {
+    closeCart();
+  }
+});
+
+
 
 function addToCart(product) {
   let cart = JSON.parse(localStorage.getItem("cart") || "[]");
-  cart.push(product);
+  const existingIndex = cart.findIndex(p => p.name === product.name);
+
+  if (existingIndex !== -1) {
+    cart[existingIndex].quantity++;
+  } else {
+    product.quantity = 1;
+    cart.push(product);
+  }
+
   localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartCount();
   alert("Додано до кошика!");
 }
 
@@ -362,6 +453,27 @@ function removeItem(index) {
   let cart = JSON.parse(localStorage.getItem("cart") || "[]");
   cart.splice(index, 1);
   localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartCount();
+  openCart();
+}
+
+function increaseQuantity(index) {
+  let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  cart[index].quantity++;
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartCount();
+  openCart();
+}
+
+function decreaseQuantity(index) {
+  let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  if (cart[index].quantity > 1) {
+    cart[index].quantity--;
+  } else {
+    cart.splice(index, 1); // Видаляємо товар, якщо кількість = 1
+  }
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartCount();
   openCart();
 }
 
@@ -369,18 +481,46 @@ function sendOrder() {
   const cart = JSON.parse(localStorage.getItem("cart") || "[]");
   if (!cart.length) return alert("Кошик порожній!");
 
-  let message = "Замовлення:\n";
+  const name = document.getElementById("customerName").value.trim();
+  const phone = document.getElementById("customerPhone").value.trim();
+  const city = document.getElementById("customerCity").value.trim();
+  const address = document.getElementById("customerAddress").value.trim();
+
+  if (!name || !phone || !city || !address) {
+    alert("Будь ласка, заповніть всі поля.");
+    return;
+  }
+
+  let message = `Замовлення від ${name}\n📞 ${phone}\n🏙️ ${city}, 📦 ${address}\n\n`;
   let total = 0;
+
   cart.forEach(p => {
-    message += `• ${p.name} — ${p.price} грн\n`;
-    total += +p.price;
+    const itemTotal = p.price * p.quantity;
+    message += `• ${p.name} — ${p.price} грн × ${p.quantity} = ${itemTotal} грн\n`;
+    total += itemTotal;
   });
-  message += `Разом: ${total} грн`;
+  message += `\nРазом: ${total} грн`;
 
-  // const viber = `viber://chat?number=%2B380667798932&text=${encodeURIComponent(message)}`;
   const mail = `mailto:fedorivandrij@gmail.com?subject=Замовлення&body=${encodeURIComponent(message)}`;
-
-  window.open(viber, "_blank");
   window.open(mail, "_blank");
+
+  localStorage.removeItem("cart");
+  updateCartCount();
   closeCart();
+}
+
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const counter = document.getElementById("cartCount");
+
+  if (counter) {
+    if (count > 0) {
+      counter.textContent = count;
+      counter.style.display = "inline-block";
+    } else {
+      counter.textContent = "";
+      counter.style.display = "none";
+    }
+  }
 }
