@@ -377,7 +377,7 @@ function sendOrder() {
   });
   message += `Разом: ${total} грн`;
 
-  const viber = `viber://chat?number=%2B380667798932&text=${encodeURIComponent(message)}`;
+  // const viber = `viber://chat?number=%2B380667798932&text=${encodeURIComponent(message)}`;
   const mail = `mailto:fedorivandrij@gmail.com?subject=Замовлення&body=${encodeURIComponent(message)}`;
 
   window.open(viber, "_blank");
