@@ -206,7 +206,7 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
         <div class="thumbnails">
           ${additionalImages.map((img, i) => `
             <a href="#modal${i + 2}">
-              <img src="${img}" alt="thumb${i + 2}">
+              <img src="${img}" alt="thumb ${i + 2}" loading="lazy">
             </a>
           `).join("")}
         </div>
@@ -253,14 +253,14 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
 
               <p>
                 <a href="${product.buyLink || 'https://rozetka.com.ua/'}" class="rozetka-button" target="_blank">
-                  <img src="img/rozetkaSmile.png" alt="Купити на Rozetka">
+                  <img src="img/rozetkaSmile.png" alt="Купити на Rozetka" loading="lazy">
                   Купити на Rozetka
                 </a>
               </p>
 
               <p>
                 <a href="${product.instagram || 'https://instagram.com/'}" class="instagram-button" target="_blank">
-                  <img src="img/Instagram_icon.png" alt="Ми в Instagram">
+                  <img src="img/Instagram_icon.png" alt="Ми в Instagram" loading="lazy">
                   Ми в Instagram
                 </a>
               </p>
