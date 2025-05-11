@@ -23,7 +23,7 @@ function insertCartModal() {
       <div id="cartModal" class="cartmodal">
         <h2>🛒 Ваш кошик</h2>
         <div id="cartItems" class="cart-items"></div>
-        <p class="cart-total"><strong>Разом: <span id="totalPrice">0 грн</span></strong></p>
+        <p class="cart-total"><span id="totalPrice">0 грн</span></p>
         <hr>
         <h3>📦 Інформація про замовника</h3>
         <form id="orderForm" autocomplete="on">
@@ -431,8 +431,6 @@ document.addEventListener("click", function (e) {
   }
 });
 
-
-
 function addToCart(product) {
   let cart = JSON.parse(localStorage.getItem("cart") || "[]");
   const existingIndex = cart.findIndex(p => p.name === product.name);
@@ -504,7 +502,7 @@ function sendOrder() {
   const mail = `mailto:dima.soltus1998@gmail.com?subject=Замовлення&body=${encodeURIComponent(message)}`;
   window.open(mail, "_blank");
 
-  localStorage.removeItem("cart");
+  localStorage.removeItem("cart", "orderForm");
   updateCartCount();
   closeCart();
 }
@@ -513,6 +511,8 @@ function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem("cart") || "[]");
   const count = cart.reduce((sum, item) => sum + item.quantity, 0);
   const counter = document.getElementById("cartCount");
+  const el = document.getElementById("cartCount");
+  if (el) el.textContent = count > 0 ? `(${count})` : "";
 
   if (counter) {
     if (count > 0) {
@@ -530,3 +530,21 @@ if ('serviceWorker' in navigator) {
     .then(reg => console.log('✅ Service Worker зареєстрований:', reg.scope))
     .catch(err => console.error('❌ Service Worker не вдалося зареєструвати:', err));
 }
+
+function saveFormData() {
+  const formData = {
+    name: document.getElementById("customerName").value,
+    phone: document.getElementById("customerPhone").value,
+    city: document.getElementById("customerCity").value,
+    address: document.getElementById("customerAddress").value
+  };
+  localStorage.setItem("orderForm", JSON.stringify(formData));
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  const saved = JSON.parse(localStorage.getItem("orderForm") || "{}");
+  if (saved.name) document.getElementById("customerName").value = saved.name;
+  if (saved.phone) document.getElementById("customerPhone").value = saved.phone;
+  if (saved.city) document.getElementById("customerCity").value = saved.city;
+  if (saved.address) document.getElementById("customerAddress").value = saved.address;
+});
