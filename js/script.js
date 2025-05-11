@@ -274,7 +274,7 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
         <div class="modal-overlay"></div>
         <div class="modal-content-wrapper">
           <a href="#" class="close">&times;</a>
-          <img class="modal-content" src="${img}" alt="Фото ${i + 1}">
+          <img class="modal-content" src="${img}" alt="Фото ${i + 1}" loading="lazy">
         </div>
       </div>
     `).join("");
@@ -501,7 +501,7 @@ function sendOrder() {
   });
   message += `\nРазом: ${total} грн`;
 
-  const mail = `mailto:fedorivandrij@gmail.com?subject=Замовлення&body=${encodeURIComponent(message)}`;
+  const mail = `mailto:dima.soltus1998@gmail.com?subject=Замовлення&body=${encodeURIComponent(message)}`;
   window.open(mail, "_blank");
 
   localStorage.removeItem("cart");
