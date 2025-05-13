@@ -3,13 +3,11 @@
     "sku": "mg0001",
     "name": "Мед + Горішки Мікс 470г",
     "url": "med-gorishky-mix-470.html",
-    "img": "img/MedFitodobavkyGorishkyMix470g.webp",
+    "img": "img/med-gorishky-mix-470g.webp",
     "alt": "Мед + Горішки Мікс 470 г",
     "images": [
-      "img/MedFitodobavkyGorishkyMix470g.webp",
-      "img/MedFitodobavkyGorishkyMix470g.webp",
-      "img/MedFitodobavkyGorishkyMix470g.webp",
-      "img/MedFitodobavkyGorishkyMix470g.webp"
+      "img/med-gorishky-mix-470g.webp",
+      "img/med-gorishky-mix-470g.webp"
     ],
     "weight": "470",
     "price": "327",
@@ -44,13 +42,11 @@
     "sku": "mg0002",
     "name": "Мед + Паста Амосова 255г",
     "url": "med-pasta-amosova-255.html",
-    "img": "img/Med_Mygdal_255g.webp",
+    "img": "img/med-pasta-amosova-255g.webp",
     "alt": "Мед + Паста Амосова 255 г",
     "images": [
-      "img/Med_Mygdal.webp",
-      "img/MedFitodobavkyGorishkyMix470g.webp",
-      "img/MedFitodobavkyGorishkyMix470g.webp",
-      "img/MedFitodobavkyGorishkyMix470g.webp"
+      "img/med-pasta-amosova-255g.webp",
+      "img/med-pasta-amosova-255g.webp"
     ],
     "weight": "255",
     "price": "217",
@@ -82,13 +78,11 @@
     "sku": "mg0003",
     "name": "Мед + Насіння гарбуза 255г",
     "url": "med-nasinnya-garbuza-255.html",
-    "img": "img/MedFitodobavkyGorishkyMix470g.webp",
+    "img": "img/med-nasinnya-garbuza-255g.webp",
     "alt": "Мед + Гарбузове насіння 255 г",
     "images": [
-      "img/MedFitodobavkyGorishkyMix470g.webp",
-      "img/MedFitodobavkyGorishkyMix470g.webp",
-      "img/MedFitodobavkyGorishkyMix470g.webp",
-      "img/MedFitodobavkyGorishkyMix470g.webp"
+      "img/med-nasinnya-garbuza-255g.webp",
+      "img/med-nasinnya-garbuza-255g.webp"
     ],
     "weight": "255",
     "price": "195",
@@ -121,13 +115,11 @@
     "sku": "mg0004",
     "name": "Мед + Мигдаль 255г",
     "url": "med-mygdal-255.html",
-    "img": "img/Med_Mygdal_255g.webp",
+    "img": "img/med-mygdal-255g.webp",
     "alt": "Мед + Мигдаль 255 г",
     "images": [
-      "img/Med_Mygdal.webp",
-      "img/Med_Mygdal.webp",
-      "img/Med_Mygdal_255g.webp",
-      "img/Med_Mygdal_255g.webp"
+      "img/med-mygdal-255g.webp",
+      "img/med-mygdal-255g.webp"
     ],
     "weight": "255",
     "price": "217",
@@ -160,13 +152,11 @@
     "sku": "mg0005",
     "name": "Мед + Кеш ю 255г",
     "url": "med-keshyu-255.html",
-    "img": "img/Med_Mygdal_255g.webp",
+    "img": "img/med-keshyu-255g.webp",
     "alt": "Мед + Кеш'ю 255 г",
     "images": [
-      "img/Med_Mygdal.webp",
-      "img/Med_Mygdal_255g.webp",
-      "img/MedFitodobavkyGorishkyMix470g.webp",
-      "img/Med_Mygdal_255g.webp"
+      "img/med-keshyu-255g.webp",
+      "img/med-keshyu-255g.webp"
     ],
     "weight": "255",
     "price": "217",
@@ -199,13 +189,11 @@
     "sku": "mg0006",
     "name": "Мед + Фундук 255г",
     "url": "med-funduk-255.html",
-    "img": "img/MedFitodobavkyGorishkyMix470g.webp",
+    "img": "img/med-funduk-255g.webp",
     "alt": "Мед + Фундук 255 г",
     "images": [
-      "img/MedFitodobavkyGorishkyMix470g.webp",
-      "img/MedFitodobavkyGorishkyMix470g.webp",
-      "img/MedFitodobavkyGorishkyMix470g.webp",
-      "img/MedFitodobavkyGorishkyMix470g.webp"
+      "img/med-funduk-255g.webp",
+      "img/med-funduk-255g.webp"
     ],
     "weight": "255",
     "price": "217",
@@ -238,13 +226,11 @@
     "sku": "mg0007",
     "name": "Мед + Горішки Мікс 255г",
     "url": "med-horishky-mix-255.html",
-    "img": "img/Med_Mygdal_255g.webp",
+    "img": "img/med-horishky-mix-255g.webp",
     "alt": "Мед + Горішки Мікс 255 г",
     "images": [
-      "img/Med_Mygdal.webp",
-      "img/Med_Mygdal.webp",
-      "img/MedFitodobavkyGorishkyMix470g.webp",
-      "img/Med_Mygdal_255g.webp"
+      "img/med-horishky-mix-255g.webp",
+      "img/med-horishky-mix-255g.webp"
     ],
     "weight": "255",
     "price": "217",
