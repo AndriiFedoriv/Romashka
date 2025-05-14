@@ -768,7 +768,7 @@ footer {
   display: none; /* Змінюється на block при відкритті */
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 1001;
 }
 
 #cartModal h2, #cartModal h3 {

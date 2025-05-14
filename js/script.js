@@ -17,6 +17,26 @@ document.addEventListener("DOMContentLoaded", () => {
   tryUpdateCartCount();
 });
 
+let justOpened = false;
+
+  // Додаємо слухача кліків для закриття модального кошика при кліку поза ним
+document.addEventListener("click", function (e) {
+  if (justOpened) return; // не закриваємо одразу після відкриття
+
+  const overlay = document.getElementById("cartOverlay");
+  const modal = document.getElementById("cartModal");
+
+  if (
+    overlay &&
+    modal &&
+    overlay.style.display === "block" &&
+    !modal.contains(e.target)
+  ) {
+    closeCart();
+  }
+});
+
+
 function insertCartModal() {
   const cartHTML = `
     <div id="cartOverlay" class="cart-overlay">
@@ -41,6 +61,7 @@ function insertCartModal() {
   `;
   document.body.insertAdjacentHTML("beforeend", cartHTML);
 }
+
 
 function initHeader() {
   fetch("header.html")
@@ -376,6 +397,9 @@ window.addEventListener('load', function () {
 });
 
 function openCart() {
+  justOpened = true;
+  setTimeout(() => justOpened = false, 200); // Через 200мс дозволимо клік за межами
+
   const cart = JSON.parse(localStorage.getItem("cart") || "[]");
   const cartOverlay = document.getElementById("cartOverlay");
   const cartItems = document.getElementById("cartItems");
@@ -412,24 +436,6 @@ function closeCart() {
     cartOverlay.style.display = "none";
   }
 }
-
-// Закриття по кліку за межами вікна
-document.addEventListener("click", function (e) {
-  const overlay = document.getElementById("cartOverlay");
-  const modal = document.getElementById("cartModal");
-  const cartBtn = document.getElementById("cartBtn");
-
-  if (
-    overlay &&
-    modal &&
-    overlay.style.display === "block" &&
-    !modal.contains(e.target) &&
-    cartBtn &&
-    !cartBtn.contains(e.target)
-  ) {
-    closeCart();
-  }
-});
 
 function addToCart(product) {
   let cart = JSON.parse(localStorage.getItem("cart") || "[]");
