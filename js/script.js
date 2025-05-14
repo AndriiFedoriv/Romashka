@@ -444,7 +444,9 @@ function addToCart(product) {
 
   localStorage.setItem("cart", JSON.stringify(cart));
   updateCartCount();
-  alert("Додано до кошика!");
+  // alert("Додано до кошика!");
+  showToast("Додано до кошика!");
+
 }
 
 function removeItem(index) {
@@ -477,7 +479,9 @@ function decreaseQuantity(index) {
 
 function sendOrder() {
   const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-  if (!cart.length) return alert("Кошик порожній!");
+  if (!cart.length) return showToast("Кошик порожній!");
+//alert("Кошик порожній!");
+
 
   const name = document.getElementById("customerName").value.trim();
   const phone = document.getElementById("customerPhone").value.trim();
@@ -485,7 +489,9 @@ function sendOrder() {
   const address = document.getElementById("customerAddress").value.trim();
 
   if (!name || !phone || !city || !address) {
-    alert("Будь ласка, заповніть всі поля.");
+    showToast("Будь ласка, заповніть всі поля.");
+
+    //alert("Будь ласка, заповніть всі поля.");
     return;
   }
 
@@ -548,3 +554,15 @@ window.addEventListener("DOMContentLoaded", () => {
   if (saved.city) document.getElementById("customerCity").value = saved.city;
   if (saved.address) document.getElementById("customerAddress").value = saved.address;
 });
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  if (!toast) return;
+
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3000);
+}
