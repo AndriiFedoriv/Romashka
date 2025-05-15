@@ -149,6 +149,7 @@ header {
   z-index: 999;
   max-height: 90vh; /* Висота не перевищує висоту вікна браузера */
   overflow-y: auto;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
 }
 
 /* Активне меню */
@@ -311,6 +312,12 @@ header {
   background-color: #f7f7f7;
 }
 
+@media (max-width: 600px) {
+  .product img {
+    max-height: 120px;
+  }
+}
+
 .product p {
   margin-top: 10px;
   font-weight: bold;
@@ -414,6 +421,16 @@ header {
   color: #d80000;
 }
 
+@media (max-width: 700px) {
+  .container {
+    flex-direction: column;
+    padding: 10px;
+  }
+  .main-image, .text {
+    min-width: 0;
+    width: 100%;
+  }
+}
 
 /* ===== Кнопки ===== */
 .rozetka-button,
@@ -719,6 +736,9 @@ footer {
 }
 
 .cart-icon span {
+  min-width: 22px;
+  text-align: center;
+  box-sizing: border-box;
   position: absolute;
   top: -10px;
   right: -10px;
@@ -728,7 +748,14 @@ footer {
   padding: 2px 6px;
   border-radius: 50%;
   font-weight: bold;
+  display: none;
+}
+
+.cart-icon.cart-has-items span {
   display: inline-block;
+  background: crimson;
+  color: white;
+  /* інші стилі */
 }
 
 .icon-wrapper {
@@ -851,7 +878,7 @@ footer {
 .honey-btn {
   flex: 1 1 auto;
   min-width: 120px;
-  background: linear-gradient(to right, #fcd34d, #fbbf24); /* медові відтінки */
+  background: linear-gradient(to right, #fcd34d, #fbbf24);
   border: none;
   border-radius: 30px;
   padding: 12px 20px;
@@ -879,38 +906,11 @@ footer {
   transform: scale(1.05);
 }
 
-/* Адаптація для вузьких екранів */
-@media (max-width: 480px) {
-  .cart-buttons {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .honey-btn {
-    width: 100%;
-    font-size: 18px;
-    padding: 14px;
-  }
-}
-
 .product-actions {
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
   margin-top: 10px;
-}
-
-.honey-btn {
-  background: linear-gradient(to right, #fcd34d, #fbbf24);
-  border: none;
-  border-radius: 25px;
-  padding: 10px 18px;
-  font-size: 15px;
-  font-weight: bold;
-  color: #5c3700;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 .honey-btn:hover {
@@ -929,8 +929,22 @@ footer {
   transform: scale(1.05);
 }
 
-/* Адаптивність */
+a:focus, button:focus, .honey-btn:focus {
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
+}
+
+.honey-btn:active {
+  filter: brightness(0.95);
+}
+
+/* Адаптація для вузьких екранів */
 @media (max-width: 480px) {
+  .cart-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
   .product-actions {
     flex-direction: column;
     gap: 10px;
@@ -938,7 +952,8 @@ footer {
 
   .honey-btn {
     width: 100%;
-    font-size: 16px;
+    font-size: 18px;
+    padding: 14px;
   }
 }
 
@@ -973,10 +988,21 @@ footer {
   font-size: 14px;
   opacity: 0;
   transition: opacity 0.5s ease, top 0.5s ease; /* bottom -> top */
+  pointer-events: none;
 }
 
 .toast.show {
   visibility: visible;
   opacity: 1;
   top: 40px; /* змінив позицію при показі */
+  pointer-events: auto;
+}
+
+@media (max-width: 600px) {
+  .toast, .toast.show {
+    top: 60px;
+    font-size: 16px;
+    min-width: 140px;
+    padding: 10px 8px;
+  }
 }
