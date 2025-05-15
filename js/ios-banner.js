@@ -19,8 +19,8 @@ window.addEventListener('load', function () {
         box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
         z-index: 9999;
       ">
-        📲 Щоб зручно користуватись — додайте сайт на головний екран:<br>
-        <strong>Поділіться → Додати на головний екран</strong>
+        📲 Щоб зручно користуватись — <b>додайте сайт на головний екран</b>:<br>
+        <span style="font-size:18px;">Натисніть <span style="font-size:1.2em;vertical-align:middle;">📤</span> → <b>Додати на головний екран</b></span>
         <span style="margin-left: 10px; cursor: pointer;" onclick="this.parentElement.remove()">❌</span>
       </div>
     `;
