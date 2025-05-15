@@ -163,6 +163,7 @@ function sendOrder() {
   window.open(mail, "_blank");
 
   localStorage.removeItem("cart");
+  localStorage.removeItem("orderForm"); // ОЧИЩЕННЯ ДАНИХ ФОРМИ
   updateCartCount();
   closeCart();
 }
