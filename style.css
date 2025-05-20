@@ -89,7 +89,7 @@ header {
 }
 @media (max-width: 600px) {
   .site-search {
-    min-width: 100px;
+    min-width: 50px;
     margin: 0 0 10px 0;
   }
 }
