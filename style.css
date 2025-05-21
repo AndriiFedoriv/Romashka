@@ -83,17 +83,6 @@ header {
   }
 }
 
-.site-search {
-  min-width: 180px;
-  margin-right: 10px;
-}
-@media (max-width: 600px) {
-  .site-search {
-    min-width: 50px;
-    margin: 0 0 10px 0;
-  }
-}
-
 .burger {
   cursor: pointer;
   width: 30px;
