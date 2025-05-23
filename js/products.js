@@ -118,7 +118,6 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
   const additionalImages = product.images?.slice(1) || [];
   const allImages = [product.img, ...(product.images || [])];
 
-  // Знайти всі товари для навігації
   fetch('/products.json')
     .then(res => res.json())
     .then(products => {
@@ -210,6 +209,23 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
         `).join("");
         setupModals();
       }
+
+      // --- Свайп для мобільних ---
+      let touchStartX = null;
+      detailContainer.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+      });
+      detailContainer.addEventListener('touchend', function(e) {
+        if (touchStartX === null) return;
+        let touchEndX = e.changedTouches[0].screenX;
+        if (touchEndX - touchStartX > 50) {
+          window.location.href = prev.url;
+        } else if (touchStartX - touchEndX > 50) {
+          window.location.href = next.url;
+        }
+        touchStartX = null;
+      });
+      // --- кінець свайпу ---
     });
 }
 
