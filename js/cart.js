@@ -76,6 +76,7 @@ function openCart() {
 
   totalPriceEl.textContent = `Разом: ${total} грн`;
   cartOverlay.style.display = "block";
+  hideArrows();
 }
 
 // Закриття кошика
@@ -84,6 +85,7 @@ function closeCart() {
   if (cartOverlay) {
     cartOverlay.style.display = "none";
   }
+  showArrows();
 }
 
 // Додавання товару до кошика
@@ -206,6 +208,13 @@ function showToast(message) {
   setTimeout(() => {
     toast.classList.remove("show");
   }, 3000);
+}
+
+function hideArrows() {
+  document.querySelectorAll('.product-arrow, .blog-arrow').forEach(el => el.classList.add('hidden'));
+}
+function showArrows() {
+  document.querySelectorAll('.product-arrow, .blog-arrow').forEach(el => el.classList.remove('hidden'));
 }
 
 // Глобалізація функцій для доступу з HTML

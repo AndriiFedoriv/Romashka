@@ -36,11 +36,16 @@ function setupHeaderBehavior() {
     [burger, overlay].forEach(el => el.addEventListener("click", toggleMenu));
   }
 
-  function toggleMenu() {
-    nav.classList.toggle("active");
-    overlay.classList.toggle("active");
-    burger.classList.toggle("active");
+function toggleMenu() {
+  nav.classList.toggle("active");
+  overlay.classList.toggle("active");
+  burger.classList.toggle("active");
+  if (nav.classList.contains("active")) {
+    hideArrows();
+  } else {
+    showArrows();
   }
+}
 
   document.querySelectorAll(".nav a").forEach(link => {
     link.addEventListener("click", e => {
@@ -54,6 +59,13 @@ function setupHeaderBehavior() {
   });
 
   highlightActiveLink();
+}
+
+function hideArrows() {
+  document.querySelectorAll('.product-arrow, .blog-arrow').forEach(el => el.classList.add('hidden'));
+}
+function showArrows() {
+  document.querySelectorAll('.product-arrow, .blog-arrow').forEach(el => el.classList.remove('hidden'));
 }
 
 // Підсвітка активного посилання меню

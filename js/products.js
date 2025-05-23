@@ -197,6 +197,18 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
         </div>
       `;
 
+      if (products.length <= 1) {
+        detailContainer.querySelector('.product-arrow-left').classList.add('hidden');
+        detailContainer.querySelector('.product-arrow-right').classList.add('hidden');
+      } else {
+        if (idx === 0) {
+          detailContainer.querySelector('.product-arrow-left').classList.add('hidden');
+        }
+        if (idx === products.length - 1) {
+          detailContainer.querySelector('.product-arrow-right').classList.add('hidden');
+        }
+      }
+
       if (modalsPlaceholder) {
         modalsPlaceholder.innerHTML = allImages.map((img, i) => `
           <div id="modal${i + 1}" class="modal">
@@ -235,7 +247,11 @@ function setupModals() {
     link.addEventListener("click", e => {
       e.preventDefault();
       const modalId = link.getAttribute("href").substring(1);
-      document.getElementById(modalId)?.classList.add("open");
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add("open");
+        hideArrows(); // Ховаємо стрілки одразу при відкритті
+      }
     });
   });
 
@@ -246,8 +262,16 @@ function setupModals() {
     function close(e) {
       e.preventDefault();
       modal.classList.remove("open");
+      showArrows(); // Показуємо стрілки одразу при закритті
     }
   });
+}
+
+function hideArrows() {
+  document.querySelectorAll('.product-arrow, .blog-arrow').forEach(el => el.classList.add('hidden'));
+}
+function showArrows() {
+  document.querySelectorAll('.product-arrow, .blog-arrow').forEach(el => el.classList.remove('hidden'));
 }
 
 // Глобалізація функцій (якщо потрібно)

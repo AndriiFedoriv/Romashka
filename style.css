@@ -1177,3 +1177,52 @@ a:focus, button:focus, .honey-btn:focus {
     padding: 10px 8px;
   }
 }
+
+.product-arrow, .blog-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1002;
+  background: rgba(255, 215, 0, 0.4);
+  color: #8B0000;
+  font-size: 2.5rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+  opacity: 0.7;
+  transition: background 0.2s, opacity 0.2s, box-shadow 0.2s;
+  user-select: none;
+  border: 2px solid #fff8ec;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.product-arrow:hover, .blog-arrow:hover,
+.product-arrow:focus, .blog-arrow:focus {
+  background: #f5c542;
+  opacity: 1;
+  box-shadow: 0 4px 16px rgba(139,0,0,0.10);
+  outline: none;
+}
+.product-arrow-left, .blog-arrow-left { left: 18px; }
+.product-arrow-right, .blog-arrow-right { right: 18px; }
+
+@media (max-width: 700px) {
+  .product-arrow, .blog-arrow {
+    font-size: 1.7rem;
+    width: 38px;
+    height: 38px;
+    opacity: 0.5;
+  }
+  .product-arrow-left, .blog-arrow-left { left: 4px; }
+  .product-arrow-right, .blog-arrow-right { right: 4px; }
+}
+.product-arrow.hidden, .blog-arrow.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
