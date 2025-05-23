@@ -15,64 +15,96 @@ function initProducts() {
     return;
   }
 
-  fetch("/products.json")
-    .then(res => {
-      if (!res.ok) throw new Error("Помилка завантаження products.json");
-      return res.json();
-    })
-    .then(products => {
-      if (productContainer) {
-        const filtered = tag ? products.filter(p => p.hashtags?.includes(tag)) : products;
-        renderProducts(filtered, productContainer);
-      }
+// ...існуючий код...
+fetch("/products.json")
+  .then(res => {
+    if (!res.ok) throw new Error("Помилка завантаження products.json");
+    return res.json();
+  })
+  .then(products => {
+    fetch("/blog.json")
+      .then(res => res.json())
+      .then(articles => {
+        const randomArticle = articles[Math.floor(Math.random() * articles.length)];
+        const insertIndex = Math.floor(Math.random() * (products.length + 1));
+        const blogCard = {
+          isBlog: true,
+          title: randomArticle.title,
+          date: randomArticle.date,
+          image: randomArticle.image,
+          excerpt: randomArticle.excerpt,
+          content: randomArticle.content
+        };
+        const productsWithBlog = [...products];
+        productsWithBlog.splice(insertIndex, 0, blogCard);
 
-      if (productDetail) {
-        const product = products.find(p => p.url === currentPage);
-        if (product) renderProductDetail(product, productDetail, modalsPlaceholder);
-      }
-
-      if (relatedContainer) {
-        const others = products.filter(p => p.url !== currentPage);
-        const shuffled = others.sort(() => 0.5 - Math.random()).slice(0, 3);
-        renderProducts(shuffled, relatedContainer);
-      }
-
-      document.addEventListener("click", e => {
-        if (e.target.classList.contains("hashtag")) {
-          e.preventDefault();
-          const selectedTag = e.target.dataset.tag;
-          if (document.getElementById("product-detail")) {
-            window.location.href = `index.html?tag=${encodeURIComponent(selectedTag)}`;
-          } else {
-            const filtered = products.filter(p => p.hashtags?.includes(selectedTag));
-            if (productContainer) renderProducts(filtered, productContainer);
-            history.pushState({ tag: selectedTag }, "", `?tag=${encodeURIComponent(selectedTag)}`);
-          }
+        if (productContainer) {
+          const filtered = tag
+            ? products.filter(p => p.hashtags?.includes(tag))
+            : productsWithBlog;
+          renderProducts(filtered, productContainer, blogCard);
         }
-      });
 
-      window.addEventListener("popstate", e => {
-        const poppedTag = e.state?.tag;
-        const filtered = poppedTag
-          ? products.filter(p => p.hashtags?.includes(poppedTag))
-          : products;
-        if (productContainer) renderProducts(filtered, productContainer);
+        if (productDetail) {
+          const product = products.find(p => p.url === currentPage);
+          if (product) renderProductDetail(product, productDetail, modalsPlaceholder);
+        }
+
+        if (relatedContainer) {
+          const others = products.filter(p => p.url !== currentPage);
+          const shuffled = others.sort(() => 0.5 - Math.random()).slice(0, 3);
+          renderProducts(shuffled, relatedContainer);
+        }
+
+        document.addEventListener("click", e => {
+          if (e.target.classList.contains("hashtag")) {
+            e.preventDefault();
+            const selectedTag = e.target.dataset.tag;
+            if (document.getElementById("product-detail")) {
+              window.location.href = `index.html?tag=${encodeURIComponent(selectedTag)}`;
+            } else {
+              const filtered = products.filter(p => p.hashtags?.includes(selectedTag));
+              if (productContainer) renderProducts(filtered, productContainer);
+              history.pushState({ tag: selectedTag }, "", `?tag=${encodeURIComponent(selectedTag)}`);
+            }
+          }
+        });
+
+        window.addEventListener("popstate", e => {
+          const poppedTag = e.state?.tag;
+          const filtered = poppedTag
+            ? products.filter(p => p.hashtags?.includes(poppedTag))
+            : productsWithBlog;
+          if (productContainer) renderProducts(filtered, productContainer, blogCard);
+        });
       });
-    })
-    .catch(err => console.error(err.message));
-}
+  })
+  .catch(err => console.error(err.message));
 
 // Рендер списку товарів
-function renderProducts(products, container) {
+function renderProducts(products, container, blogCard) {
   container.style.opacity = "0";
 
   setTimeout(() => {
-    container.innerHTML = products.map(product => `
-      <a href="${product.url}" class="product">
-        <img src="${product.img}" alt="${product.alt}">
-        <p><strong>${product.name}</strong></p>
-      </a>
-    `).join("");
+    container.innerHTML = products.map(product => {
+      if (product.isBlog) {
+        // Блог-картка у стилі товару
+        return `
+         <a href="blog.html?article=${encodeURIComponent(product.title)}" class="product blog-product">
+          <img src="${product.image}" alt="${product.title}" loading="lazy">
+          <p><strong>${product.title}</strong></p>
+        </a>
+        `;
+      } else {
+        // Звичайний товар
+        return `
+          <a href="${product.url}" class="product">
+            <img src="${product.img}" alt="${product.alt}">
+            <p><strong>${product.name}</strong></p>
+          </a>
+        `;
+      }
+    }).join("");
 
     setTimeout(() => {
       container.style.opacity = "1";
@@ -197,3 +229,4 @@ window.initProducts = initProducts;
 window.renderProducts = renderProducts;
 window.renderProductDetail = renderProductDetail;
 window.setupModals = setupModals;
+}

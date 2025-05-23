@@ -348,7 +348,8 @@ header {
 }
 
 /* ===== Карточка товару ===== */
-.product {
+.product,
+.blog-product {
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -364,15 +365,18 @@ header {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
-.product img {
+.product img,
+.blog-product img {
   width: 100%; /* Ширина зображення 100% від батьківського елемента */
   height: 180px; /* Встановлюємо висоту */
   object-fit: contain; /* Зберігаємо пропорції зображення */
   background-color: #f7f7f7;
 }
 
+
 @media (max-width: 600px) {
-  .product img {
+  .product img,
+  .blog-product img {
     max-height: 120px;
   }
 }
