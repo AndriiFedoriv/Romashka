@@ -1,20 +1,16 @@
 fetch('blog.json')
   .then(res => res.json())
   .then(articles => {
-    // Отримати параметр article з URL
     const params = new URLSearchParams(window.location.search);
     const selectedTitle = params.get('article');
 
-    // Якщо є параметр, знайти цю статтю
     if (selectedTitle) {
       const idx = articles.findIndex(a => a.title === selectedTitle);
       if (idx > -1) {
-        // Витягнути і поставити першою
         const [selected] = articles.splice(idx, 1);
         articles.unshift(selected);
       }
     } else {
-      // Якщо немає параметра — перемішати
       articles = articles.sort(() => Math.random() - 0.5);
     }
 
@@ -25,10 +21,7 @@ fetch('blog.json')
         <h2>${article.title}</h2>
         <div class="blog-date">${article.date}</div>
         <p>${article.excerpt}</p>
-        <details>
-          <summary>Читати далі</summary>
-          <div>${article.content.replace(/\n/g, '<br>')}</div>
-        </details>
+        <a href="blog-post.html?title=${encodeURIComponent(article.title)}" class="read-more-link">Читати далі</a>
       </article>
     `).join('');
   });

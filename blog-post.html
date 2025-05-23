@@ -1,4 +1,3 @@
-<!-- blog.html -->
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -8,17 +7,16 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-BXELS03J6D');
   </script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5204146299086284"
      crossorigin="anonymous"></script>
      
-    <title>Медовий Блог — Медова Легенда</title>
+  <title>Стаття блогу — Медова Легенда</title>
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Медова Легенда — Медово горіхові поради, рецепти, жкрти!!!" />
+  <meta name="description" content="Корисні статті про мед, рецепти, поради та цікаві факти від Медова Легенда." />
   <meta name="author" content="Медова Легенда" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#f5c542" />
@@ -28,7 +26,7 @@
   <meta property="og:description" content="Спробуйте унікальну лінійку медових паст з натуральними добавками. Без додавання цукру. Тільки користь і смак!" />
   <meta property="og:image" content="https://medovalegenda.pp.ua/img/logo_medova_legenda.png" />
   <meta property="og:url" content="https://medovalegenda.pp.ua/" />
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Медова Легенда" />
 
   <!-- Twitter Card -->
@@ -62,15 +60,13 @@
 </head>
 <body>
   <div id="header-placeholder"></div>
-  <main class="blog-page">
-    <h1>Медово-горіхові статті</h1>
-    <div id="blog-articles"></div>
+  <main class="blog-post-page" id="blog-post-content">
+    <!-- Стаття буде підвантажена через JS -->
   </main>
   <div id="footer-placeholder"></div>
 
-    <script src="js/blog-post.js"></script>
-    <script src="js/blog.js"></script>
-    <script src="js/cart.js"></script>
+  <script src="js/blog-post.js"></script>
+  <script src="js/cart.js"></script>
   <script src="js/header.js"></script>
   <script src="js/footer.js"></script>
   <script src="js/products.js"></script>
@@ -83,16 +79,16 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Медова Легенда",
-    "url": "https://medovalegenda.pp.ua",
-    "logo": "https://medovalegenda.pp.ua/img/logo_medova_legenda.png",
-    "sameAs": [
-      "https://www.facebook.com/people/%D0%9C%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0-%D0%9B%D0%B5%D0%B3%D0%B5%D0%BD%D0%B4%D0%B0/61565617078624",
-      "https://instagram.com/medova.legenda"
-    ]
+    "@type": "Article",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Медова Легенда",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://medovalegenda.pp.ua/img/logo_medova_legenda.png"
+      }
+    }
   }
   </script>
-
 </body>
 </html>
