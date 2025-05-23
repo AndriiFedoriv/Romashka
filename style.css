@@ -447,6 +447,50 @@ header {
   transition: opacity 0.3s ease;
 }
 
+.product-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1002;
+  background: rgba(255, 215, 0, 0.2);
+  color: #8B0000;
+  font-size: 2.5rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+  opacity: 0.92;
+  transition: background 0.2s, opacity 0.2s, box-shadow 0.2s;
+  user-select: none;
+  border: 2px solid #fff8ec;
+  cursor: pointer;
+}
+.product-arrow:hover, .product-arrow:focus {
+  background: #f5c542;
+  opacity: 1;
+  box-shadow: 0 4px 16px rgba(139,0,0,0.10);
+  outline: none;
+}
+.product-arrow-left {
+  left: 18px;
+}
+.product-arrow-right {
+  right: 18px;
+}
+@media (max-width: 700px) {
+  .product-arrow {
+    font-size: 1.7rem;
+    width: 38px;
+    height: 38px;
+  }
+  .product-arrow-left { left: 4px; }
+  .product-arrow-right { right: 4px; }
+}
+
 /* Адаптивність */
 
 @media (max-width: 768px) {

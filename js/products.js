@@ -118,89 +118,99 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
   const additionalImages = product.images?.slice(1) || [];
   const allImages = [product.img, ...(product.images || [])];
 
-  detailContainer.innerHTML = `
-    <div><h1 class="container-title">${product.name}</h1></div>
-    <div class="container">
-      <div class="main-image">
-        <a href="#modal1">
-          <img src="${mainImage}" alt="${product.alt}" />
-        </a>
-        <div class="thumbnails">
-          ${additionalImages.map((img, i) => `
-            <a href="#modal${i + 2}">
-              <img src="${img}" alt="thumb ${i + 2}" loading="lazy">
+  // Знайти всі товари для навігації
+  fetch('/products.json')
+    .then(res => res.json())
+    .then(products => {
+      const idx = products.findIndex(p => p.url === product.url);
+      const prevIdx = (idx - 1 + products.length) % products.length;
+      const nextIdx = (idx + 1) % products.length;
+      const prev = products[prevIdx];
+      const next = products[nextIdx];
+
+      detailContainer.innerHTML = `
+        <a href="${prev.url}" class="product-arrow product-arrow-left" aria-label="Попередній товар">🔙</a>
+        <a href="${next.url}" class="product-arrow product-arrow-right" aria-label="Наступний товар">🔜</a>
+        <div><h1 class="container-title">${product.name}</h1></div>
+        <div class="container">
+          <div class="main-image">
+            <a href="#modal1">
+              <img src="${mainImage}" alt="${product.alt}" />
             </a>
-          `).join("")}
-        </div>
-      </div>
-      <div class="text">
-        <p><strong>Вага:</strong> ${product.weight || "470"} <i>грамів</i></p>
-        <p><strong>Склад:</strong> ${product.ingredients || "Натуральний мед, горішки"}</p>
-        <p><strong>Опис:</strong> ${product.description}</p>
-        <h3>Переваги:</h3>
-        <ul>
-          ${(product.benefits || [
-            "Натуральний продукт",
-            "Підтримка імунітету",
-            "Енергетична цінність і користь",
-            "Гарний смак + горішки"
-          ]).map(b => `<li>${b}</li>`).join("")}
-        </ul>
-        ${product.hashtags ? `
-          <div class="hashtags">
-            ${product.hashtags.map(tag => `
-              <a href="#" class="hashtag" data-tag="${tag}">${tag}</a>
-            `).join('')}
+            <div class="thumbnails">
+              ${additionalImages.map((img, i) => `
+                <a href="#modal${i + 2}">
+                  <img src="${img}" alt="thumb ${i + 2}" loading="lazy">
+                </a>
+              `).join("")}
+            </div>
           </div>
-        ` : ""}
+          <div class="text">
+            <p><strong>Вага:</strong> ${product.weight || "470"} <i>грамів</i></p>
+            <p><strong>Склад:</strong> ${product.ingredients || "Натуральний мед, горішки"}</p>
+            <p><strong>Опис:</strong> ${product.description}</p>
+            <h3>Переваги:</h3>
+            <ul>
+              ${(product.benefits || [
+                "Натуральний продукт",
+                "Підтримка імунітету",
+                "Енергетична цінність і користь",
+                "Гарний смак + горішки"
+              ]).map(b => `<li>${b}</li>`).join("")}
+            </ul>
+            ${product.hashtags ? `
+              <div class="hashtags">
+                ${product.hashtags.map(tag => `
+                  <a href="#" class="hashtag" data-tag="${tag}">${tag}</a>
+                `).join('')}
+              </div>
+            ` : ""}
 
-        <div class="price-section">
-          ${product.oldPrice ? `
-            <p class="price">
-              <span class="old-price">${product.oldPrice} грн</span>
-              <span class="new-price">${product.price} грн</span>
+            <div class="price-section">
+              ${product.oldPrice ? `
+                <p class="price">
+                  <span class="old-price">${product.oldPrice} грн</span>
+                  <span class="new-price">${product.price} грн</span>
+                </p>
+              ` : `
+                <p class="price">
+                  <span class="new-price">${product.price} грн</span>
+                </p>
+              `}
+              <div class="product-actions">
+                <button class="honey-btn" onclick='addToCart({name: "${product.name}", price: "${product.price}"})'>Додати до кошика</button>
+                <button class="honey-btn secondary" onclick='openCart()'>Відкрити кошик</button>
+              </div>
+            </div>
+            <p>
+              <a href="${product.buyLink || 'https://rozetka.com.ua/'}" class="rozetka-button" target="_blank">
+                <img src="img/rozetkaSmile.png" alt="Купити на Rozetka" loading="lazy">
+                Купити на Rozetka
+              </a>
             </p>
-          ` : `
-            <p class="price">
-              <span class="new-price">${product.price} грн</span>
+            <p>
+              <a href="${product.instagram || 'https://instagram.com/'}" class="instagram-button" target="_blank">
+                <img src="img/Instagram_icon.png" alt="Ми в Instagram" loading="lazy">
+                Ми в Instagram
+              </a>
             </p>
-          `}
-
-          <div class="product-actions">
-            <button class="honey-btn" onclick='addToCart({name: "${product.name}", price: "${product.price}"})'>Додати до кошика</button>
-            <button class="honey-btn secondary" onclick='openCart()'>Відкрити кошик</button>
           </div>
         </div>
+      `;
 
-        <p>
-          <a href="${product.buyLink || 'https://rozetka.com.ua/'}" class="rozetka-button" target="_blank">
-            <img src="img/rozetkaSmile.png" alt="Купити на Rozetka" loading="lazy">
-            Купити на Rozetka
-          </a>
-        </p>
-
-        <p>
-          <a href="${product.instagram || 'https://instagram.com/'}" class="instagram-button" target="_blank">
-            <img src="img/Instagram_icon.png" alt="Ми в Instagram" loading="lazy">
-            Ми в Instagram
-          </a>
-        </p>
-      </div>
-    </div>
-  `;
-
-  if (modalsPlaceholder) {
-    modalsPlaceholder.innerHTML = allImages.map((img, i) => `
-      <div id="modal${i + 1}" class="modal">
-        <div class="modal-overlay"></div>
-        <div class="modal-content-wrapper">
-          <a href="#" class="close">&times;</a>
-          <img class="modal-content" src="${img}" alt="Фото ${i + 1}" loading="lazy">
-        </div>
-      </div>
-    `).join("");
-    setupModals();
-  }
+      if (modalsPlaceholder) {
+        modalsPlaceholder.innerHTML = allImages.map((img, i) => `
+          <div id="modal${i + 1}" class="modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content-wrapper">
+              <a href="#" class="close">&times;</a>
+              <img class="modal-content" src="${img}" alt="Фото ${i + 1}" loading="lazy">
+            </div>
+          </div>
+        `).join("");
+        setupModals();
+      }
+    });
 }
 
 // Налаштування модалок для фото товару
