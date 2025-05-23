@@ -19,17 +19,15 @@ fetch('blog.json')
     const next = articles[nextIdx];
 
     document.getElementById('blog-post-content').innerHTML = `
-      <article class="blog-article blog-article-page">
+    <article class="blog-article blog-article-page">
         <img src="${article.image}" alt="${article.title}" class="blog-image" loading="lazy">
         <h1>${article.title}</h1>
         <div class="blog-date">${article.date}</div>
         <p class="blog-excerpt">${article.excerpt}</p>
         <div class="blog-content">${article.content.replace(/\n/g, '<br>')}</div>
-        <div class="blog-nav">
-          <a href="blog-post.html?title=${encodeURIComponent(prev.title)}" class="blog-nav-btn prev-btn">← Попередня</a>
-          <a href="blog-post.html?title=${encodeURIComponent(next.title)}" class="blog-nav-btn next-btn">Наступна →</a>
-        </div>
-      </article>
+        <a href="blog-post.html?title=${encodeURIComponent(prev.title)}" class="blog-arrow blog-arrow-left" aria-label="Попередня стаття">🔙</a>
+        <a href="blog-post.html?title=${encodeURIComponent(next.title)}" class="blog-arrow blog-arrow-right" aria-label="Наступна стаття">🔜</a>
+    </article>
     `;
 
     // Свайп для мобільних
