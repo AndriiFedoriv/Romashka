@@ -99,7 +99,7 @@ function renderProducts(products, container, blogCard) {
         // Звичайний товар
         return `
           <a href="${product.url}" class="product">
-            <img src="${product.img}" alt="${product.alt}">
+            <img src="${product.img}" alt="${product.alt}" loading="lazy">
             <p><strong>${product.name}</strong></p>
           </a>
         `;
