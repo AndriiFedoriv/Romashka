@@ -41,3 +41,12 @@ document.addEventListener("click", function (e) {
     if (typeof closeCart === "function") closeCart();
   }
 });
+
+// Функцію при кліку на хештег
+function saveRecentTag(tag) {
+  let tags = JSON.parse(localStorage.getItem('recentTags') || '[]');
+  tags = tags.filter(t => t !== tag);
+  tags.unshift(tag);
+  if (tags.length > 5) tags = tags.slice(0, 5);
+  localStorage.setItem('recentTags', JSON.stringify(tags));
+}

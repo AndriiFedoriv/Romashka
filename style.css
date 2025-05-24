@@ -661,69 +661,97 @@ header {
   }
 }
 
+#footer {
+  background: #fff8e1;
+  color: #8b6f1a;
+  border-top: 2px solid #f5c542;
+  font-family: inherit;
+  padding: 32px 0 0 0;
+}
 .footer-wrapper {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
   box-sizing: border-box;
 }
-
-footer {
-  background-color: #f8f8f8;
-  padding: 20px 0;
-  font-size: 0.9em;
-  color: #888;
-  width: 100%;
-}
-
 .footer-content {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 32px;
 }
-
-.footer-contacts {
+.footer-contacts,
+.footer-links,
+.footer-tags,
+.footer-socials {
+  min-width: 180px;
+}
+.footer-links h4,
+.footer-tags h4 {
+  color: #bfa13a;
+  margin-bottom: 10px;
+}
+.footer-links nav {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
-
-.footer-contacts a {
-  color: #888;
+.footer-links a {
+  color: #8b6f1a;
   text-decoration: none;
-  transition: color 0.3s;
+  transition: color 0.2s;
 }
-.footer-contacts a:hover {
-  color: #ff6347;
-  text-shadow: 0 0 4px rgba(255, 99, 71, 0.4);
+.footer-links a:hover {
+  color: #bfa13a;
+  text-decoration: underline;
 }
-
 .footer-bottom-bar {
-  background-color: #eaeaea;
+  margin-top: 32px;
   text-align: center;
-  font-size: 0.8em;
-  color: #666;
-  padding: 10px 15px;
-  border-top: 1px solid #ddd;
-  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.05);
+  color: #bfa13a;
+  font-size: 0.95em;
+}
+@media (max-width: 700px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  .footer-socials.desktop-socials {
+    display: none;
+  }
+  .footer-socials.mobile-socials {
+    display: flex;
+  }
+}
+@media (min-width: 701px) {
+  .footer-socials.mobile-socials {
+    display: none;
+  }
+  .footer-socials.desktop-socials {
+    display: flex;
+  }
 }
 
-.footer-socials {
+/* Десктопна версія соцмереж у футері */
+.footer-socials.desktop-socials {
   display: flex;
-  gap: 15px;
+  gap: 18px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
-.footer-socials a {
-  display: inline-block;
-  transition: transform 0.3s ease, filter 0.3s ease;
+
+.footer-socials.desktop-socials .social-icon img {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.2s, filter 0.2s;
 }
-.social-icon img {
-  width: 25px;
-  height: 25px;
-}
-.social-icon:hover img {
-  transform: scale(1.2) rotate(5deg);
-  filter: drop-shadow(0 0 5px #ffd700);
+
+.footer-socials.desktop-socials .social-icon:hover img {
+  transform: scale(1.15) rotate(5deg);
+  filter: drop-shadow(0 0 6px #ffd700);
 }
 
 /* Десктопна версія соцмереж */
@@ -733,19 +761,6 @@ footer {
 .mobile-socials {
   display: none;
 }
-
-/* Мобільна адаптація */
-@media (max-width: 768px) {
-  .footer-content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 20px;
-  }
-
-  .footer-contacts {
-    align-items: center;
-  }
 
   .desktop-socials {
     display: none;
@@ -762,7 +777,6 @@ footer {
     width: 22px;
     height: 22px;
   }
-}
 
 /* ===== Модальне вікно ===== */
 .modal {
@@ -830,20 +844,21 @@ footer {
 
 .hashtag {
   display: inline-block;
-  background: #ffe066;
-  color: #6c584c;
-  padding: 0.3em 0.8em;
+  background: linear-gradient(90deg, #ffe066 60%, #ffd700 100%);
+  color: #8b6f1a;
+  padding: 0.3em 1em;
   margin: 0.2em;
   border-radius: 20px;
-  font-size: 0.9em;
+  font-size: 1em;
   text-decoration: none;
-  transition: background 0.3s, color 0.3s;
-  text-decoration: none;
+  font-weight: 500;
+  box-shadow: 0 2px 6px #f5c54222;
+  transition: background 0.3s, color 0.3s, box-shadow 0.2s;
 }
-
 .hashtag:hover {
-  background: #ffd43b;
-  color: #495057;
+  background: linear-gradient(90deg, #ffd43b 60%, #ffe066 100%);
+  color: #bfa13a;
+  box-shadow: 0 4px 12px #ffd70044;
   cursor: pointer;
 }
 

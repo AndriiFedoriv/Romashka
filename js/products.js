@@ -73,26 +73,39 @@ function initProducts() {
           // Обробка кліків по хештегах
           document.addEventListener("click", e => {
             if (e.target.classList.contains("hashtag")) {
-              e.preventDefault();
-              const selectedTag = e.target.dataset.tag;
-              if (document.getElementById("product-detail")) {
-                window.location.href = `index.html?tag=${encodeURIComponent(selectedTag)}`;
-              } else {
-                // Фільтруємо і товари, і статті
-                const filteredProducts = products.filter(p => p.hashtags?.includes(selectedTag));
-                const filteredArticles = articles
-                  .filter(a => a.hashtags?.includes(selectedTag))
-                  .map(article => ({
-                    isBlog: true,
-                    title: article.title,
-                    date: article.date,
-                    image: article.image,
-                    excerpt: article.excerpt,
-                    content: article.content
-                  }));
-                const filtered = [...filteredProducts, ...filteredArticles];
-                if (productContainer) renderProducts(filtered, productContainer);
-                history.pushState({ tag: selectedTag }, "", `?tag=${encodeURIComponent(selectedTag)}`);
+              // Якщо є data-tag (тобто це не футер, а картка товару/статті)
+              if (e.target.hasAttribute("data-tag")) {
+                e.preventDefault();
+                let selectedTag = e.target.dataset.tag;
+                saveRecentTag(selectedTag);
+
+                // Якщо на сторінці детального перегляду товару — редірект на index.html
+                if (document.getElementById("product-detail")) {
+                  window.location.href = `index.html?tag=${encodeURIComponent(selectedTag)}`;
+                } else {
+                  // SPA-фільтрація на index.html
+                  const filteredProducts = products.filter(p => (p.hashtags || []).includes(selectedTag));
+                  const filteredArticles = articles
+                    .filter(a => (a.hashtags || []).includes(selectedTag))
+                    .map(article => ({
+                      isBlog: true,
+                      title: article.title,
+                      date: article.date,
+                      image: article.image,
+                      excerpt: article.excerpt,
+                      content: article.content
+                    }));
+                  const filtered = [...filteredProducts, ...filteredArticles];
+                  if (productContainer) renderProducts(filtered, productContainer);
+                  history.pushState({ tag: selectedTag }, "", `?tag=${encodeURIComponent(selectedTag)}`);
+                }
+              }
+              // Якщо це футер (немає data-tag) — стандартний перехід, але збережемо тег для "останні використані"
+              else {
+                let selectedTag = e.target.textContent.replace(/^#/, '').trim();
+                selectedTag = '#' + selectedTag;
+                saveRecentTag(selectedTag);
+                // Не викликаємо e.preventDefault() — стандартний перехід!
               }
             }
           });

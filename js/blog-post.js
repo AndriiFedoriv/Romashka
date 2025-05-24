@@ -67,10 +67,11 @@ fetch('blog.json')
           }
 
           function setupHashtagHandlers() {
-            document.querySelectorAll('.hashtag').forEach(link => {
+            document.querySelectorAll('.hashtag[data-tag]').forEach(link => {
               link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const tag = this.dataset.tag;
+                saveRecentTag(tag);
                 window.location.href = `index.html?tag=${encodeURIComponent(tag)}`;
               });
             });
