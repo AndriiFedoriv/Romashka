@@ -221,13 +221,13 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
             </div>
             <p>
               <a href="${product.buyLink || 'https://rozetka.com.ua/'}" class="rozetka-button" target="_blank">
-                <img src="img/rozetkaSmile.png" alt="Купити на Rozetka" loading="lazy">
+                <img src="img/rozetkaSmile.webp" alt="Купити на Rozetka" loading="lazy">
                 Купити на Rozetka
               </a>
             </p>
             <p>
               <a href="${product.instagram || 'https://instagram.com/'}" class="instagram-button" target="_blank">
-                <img src="img/Instagram_icon.png" alt="Ми в Instagram" loading="lazy">
+                <img src="img/Instagram_icon.webp" alt="Ми в Instagram" loading="lazy">
                 Ми в Instagram
               </a>
             </p>
