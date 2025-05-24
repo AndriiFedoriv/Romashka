@@ -15,82 +15,121 @@ function initProducts() {
     return;
   }
 
-// ...існуючий код...
-fetch("/products.json")
-  .then(res => {
-    if (!res.ok) throw new Error("Помилка завантаження products.json");
-    return res.json();
-  })
-  .then(products => {
-    fetch("/blog.json")
-      .then(res => res.json())
-      .then(articles => {
-        const randomArticle = articles[Math.floor(Math.random() * articles.length)];
-        const insertIndex = Math.floor(Math.random() * (products.length + 1));
-        const blogCard = {
-          isBlog: true,
-          title: randomArticle.title,
-          date: randomArticle.date,
-          image: randomArticle.image,
-          excerpt: randomArticle.excerpt,
-          content: randomArticle.content
-        };
-        const productsWithBlog = [...products];
-        productsWithBlog.splice(insertIndex, 0, blogCard);
+  fetch("/products.json")
+    .then(res => {
+      if (!res.ok) throw new Error("Помилка завантаження products.json");
+      return res.json();
+    })
+    .then(products => {
+      fetch("/blog.json")
+        .then(res => res.json())
+        .then(articles => {
+          const randomArticle = articles[Math.floor(Math.random() * articles.length)];
+          const insertIndex = Math.floor(Math.random() * (products.length + 1));
+          const blogCard = {
+            isBlog: true,
+            title: randomArticle.title,
+            date: randomArticle.date,
+            image: randomArticle.image,
+            excerpt: randomArticle.excerpt,
+            content: randomArticle.content
+          };
+          const productsWithBlog = [...products];
+          productsWithBlog.splice(insertIndex, 0, blogCard);
 
-        if (productContainer) {
-          const filtered = tag
-            ? products.filter(p => p.hashtags?.includes(tag))
-            : productsWithBlog;
-          renderProducts(filtered, productContainer, blogCard);
-        }
-
-        if (productDetail) {
-          const product = products.find(p => p.url === currentPage);
-          if (product) renderProductDetail(product, productDetail, modalsPlaceholder);
-        }
-
-        if (relatedContainer) {
-          const others = products.filter(p => p.url !== currentPage);
-          const shuffled = others.sort(() => 0.5 - Math.random()).slice(0, 3);
-          renderProducts(shuffled, relatedContainer);
-        }
-
-        document.addEventListener("click", e => {
-          if (e.target.classList.contains("hashtag")) {
-            e.preventDefault();
-            const selectedTag = e.target.dataset.tag;
-            if (document.getElementById("product-detail")) {
-              window.location.href = `index.html?tag=${encodeURIComponent(selectedTag)}`;
+          if (productContainer) {
+            let filtered;
+            if (tag) {
+              // Фільтруємо і товари, і статті
+              const filteredProducts = products.filter(p => p.hashtags?.includes(tag));
+              const filteredArticles = articles
+                .filter(a => a.hashtags?.includes(tag))
+                .map(article => ({
+                  isBlog: true,
+                  title: article.title,
+                  date: article.date,
+                  image: article.image,
+                  excerpt: article.excerpt,
+                  content: article.content
+                }));
+              filtered = [...filteredProducts, ...filteredArticles];
             } else {
-              const filtered = products.filter(p => p.hashtags?.includes(selectedTag));
-              if (productContainer) renderProducts(filtered, productContainer);
-              history.pushState({ tag: selectedTag }, "", `?tag=${encodeURIComponent(selectedTag)}`);
+              filtered = productsWithBlog;
             }
+            renderProducts(filtered, productContainer, blogCard);
           }
-        });
 
-        window.addEventListener("popstate", e => {
-          const poppedTag = e.state?.tag;
-          const filtered = poppedTag
-            ? products.filter(p => p.hashtags?.includes(poppedTag))
-            : productsWithBlog;
-          if (productContainer) renderProducts(filtered, productContainer, blogCard);
-        });
-      });
-  })
-  .catch(err => console.error(err.message));
+          if (productDetail) {
+            const product = products.find(p => p.url === currentPage);
+            if (product) renderProductDetail(product, productDetail, modalsPlaceholder);
+          }
 
-// Рендер списку товарів
+          if (relatedContainer) {
+            const others = products.filter(p => p.url !== currentPage);
+            const shuffled = others.sort(() => 0.5 - Math.random()).slice(0, 3);
+            renderProducts(shuffled, relatedContainer);
+          }
+
+          // Обробка кліків по хештегах
+          document.addEventListener("click", e => {
+            if (e.target.classList.contains("hashtag")) {
+              e.preventDefault();
+              const selectedTag = e.target.dataset.tag;
+              if (document.getElementById("product-detail")) {
+                window.location.href = `index.html?tag=${encodeURIComponent(selectedTag)}`;
+              } else {
+                // Фільтруємо і товари, і статті
+                const filteredProducts = products.filter(p => p.hashtags?.includes(selectedTag));
+                const filteredArticles = articles
+                  .filter(a => a.hashtags?.includes(selectedTag))
+                  .map(article => ({
+                    isBlog: true,
+                    title: article.title,
+                    date: article.date,
+                    image: article.image,
+                    excerpt: article.excerpt,
+                    content: article.content
+                  }));
+                const filtered = [...filteredProducts, ...filteredArticles];
+                if (productContainer) renderProducts(filtered, productContainer);
+                history.pushState({ tag: selectedTag }, "", `?tag=${encodeURIComponent(selectedTag)}`);
+              }
+            }
+          });
+
+          window.addEventListener("popstate", e => {
+            const poppedTag = e.state?.tag;
+            if (poppedTag) {
+              const filteredProducts = products.filter(p => p.hashtags?.includes(poppedTag));
+              const filteredArticles = articles
+                .filter(a => a.hashtags?.includes(poppedTag))
+                .map(article => ({
+                  isBlog: true,
+                  title: article.title,
+                  date: article.date,
+                  image: article.image,
+                  excerpt: article.excerpt,
+                  content: article.content
+                }));
+              const filtered = [...filteredProducts, ...filteredArticles];
+              if (productContainer) renderProducts(filtered, productContainer, blogCard);
+            } else {
+              if (productContainer) renderProducts(productsWithBlog, productContainer, blogCard);
+            }
+          });
+        });
+    });
+}
+
+// Рендер списку товарів/статей
 function renderProducts(products, container, blogCard) {
   container.style.opacity = "0";
-
   setTimeout(() => {
     container.innerHTML = products.map(product => {
       if (product.isBlog) {
         // Блог-картка у стилі товару
         return `
-         <a href="blog.html?article=${encodeURIComponent(product.title)}" class="product blog-product">
+         <a href="blog-post.html?title=${encodeURIComponent(product.title)}" class="product blog-product">
           <img src="${product.image}" alt="${product.title}" loading="lazy">
           <p><strong>${product.title}</strong></p>
         </a>
@@ -105,7 +144,6 @@ function renderProducts(products, container, blogCard) {
         `;
       }
     }).join("");
-
     setTimeout(() => {
       container.style.opacity = "1";
     }, 50);
@@ -197,18 +235,6 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
         </div>
       `;
 
-      if (products.length <= 1) {
-        detailContainer.querySelector('.product-arrow-left').classList.add('hidden');
-        detailContainer.querySelector('.product-arrow-right').classList.add('hidden');
-      } else {
-        if (idx === 0) {
-          detailContainer.querySelector('.product-arrow-left').classList.add('hidden');
-        }
-        if (idx === products.length - 1) {
-          detailContainer.querySelector('.product-arrow-right').classList.add('hidden');
-        }
-      }
-
       if (modalsPlaceholder) {
         modalsPlaceholder.innerHTML = allImages.map((img, i) => `
           <div id="modal${i + 1}" class="modal">
@@ -279,4 +305,5 @@ window.initProducts = initProducts;
 window.renderProducts = renderProducts;
 window.renderProductDetail = renderProductDetail;
 window.setupModals = setupModals;
-}
+window.hideArrows = hideArrows;
+window.showArrows = showArrows;

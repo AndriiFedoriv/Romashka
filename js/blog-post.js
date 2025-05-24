@@ -1,50 +1,97 @@
 fetch('blog.json')
   .then(res => res.json())
   .then(articles => {
-    const params = new URLSearchParams(window.location.search);
-    const titleParam = params.get('title');
-    let idx = articles.findIndex(a => a.title === titleParam);
-    if (idx === -1) idx = 0;
-    const article = articles[idx];
+    fetch('products.json')
+      .then(res => res.json())
+      .then(products => {
+        const params = new URLSearchParams(window.location.search);
+        const titleParam = params.get('title');
+        let idx = articles.findIndex(a => a.title === titleParam);
+        if (idx === -1) idx = 0;
+        const article = articles[idx];
 
-    // Динамічно змінити <title> і <meta name="description">
-    document.title = `${article.title} — Медова Легенда`;
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) metaDesc.setAttribute('content', article.excerpt);
+        document.title = `${article.title} — Медова Легенда`;
+        let metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute('content', article.excerpt);
 
-    // Визначаємо попередню і наступну статтю
-    const prevIdx = (idx - 1 + articles.length) % articles.length;
-    const nextIdx = (idx + 1) % articles.length;
-    const prev = articles[prevIdx];
-    const next = articles[nextIdx];
+        const prevIdx = (idx - 1 + articles.length) % articles.length;
+        const nextIdx = (idx + 1) % articles.length;
+        const prev = articles[prevIdx];
+        const next = articles[nextIdx];
 
-    document.getElementById('blog-post-content').innerHTML = `
-    <article class="blog-article blog-article-page">
-        <img src="${article.image}" alt="${article.title}" class="blog-image" loading="lazy">
-        <h1>${article.title}</h1>
-        <div class="blog-date">${article.date}</div>
-        <p class="blog-excerpt">${article.excerpt}</p>
-        <div class="blog-content">${article.content.replace(/\n/g, '<br>')}</div>
-        <a href="blog-post.html?title=${encodeURIComponent(prev.title)}" class="blog-arrow blog-arrow-left" aria-label="Попередня стаття">🔙</a>
-        <a href="blog-post.html?title=${encodeURIComponent(next.title)}" class="blog-arrow blog-arrow-right" aria-label="Наступна стаття">🔜</a>
-    </article>
-    `;
+        function renderArticle(article) {
+          document.getElementById('blog-post-content').innerHTML = `
+            <article class="blog-article blog-article-page">
+              <img src="${article.image}" alt="${article.title}" class="blog-image" loading="lazy">
+              <h1>${article.title}</h1>
+              <div class="blog-date">${article.date}</div>
+              <p class="blog-excerpt">${article.excerpt}</p>
+              <div class="blog-content">${article.content.replace(/\n/g, '<br>')}</div>
+              ${article.hashtags ? `
+                <div class="hashtags">
+                  ${article.hashtags.map(tag => `
+                    <a href="#" class="hashtag" data-tag="${tag}">${tag}</a>
+                  `).join('')}
+                </div>
+              ` : ""}
+              <a href="blog-post.html?title=${encodeURIComponent(prev.title)}" class="blog-arrow blog-arrow-left" aria-label="Попередня стаття">🔙</a>
+              <a href="blog-post.html?title=${encodeURIComponent(next.title)}" class="blog-arrow blog-arrow-right" aria-label="Наступна стаття">🔜</a>
+            </article>
+          `;
+          setupHashtagHandlers();
+        }
 
-    // Свайп для мобільних
-    let touchStartX = null;
-    document.getElementById('blog-post-content').addEventListener('touchstart', function(e) {
-      touchStartX = e.changedTouches[0].screenX;
-    });
-    document.getElementById('blog-post-content').addEventListener('touchend', function(e) {
-      if (touchStartX === null) return;
-      let touchEndX = e.changedTouches[0].screenX;
-      if (touchEndX - touchStartX > 50) {
-        // свайп вправо — попередня
-        window.location.href = `blog-post.html?title=${encodeURIComponent(prev.title)}`;
-      } else if (touchStartX - touchEndX > 50) {
-        // свайп вліво — наступна
-        window.location.href = `blog-post.html?title=${encodeURIComponent(next.title)}`;
-      }
-      touchStartX = null;
-    });
+        // рендеримо і товари, і статті за тегом
+          function renderTagList(tag) {
+            const filteredArticles = articles.filter(a => a.hashtags && a.hashtags.includes(tag));
+            const filteredProducts = products.filter(p => p.hashtags && p.hashtags.includes(tag));
+            document.getElementById('blog-post-content').innerHTML = `
+              <h2>Матеріали з тегом "${tag}"</h2>
+              <div class="products-list">
+                ${filteredProducts.map(product => `
+                  <a href="${product.url}" class="product">
+                    <img src="${product.img}" alt="${product.alt || product.name}" loading="lazy">
+                    <p><strong>${product.name}</strong></p>
+                  </a>
+                `).join('')}
+                ${filteredArticles.map(article => `
+                  <a href="blog-post.html?title=${encodeURIComponent(article.title)}" class="product blog-product">
+                    <img src="${article.image}" alt="${article.title}" loading="lazy">
+                    <p><strong>${article.title}</strong></p>
+                  </a>
+                `).join('')}
+              </div>
+              <a href="blog.html" class="read-more-link" style="margin-top:32px;display:inline-block;">← До всіх статей</a>
+            `;
+            setupHashtagHandlers();
+          }
+
+          function setupHashtagHandlers() {
+            document.querySelectorAll('.hashtag').forEach(link => {
+              link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const tag = this.dataset.tag;
+                window.location.href = `index.html?tag=${encodeURIComponent(tag)}`;
+              });
+            });
+          }
+
+        renderArticle(article);
+
+        // Свайп для мобільних
+        let touchStartX = null;
+        document.getElementById('blog-post-content').addEventListener('touchstart', function(e) {
+          touchStartX = e.changedTouches[0].screenX;
+        });
+        document.getElementById('blog-post-content').addEventListener('touchend', function(e) {
+          if (touchStartX === null) return;
+          let touchEndX = e.changedTouches[0].screenX;
+          if (touchEndX - touchStartX > 50) {
+            window.location.href = `blog-post.html?title=${encodeURIComponent(prev.title)}`;
+          } else if (touchStartX - touchEndX > 50) {
+            window.location.href = `blog-post.html?title=${encodeURIComponent(next.title)}`;
+          }
+          touchStartX = null;
+        });
+      });
   });
