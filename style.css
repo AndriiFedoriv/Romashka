@@ -718,18 +718,29 @@ header {
     align-items: flex-start;
   }
   .footer-socials.desktop-socials {
-    display: none;
+    display: none !important;
   }
+
   .footer-socials.mobile-socials {
-    display: flex;
+    display: flex !important;
+    gap: 24px;              /* збільшено відступ між іконками */
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .footer-socials.mobile-socials .social-icon img {
+    width: 28px;            /* можна трохи збільшити іконки для зручності */
+    height: 28px;
   }
 }
+
 @media (min-width: 701px) {
   .footer-socials.mobile-socials {
-    display: none;
+    display: none !important;
   }
   .footer-socials.desktop-socials {
-    display: flex;
+    display: flex !important;
   }
 }
 
@@ -753,25 +764,6 @@ header {
   transform: scale(1.15) rotate(5deg);
   filter: drop-shadow(0 0 6px #ffd700);
 }
-
-/* Десктопна версія соцмереж */
-.desktop-socials {
-  display: flex;
-}
-.mobile-socials {
-  display: none;
-}
-
-  .desktop-socials {
-    display: none;
-  }
-
-  .mobile-socials {
-    display: flex;
-    margin-top: 10px;
-    gap: 15px;
-    justify-content: center;
-  }
 
   .social-icon img {
     width: 22px;
