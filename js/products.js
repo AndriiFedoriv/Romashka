@@ -202,8 +202,16 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
       const next = products[nextIdx];
 
       detailContainer.innerHTML = `
-        <a href="${prev.url}" class="product-arrow product-arrow-left" aria-label="Попередній товар">🔙</a>
-        <a href="${next.url}" class="product-arrow product-arrow-right" aria-label="Наступний товар">🔜</a>
+        <a href="${prev.url}" class="product-arrow product-arrow-left" aria-label="Попередній товар">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+            <polyline points="15 18 9 12 15 6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="${next.url}" class="product-arrow product-arrow-right" aria-label="Наступний товар">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+            <polyline points="9 6 15 12 9 18" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
         <div><h1 class="container-title">${product.name}</h1></div>
         <div class="container">
           <div class="main-image">
@@ -312,7 +320,7 @@ function setupModals() {
       const modal = document.getElementById(modalId);
       if (modal) {
         modal.classList.add("open");
-        hideArrows(); // Ховаємо стрілки одразу при відкритті
+        hideArrows();
       }
     });
   });
@@ -321,13 +329,29 @@ function setupModals() {
     modal.querySelector(".modal-overlay")?.addEventListener("click", close);
     modal.querySelector(".close")?.addEventListener("click", close);
 
+    // Додаємо закриття по кліку на фон (сам .modal)
+    modal.addEventListener("click", function(e) {
+      if (e.target === modal) {
+        close(e);
+      }
+    });
+
     function close(e) {
       e.preventDefault();
       modal.classList.remove("open");
-      showArrows(); // Показуємо стрілки одразу при закритті
+      showArrows();
     }
   });
 }
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === "Escape") {
+    document.querySelectorAll('.modal.open').forEach(modal => {
+      modal.classList.remove('open');
+      showArrows();
+    });
+  }
+});
 
 function hideArrows() {
   document.querySelectorAll('.product-arrow, .blog-arrow').forEach(el => el.classList.add('hidden'));

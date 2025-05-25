@@ -4,7 +4,8 @@ window.justOpened = false;
 function insertCartModal() {
   const cartHTML = `
     <div id="cartOverlay" class="cart-overlay">
-      <div id="cartModal" class="cartmodal">
+      <div id="cartModal" class="cart-modal">
+        <button class="close" onclick="closeCart()">&times;</button>
         <h2>🛒 Ваш кошик</h2>
         <div id="cartItems" class="cart-items"></div>
         <p class="cart-total"><span id="totalPrice">0 грн</span></p>
@@ -25,14 +26,17 @@ function insertCartModal() {
   `;
   document.body.insertAdjacentHTML("beforeend", cartHTML);
 
-  // Відновлення даних форми після вставки HTML
   restoreFormData();
 
-  // Додаємо автозбереження при зміні полів
   const orderForm = document.getElementById("orderForm");
   if (orderForm) {
     orderForm.addEventListener("input", saveFormData);
   }
+
+  // Закриття по кліку на overlay
+  document.getElementById("cartOverlay").addEventListener("click", function(e) {
+    if (e.target === this) closeCart();
+  });
 }
 
 // Відновлення даних форми
@@ -51,10 +55,11 @@ function openCart() {
 
   const cart = JSON.parse(localStorage.getItem("cart") || "[]");
   const cartOverlay = document.getElementById("cartOverlay");
+  const cartModal = document.getElementById("cartModal");
   const cartItems = document.getElementById("cartItems");
   const totalPriceEl = document.getElementById("totalPrice");
 
-  if (!cartOverlay || !cartItems || !totalPriceEl) {
+  if (!cartOverlay || !cartModal || !cartItems || !totalPriceEl) {
     console.error("Кошик: відсутні необхідні елементи в DOM");
     return;
   }
@@ -68,22 +73,28 @@ function openCart() {
     cartItems.innerHTML += `
       <div>
         <strong>${item.name}</strong> — ${item.price} грн × ${item.quantity} = ${itemTotal} грн
-        <button onclick="decreaseQuantity(${i})">➖</button>
-        <button onclick="increaseQuantity(${i})">➕</button>
-        <button onclick="removeItem(${i})">🗑️</button>
+        <span class="cart-actions">
+          <button onclick="decreaseQuantity(${i})">➖</button>
+          <button onclick="increaseQuantity(${i})">➕</button>
+          <button onclick="removeItem(${i})">🗑️</button>
+        </span>
       </div>`;
   });
 
   totalPriceEl.textContent = `Разом: ${total} грн`;
-  cartOverlay.style.display = "block";
+
+  cartOverlay.classList.add("open");
+  cartModal.classList.add("open");
   hideArrows();
 }
 
 // Закриття кошика
 function closeCart() {
   const cartOverlay = document.getElementById("cartOverlay");
-  if (cartOverlay) {
-    cartOverlay.style.display = "none";
+  const cartModal = document.getElementById("cartModal");
+  if (cartOverlay && cartModal) {
+    cartOverlay.classList.remove("open");
+    cartModal.classList.remove("open");
   }
   showArrows();
 }
@@ -165,7 +176,7 @@ function sendOrder() {
   window.open(mail, "_blank");
 
   localStorage.removeItem("cart");
-  localStorage.removeItem("orderForm"); // ОЧИЩЕННЯ ДАНИХ ФОРМИ
+  localStorage.removeItem("orderForm");
   updateCartCount();
   closeCart();
 }
@@ -179,9 +190,11 @@ function updateCartCount() {
     if (count > 0) {
       counter.textContent = count;
       counter.style.display = "inline-block";
+      counter.parentElement.classList.add("cart-has-items");
     } else {
       counter.textContent = "";
       counter.style.display = "none";
+      counter.parentElement.classList.remove("cart-has-items");
     }
   }
 }

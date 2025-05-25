@@ -1,0 +1,162 @@
+/* ===== Кнопки ===== */
+.catalog-button {
+  background: linear-gradient(135deg, #fff380, #ffd700);
+  color: #4a3b00;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--radius-btn);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.catalog-button:hover {
+  background: linear-gradient(135deg, #ffe066, #ffc700);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+.catalog-button:active {
+  transform: scale(0.97);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+.catalog-button::after {
+  content: " ▼";
+  font-size: 0.8em;
+  transition: transform 0.2s;
+}
+.catalog-button.active::after {
+  transform: rotate(-180deg);
+}
+
+.rozetka-button,
+.instagram-button,
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.rozetka-button {
+  margin-top: 30px;
+  background: #00B359;
+  color: white;
+}
+.rozetka-button:hover {
+  background: #00a14f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.rozetka-button img {
+  height: 20px;
+  width: 20px;
+}
+
+.instagram-button {
+  margin-top: 20px;
+  background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af);
+  color: white;
+}
+.instagram-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(221, 42, 123, 0.5);
+}
+.instagram-button img {
+  height: 20px;
+  width: 20px;
+}
+
+.back-button {
+  background: #f5f5f5;
+  color: #333;
+  gap: 8px;
+  padding: 10px 18px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.back-button:hover {
+  background: #e0e0e0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.back-button img {
+  height: 18px;
+  width: 18px;
+}
+
+/* ===== Кнопки для корзини та товарів ===== */
+.honey-btn {
+  flex: 1 1 auto;
+  min-width: 120px;
+  background: linear-gradient(to right, #fcd34d, #fbbf24);
+  border: none;
+  border-radius: var(--radius-btn);
+  padding: 12px 20px;
+  font-size: 16px;
+  color: #5c3700;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+.honey-btn:hover {
+  background: linear-gradient(to right, #fbbf24, #fcd34d);
+  transform: scale(1.05);
+}
+.honey-btn.cancel {
+  background: #f3f4f6;
+  color: #333;
+}
+.honey-btn.cancel:hover {
+  background: #e5e7eb;
+  transform: scale(1.05);
+}
+.honey-btn.secondary {
+  background: #fff8dc;
+  color: #7a4e00;
+  border: 1px solid #fcd34d;
+}
+.honey-btn.secondary:hover {
+  background: #fff1b8;
+  transform: scale(1.05);
+}
+.honey-btn:active {
+  filter: brightness(0.95);
+}
+
+.cart-buttons,
+.product-actions {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.cart-buttons {
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* ===== Фокус для кнопок ===== */
+a:focus, button:focus, .honey-btn:focus {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+/* ===== Адаптивність для кнопок ===== */
+@media (max-width: 480px) {
+  .cart-buttons,
+  .product-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .honey-btn {
+    width: 100%;
+    font-size: 18px;
+    padding: 14px;
+  }
+}

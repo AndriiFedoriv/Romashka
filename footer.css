@@ -1,0 +1,109 @@
+/* ===== Футер ===== */
+#footer {
+  background: var(--color-footer-bg);
+  color: var(--color-footer-text);
+  border-top: 2px solid var(--color-accent-light);
+  font-family: inherit;
+  padding: 32px 0 0 0;
+}
+.footer-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 32px;
+}
+.footer-contacts,
+.footer-links,
+.footer-tags,
+.footer-socials {
+  min-width: 180px;
+}
+.footer-links h4,
+.footer-tags h4 {
+  color: var(--color-gold-dark);
+  margin-bottom: 10px;
+}
+.footer-links nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.footer-links a {
+  color: var(--color-footer-text);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover {
+  color: var(--color-gold-dark);
+  text-decoration: underline;
+}
+.footer-bottom-bar {
+  margin-top: 32px;
+  text-align: center;
+  color: var(--color-gold-dark);
+  font-size: 0.95em;
+}
+
+/* ===== Соцмережі ===== */
+.footer-socials.desktop-socials {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.footer-socials.desktop-socials .social-icon img {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.2s, filter 0.2s;
+}
+.footer-socials.desktop-socials .social-icon:hover img {
+  transform: scale(1.15) rotate(5deg);
+  filter: drop-shadow(0 0 6px var(--color-gold));
+}
+.footer-socials.mobile-socials {
+  display: none !important;
+}
+.social-icon img {
+  width: 22px;
+  height: 22px;
+}
+
+/* ===== Адаптивність футера ===== */
+@media (max-width: 700px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  .footer-socials.desktop-socials {
+    display: none !important;
+  }
+  .footer-socials.mobile-socials {
+    display: flex !important;
+    gap: 24px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .footer-socials.mobile-socials .social-icon img {
+    width: 28px;
+    height: 28px;
+  }
+}
+@media (min-width: 701px) {
+  .footer-socials.mobile-socials {
+    display: none !important;
+  }
+  .footer-socials.desktop-socials {
+    display: flex !important;
+  }
+}

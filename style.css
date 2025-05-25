@@ -943,7 +943,7 @@ header {
   /* інші стилі */
 }
 
-.icon-wrapper {
+.header-actions {
   display: flex;
   align-items: center;
   gap: 20px;
@@ -1148,7 +1148,7 @@ a:focus, button:focus, .honey-btn:focus {
     justify-content: space-between;
   }
 
-  .icon-wrapper {
+  .header-actions {
     gap: 10px;
   }
 
@@ -1240,4 +1240,3 @@ a:focus, button:focus, .honey-btn:focus {
   pointer-events: none;
   transition: opacity 0.2s;
 }
-

@@ -1,0 +1,76 @@
+/* ===== Блог ===== */
+.blog-article {
+  background: #fff8ec;
+  border-radius: 10px;
+  margin: 20px 0;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  text-align: left;
+}
+.blog-article h2 {
+  color: var(--color-accent);
+  margin-bottom: 8px;
+}
+.blog-date {
+  font-size: 0.9em;
+  color: #888;
+  margin-bottom: 10px;
+}
+.blog-article details {
+  margin-top: 10px;
+}
+.blog-article img.blog-image {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* ===== Навігація блогу ===== */
+.blog-nav {
+  display: flex;
+  justify-content: space-between;
+  margin: 32px 0 0 0;
+  gap: 10px;
+}
+
+/* ===== Хештеги ===== */
+.hashtags {
+  margin-top: 1rem;
+}
+.hashtag {
+  display: inline-block;
+  background: linear-gradient(90deg, #ffe066 60%, #ffd700 100%);
+  color: var(--color-brown);
+  padding: 0.3em 1em;
+  margin: 0.2em;
+  border-radius: 20px;
+  font-size: 1em;
+  text-decoration: none;
+  font-weight: 500;
+  box-shadow: 0 2px 6px #f5c54222;
+  transition: background 0.3s, color 0.3s, box-shadow 0.2s;
+}
+.hashtag:hover {
+  background: linear-gradient(90deg, #ffd43b 60%, #ffe066 100%);
+  color: var(--color-gold-dark);
+  box-shadow: 0 4px 12px #ffd70044;
+  cursor: pointer;
+}
+
+/* ===== Адаптивність для блогу ===== */
+@media (max-width: 700px) {
+  .blog-article {
+    padding: 12px;
+  }
+  .blog-article img.blog-image {
+    max-width: 100%;
+    margin-bottom: 8px;
+  }
+  .blog-nav {
+    flex-direction: column;
+    gap: 8px;
+    margin: 20px 0 0 0;
+  }
+}

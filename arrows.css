@@ -1,0 +1,54 @@
+/* ===== Стрілки для продуктів і блогу ===== */
+.product-arrow,
+.blog-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1002;
+  background: linear-gradient(135deg, #ffd700 60%, #ff9800 100%);
+  color: #fff;
+  font-size: 2.2rem;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 4px 18px #ffd70044, 0 1.5px 8px #ff980022;
+  opacity: 0.85;
+  border: 2.5px solid #fff;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: 
+    background 0.22s cubic-bezier(.4,0,.2,1),
+    box-shadow 0.22s cubic-bezier(.4,0,.2,1),
+    transform 0.18s cubic-bezier(.4,0,.2,1),
+    opacity 0.18s;
+}
+.product-arrow:hover, .blog-arrow:hover,
+.product-arrow:focus, .blog-arrow:focus {
+  background: linear-gradient(135deg, #ff9800 60%, #ffd700 100%);
+  box-shadow: 0 8px 32px #ffd70066, 0 2px 12px #ff980044;
+  transform: scale(1.12) translateY(-50%);
+  opacity: 1;
+  outline: none;
+}
+.product-arrow-left, .blog-arrow-left { left: 18px; }
+.product-arrow-right, .blog-arrow-right { right: 18px; }
+
+@media (max-width: 700px) {
+  .product-arrow, .blog-arrow {
+    font-size: 1.3rem;
+    width: 36px;
+    height: 36px;
+    opacity: 0.7;
+  }
+  .product-arrow-left, .blog-arrow-left { left: 4px; }
+  .product-arrow-right, .blog-arrow-right { right: 4px; }
+}
+.product-arrow.hidden, .blog-arrow.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}

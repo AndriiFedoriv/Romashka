@@ -2,7 +2,7 @@ const CACHE_NAME = 'medova-legenda-v1';
 const ASSETS = [
   '/',
   '/index.html',
-  '/style.css',
+  '/main.css',
   '/js/script.js',
   '/img/logo_medova_legenda.png',
   '/favicon.ico',

@@ -34,13 +34,20 @@ fetch('blog.json')
                   `).join('')}
                 </div>
               ` : ""}
-              <a href="blog-post.html?title=${encodeURIComponent(prev.title)}" class="blog-arrow blog-arrow-left" aria-label="Попередня стаття">🔙</a>
-              <a href="blog-post.html?title=${encodeURIComponent(next.title)}" class="blog-arrow blog-arrow-right" aria-label="Наступна стаття">🔜</a>
+              <a href="blog-post.html?title=${encodeURIComponent(prev.title)}" class="blog-arrow blog-arrow-left" aria-label="Попередня стаття">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                  <polyline points="15 18 9 12 15 6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a href="blog-post.html?title=${encodeURIComponent(next.title)}" class="blog-arrow blog-arrow-right" aria-label="Наступна стаття">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                  <polyline points="9 6 15 12 9 18" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
             </article>
           `;
           setupHashtagHandlers();
         }
-
         // рендеримо і товари, і статті за тегом
           function renderTagList(tag) {
             const filteredArticles = articles.filter(a => a.hashtags && a.hashtags.includes(tag));
