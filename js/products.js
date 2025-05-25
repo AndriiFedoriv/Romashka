@@ -157,10 +157,33 @@ function renderProducts(products, container, blogCard) {
         `;
       }
     }).join("");
+  // Плавне поетапне появлення
+  const productEls = container.querySelectorAll('.product');
+  productEls.forEach((el, i) => {
     setTimeout(() => {
-      container.style.opacity = "1";
-    }, 50);
-  }, 300);
+      el.classList.add('visible');
+    }, 120 * i); // 120мс затримка між товарами, можна змінити
+  });
+}, 100); // Затримка перед рендером, щоб уникнути мерехтіння
+  container.style.opacity = "1";
+
+  // Якщо це контейнер для товарів, то додаємо клас для стилізації
+  if (container.id === "products-placeholder") {
+    container.classList.add("products-grid");
+  }
+
+  // Якщо це контейнер для статей, то додаємо клас для стилізації
+  if (container.id === "related-products" && blogCard) {
+    const blogCardHtml = `
+      <div class="blog-card">
+        <img src="${blogCard.image}" alt="${blogCard.title}" loading="lazy">
+        <h3>${blogCard.title}</h3>
+        <p>${blogCard.excerpt}</p>
+        <a href="blog-post.html?title=${encodeURIComponent(blogCard.title)}" class="read-more">Читати далі</a>
+      </div>
+    `;
+    container.innerHTML += blogCardHtml;
+  }
 }
 
 // Рендер детальної сторінки товару

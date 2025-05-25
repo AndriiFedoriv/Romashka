@@ -408,9 +408,16 @@ header {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden; 
   text-align: center;
-  transition: transform 0.2s ease;
   text-decoration: none;
   color: inherit;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.product.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .product:hover {
