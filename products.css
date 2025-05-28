@@ -124,32 +124,6 @@
   color: #d80000;
 }
 
-/* ===== Адаптивність для продуктів ===== */
-@media (max-width: 768px) {
-  .product-wrapper {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  }
-  .container {
-    flex-direction: column;
-    padding: 10px;
-  }
-  .main-image, .text {
-    min-width: 0;
-    width: 100%;
-  }
-}
-@media (max-width: 600px) {
-  .product img,
-  .blog-product img {
-    max-height: 120px;
-  }
-}
-@media (max-width: 500px) {
-  .product-wrapper {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  }
-}
-
 /* ===== Темна тема ===== */
 
 html.dark .product,

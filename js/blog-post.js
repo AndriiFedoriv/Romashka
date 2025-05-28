@@ -88,11 +88,19 @@ fetch('blog.json')
 
         // Свайп для мобільних
         let touchStartX = null;
-        document.getElementById('blog-post-content').addEventListener('touchstart', function(e) {
+        let swipeOnHashtags = false;
+        const blogContent = document.getElementById('blog-post-content');
+
+        blogContent.addEventListener('touchstart', function(e) {
           touchStartX = e.changedTouches[0].screenX;
+          swipeOnHashtags = !!e.target.closest('.hashtags');
         });
-        document.getElementById('blog-post-content').addEventListener('touchend', function(e) {
-          if (touchStartX === null) return;
+        blogContent.addEventListener('touchend', function(e) {
+          if (touchStartX === null || swipeOnHashtags) {
+            touchStartX = null;
+            swipeOnHashtags = false;
+            return;
+          }
           let touchEndX = e.changedTouches[0].screenX;
           if (touchEndX - touchStartX > 50) {
             window.location.href = `blog-post.html?title=${encodeURIComponent(prev.title)}`;
@@ -100,6 +108,7 @@ fetch('blog.json')
             window.location.href = `blog-post.html?title=${encodeURIComponent(next.title)}`;
           }
           touchStartX = null;
+          swipeOnHashtags = false;
         });
       });
   });

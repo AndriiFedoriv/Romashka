@@ -38,7 +38,6 @@
   line-height: 18px;
   text-align: center;
   box-shadow: 0 2px 8px #ff174455;
-  /*border: 2px solid #fff;  для контрасту на світлому фоні */
   pointer-events: none;
   display: none;
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
@@ -311,7 +310,9 @@ html.dark #cartCount {
 }
 
 html.dark .toast {
-  background-color: #232323;
-  color: var(--color-gold);
-  box-shadow: 0 2px 8px var(--color-shadow);
+  background-color: #181818;
+  color: var(--color-accent);
+  border: 1.5px solid var(--color-accent);
+  box-shadow: 0 4px 24px #000a, 0 0 0 2px var(--color-accent-light, #f3e389);
+  text-shadow: 0 1px 6px #000a;
 }

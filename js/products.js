@@ -295,9 +295,12 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
       // --- Свайп для мобільних ---
       let touchStartX = null;
       detailContainer.addEventListener('touchstart', function(e) {
+        // Якщо свайп почався на .hashtags — ігноруємо
+        if (e.target.closest('.hashtags')) return;
         touchStartX = e.changedTouches[0].screenX;
       });
       detailContainer.addEventListener('touchend', function(e) {
+        if (e.target.closest('.hashtags')) return;
         if (touchStartX === null) return;
         let touchEndX = e.changedTouches[0].screenX;
         if (touchEndX - touchStartX > 50) {
@@ -307,7 +310,6 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
         }
         touchStartX = null;
       });
-      // --- кінець свайпу ---
     });
 }
 
@@ -359,6 +361,58 @@ function hideArrows() {
 function showArrows() {
   document.querySelectorAll('.product-arrow, .blog-arrow').forEach(el => el.classList.remove('hidden'));
 }
+
+// --- Скрол хештегів ---
+document.addEventListener('DOMContentLoaded', () => {
+  const hashtags = document.querySelectorAll('.hashtags');
+  hashtags.forEach(container => {
+    const tags = container.querySelectorAll('.hashtag');
+    const maxVisible = 4;
+    if (tags.length > maxVisible) {
+      tags.forEach((tag, i) => {
+        if (i >= maxVisible) tag.style.display = 'none';
+      });
+      const moreBtn = document.createElement('button');
+      moreBtn.textContent = `+${tags.length - maxVisible}`;
+      moreBtn.className = 'hashtag-more';
+      moreBtn.onclick = () => {
+        tags.forEach(tag => tag.style.display = '');
+        moreBtn.remove();
+      };
+      container.appendChild(moreBtn);
+    }
+  });
+});
+
+  // --- Захист від випадкового кліку при скролі хештегів ---
+  document.querySelectorAll('.hashtags').forEach(container => {
+    let startX = null;
+    container.addEventListener('touchstart', e => {
+      if (e.touches.length === 1) startX = e.touches[0].clientX;
+    });
+    container.addEventListener('touchend', e => {
+      if (startX !== null && e.changedTouches.length === 1) {
+        const endX = e.changedTouches[0].clientX;
+        if (Math.abs(endX - startX) > 10) {
+          // Якщо був горизонтальний свайп — блокуємо клік
+          container.classList.add('no-click');
+          setTimeout(() => container.classList.remove('no-click'), 300);
+        }
+        startX = null;
+      }
+    });
+  });
+
+  // Блокуємо клік по хештегу, якщо був скрол
+  document.addEventListener('click', e => {
+    if (
+      e.target.classList.contains('hashtag') &&
+      e.target.closest('.hashtags')?.classList.contains('no-click')
+    ) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, true);
 
 // Глобалізація функцій (якщо потрібно)
 window.initProducts = initProducts;

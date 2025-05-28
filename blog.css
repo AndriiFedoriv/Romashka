@@ -59,6 +59,7 @@
   cursor: pointer;
 }
 
+
 /* ===== Адаптивність для блогу ===== */
 @media (max-width: 700px) {
   .blog-article {
