@@ -25,15 +25,18 @@
 }
 
 /* ===== Базові стилі ===== */
+html, body {
+  background: var(--color-bg);
+  transition: background 0.3s;
+}
+
 html {
   scroll-behavior: smooth;
   font-size: 16px;
-  background: var(--color-bg);
 }
 
 body {
   font-family: var(--font-main);
-  background: var(--color-bg);
   color: #333;
   max-width: 1200px;
   margin: 0 auto;
@@ -146,18 +149,19 @@ button:focus, input[type="button"]:focus, input[type="submit"]:focus {
 /* ===== Scrollbar (опціонально) ===== */
 ::-webkit-scrollbar {
   width: 8px;
-  background: #f5f5f5;
+  background: var(--color-bg);
 }
 ::-webkit-scrollbar-thumb {
   background: #ffd70088;
   border-radius: 4px;
 }
+
 /* ===== Головний контент ===== */
 main {
   max-width: 700px;
   margin: 80px auto 32px auto;
   padding: 32px 20px 24px 20px;
-  background: #fffefb;
+  background: var(--color-bg);
   border-radius: 18px;
   box-shadow: 0 4px 24px rgba(255, 215, 0, 0.08), 0 1.5px 8px #ffd70022;
   text-align: center;
@@ -235,7 +239,7 @@ main p {
   max-height: 80vh;
   object-fit: contain;
   border-radius: 14px;
-  background: #fff;
+  background: var(--color-bg);
   box-shadow: 0 4px 24px #ffd70022;
 }
 
@@ -272,4 +276,81 @@ main p {
     top: 8px; right: 12px;
     font-size: 1.5em;
   }
+}
+
+/* ===== Темна тема ===== */
+html.dark {
+  --color-bg: #181818;
+  --color-gold: #ffe066;
+  --color-gold-dark: #bfa13a;
+  --color-brown: #ffe066;
+  --color-accent: #ffd700;
+  --color-accent-light: #f3e389;
+  --color-footer-bg: #222;
+  --color-footer-text: #ffe066;
+  --color-shadow: 0 2px 8px rgba(255,255,255,0.07);
+
+  background: var(--color-bg);
+  color: var(--color-gold);
+}
+
+/* Головний контент */
+html.dark main {
+  background: var(--color-bg);
+  color: var(--color-gold);
+  box-shadow: 0 4px 24px rgba(255, 215, 0, 0.10), 0 1.5px 8px var(--color-shadow);
+  border-radius: 18px;
+}
+
+html.dark main h1 {
+  color: var(--color-accent);
+}
+
+html.dark main p {
+  color: var(--color-gold) !important;
+}
+
+html.dark main a {
+  color: var(--color-accent);
+}
+html.dark main a:hover {
+  color: var(--color-gold-dark);
+}
+
+/* Контейнер */
+html.dark .container {
+  background: var(--color-bg);
+}
+
+/* Модальне вікно */
+html.dark .modal {
+  background: rgba(20,20,20,0.92);
+}
+html.dark .modal-content {
+  background: #232323;
+  color: var(--color-gold);
+}
+html.dark .close {
+  color: var(--color-gold);
+}
+html.dark .close:hover {
+  color: #ff1744;
+}
+
+/* Посилання */
+html.dark a {
+  color: var(--color-gold);
+}
+html.dark a:hover {
+  color: var(--color-accent);
+}
+
+/* Кнопки */
+html.dark button {
+  background: #232323;
+  color: var(--color-gold);
+}
+html.dark button:hover {
+  background: var(--color-accent);
+  color: #232323;
 }

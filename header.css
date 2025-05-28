@@ -95,7 +95,7 @@ header {
   height: 100vh;
   width: 340px;
   max-width: 100vw;
-  background: rgba(255, 255, 255, 0.97);
+  background: var(--color-bg);
   backdrop-filter: blur(12px);
   box-shadow: -8px 0 32px 0 rgba(0,0,0,0.13);
   padding: 70px 32px 32px 32px;
@@ -223,4 +223,90 @@ header {
     border-radius: 0;
     padding: 60px 12px 18px 12px;
   }
+}
+
+/* ===== Темна тема для хедера ===== */
+html.dark header {
+  background: linear-gradient(90deg, #232323 60%, #181818 100%);
+  box-shadow: 0 4px 24px #000a, 0 2px 8px var(--color-shadow);
+  border-bottom: 2px solid var(--color-accent);
+  transition: background 0.3s, box-shadow 0.3s, border-bottom 0.3s;
+}
+
+html.dark .logo {
+  color: var(--color-gold);
+  text-shadow: 0 0 8px var(--color-gold-dark), 0 0 2px #000;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+html.dark .logo:hover {
+  color: var(--color-accent);
+  text-shadow: 0 0 12px var(--color-accent), 0 0 4px #000;
+}
+
+html.dark .cart-icon {
+  color: var(--color-gold);
+  background: #232323;
+  border-radius: 50%;
+  padding: 4px 10px;
+  box-shadow: 0 2px 8px #0004;
+  transition: background 0.3s, color 0.3s;
+}
+
+html.dark .cart-icon:hover {
+  color: var(--color-accent);
+  background: #181818;
+}
+
+html.dark .theme-toggle {
+  background: #232323;
+  color: var(--color-gold);
+  box-shadow: 0 2px 8px var(--color-shadow);
+  border-radius: 50%;
+  border: 1.5px solid var(--color-accent);
+  transition: background 0.3s, color 0.3s, border 0.3s;
+}
+html.dark .theme-toggle:hover,
+html.dark .theme-toggle:focus {
+  background: #333;
+  color: var(--color-accent);
+  border-color: var(--color-gold);
+}
+
+html.dark .burger span {
+  background: var(--color-gold);
+  box-shadow: 0 1px 4px #000a;
+}
+
+html.dark .nav {
+  border-left: 1.5px solid var(--color-accent);
+  background: rgba(30, 30, 30, 0.97);
+  box-shadow: -8px 0 32px 0 var(--color-shadow);
+  backdrop-filter: blur(10px);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+html.dark .nav a {
+  color: var(--color-gold);
+  background: none;
+  transition: color 0.3s, background 0.3s;
+}
+html.dark .nav a:hover,
+html.dark .nav a.active,
+html.dark .nav a[aria-current="page"] {
+  color: var(--color-accent);
+  background: linear-gradient(90deg, var(--color-bg) 60%, #333 100%);
+}
+html.dark .nav a::after {
+  background-color: var(--color-accent);
+}
+html.dark .nav img {
+  filter: brightness(1.2) drop-shadow(0 0 4px var(--color-accent));
+  background: #232323;
+  border-radius: 50%;
+  transition: filter 0.3s, background 0.3s;
+}
+html.dark .nav img:hover {
+  filter: brightness(1.5) drop-shadow(0 0 8px var(--color-accent));
+  background: #181818;
 }

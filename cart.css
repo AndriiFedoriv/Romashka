@@ -58,7 +58,7 @@
   width: 96vw;
   max-width: 580px;
   max-height: 88vh;
-  background: #fffefb;
+  background: var(--color-bg);
   padding: 28px 18px 22px 18px;
   border: 2.5px solid #ffd700;
   border-radius: 18px;
@@ -161,7 +161,7 @@
   border: 1px solid #deb887;
   border-radius: 6px;
   font-size: 16px;
-  background: #fffefb;
+  background: var(--color-bg);
 }
 #orderForm button {
   width: 48%;
@@ -242,4 +242,76 @@
     flex-direction: column;
     gap: 10px;
   }
+}
+
+/* Темна тема для корзини */
+html.dark #cartModal {
+  background: var(--color-bg);
+  border-color: var(--color-accent);
+  color: var(--color-gold);
+  box-shadow: 0 8px 32px var(--color-shadow), 0 2px 12px var(--color-shadow);
+}
+
+html.dark .cart-overlay {
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(3px);
+}
+
+html.dark #cartModal .close {
+  color: var(--color-accent);
+}
+html.dark #cartModal .close:hover {
+  color: #ff1744;
+}
+
+html.dark #cartModal h2,
+html.dark #cartModal h3 {
+  color: var(--color-accent);
+}
+
+html.dark #cartItems div {
+  border-bottom: 1px dashed #444;
+}
+
+html.dark #cartItems button {
+  color: var(--color-accent);
+}
+html.dark #cartItems button:hover {
+  color: #ff1744;
+}
+
+html.dark #orderForm input {
+  background: #232323;
+  color: var(--color-gold);
+  border: 1px solid var(--color-accent);
+}
+html.dark #orderForm input::placeholder {
+  color: #aaa;
+}
+
+html.dark #orderForm button {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+html.dark #orderForm button:last-of-type {
+  background: #444;
+  color: var(--color-gold);
+}
+
+html.dark .cart-buttons {
+  background: transparent;
+}
+
+html.dark .cart-icon span,
+html.dark #cartCount {
+  background: linear-gradient(135deg, #91012e 60%, #f7447d 100%);
+  color: #fff;
+  border: 2px solid var(--color-bg);
+  box-shadow: 0 2px 8px #91012e55;
+}
+
+html.dark .toast {
+  background-color: #232323;
+  color: var(--color-gold);
+  box-shadow: 0 2px 8px var(--color-shadow);
 }

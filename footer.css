@@ -107,3 +107,57 @@
     display: flex !important;
   }
 }
+
+/* Темна тема */
+html.dark #footer {
+  background: var(--color-bg);
+  color: var(--color-gold);
+  border-top: 2px solid var(--color-accent);
+}
+
+html.dark .footer-links h4,
+html.dark .footer-tags h4 {
+  color: var(--color-accent);
+}
+
+html.dark .footer-links a {
+  color: var(--color-gold);
+}
+html.dark .footer-links a:hover {
+  color: var(--color-accent);
+}
+
+html.dark .footer-bottom-bar {
+  color: var(--color-accent-light);
+}
+
+html.dark .footer-socials .social-icon img {
+  filter: brightness(1.2) drop-shadow(0 0 6px var(--color-accent));
+  background: #232323;
+  border-radius: 50%;
+}
+
+html.dark .footer-socials .social-icon:hover img {
+  filter: brightness(1.5) drop-shadow(0 0 10px var(--color-accent));
+}
+
+html.dark .footer-contacts,
+html.dark .footer-links,
+html.dark .footer-tags,
+html.dark .footer-socials {
+  color: var(--color-gold);
+}
+
+html.dark .footer-tags a {
+  background: linear-gradient(90deg, var(--color-accent-light) 60%, var(--color-accent) 100%);
+  color: #232323;
+  box-shadow: 0 2px 6px var(--color-shadow);
+  border-radius: 20px;
+  transition: background 0.3s, color 0.3s, box-shadow 0.2s;
+}
+html.dark .footer-tags a:hover {
+  background: linear-gradient(90deg, var(--color-accent) 60%, var(--color-accent-light) 100%);
+  color: var(--color-bg);
+  box-shadow: 0 4px 12px var(--color-accent);
+  cursor: pointer;
+}

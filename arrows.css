@@ -52,3 +52,34 @@
   pointer-events: none;
   transition: opacity 0.2s;
 }
+
+/* ===== Темна тема ===== */
+
+html.dark .product-arrow,
+html.dark .blog-arrow {
+  background: linear-gradient(135deg, #444 60%, #222 100%);
+  color: var(--color-gold, #ffe066);
+  border: 2.5px solid #232323;
+  box-shadow: 0 4px 18px #000a, 0 1.5px 8px #ffd70022;
+}
+
+html.dark .product-arrow:hover,
+html.dark .blog-arrow:hover,
+html.dark .product-arrow:focus,
+html.dark .blog-arrow:focus {
+  background: linear-gradient(135deg, #232323 60%, #444 100%);
+  box-shadow: 0 8px 32px #ffd70033, 0 2px 12px #000a;
+  color: var(--color-accent, #ffd700);
+}
+
+html.dark .product-arrow-left,
+html.dark .blog-arrow-left {
+  border: 2.5px solid var(--color-accent, #ffd700);
+  box-shadow: 0 0 12px 2px var(--color-accent, #ffd700);
+}
+
+html.dark .product-arrow-right,
+html.dark .blog-arrow-right {
+  border: 2.5px solid var(--color-accent, #ffd700);
+  box-shadow: 0 0 12px 2px var(--color-accent, #ffd700);
+}

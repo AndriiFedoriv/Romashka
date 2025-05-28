@@ -72,14 +72,14 @@
 }
 
 .back-button {
-  background: #f5f5f5;
+  background: var(--color-bg);
   color: #333;
   gap: 8px;
   padding: 10px 18px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 .back-button:hover {
-  background: #e0e0e0;
+  background: var(--color-bg);
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
@@ -159,4 +159,76 @@ a:focus, button:focus, .honey-btn:focus {
     font-size: 18px;
     padding: 14px;
   }
+}
+
+/* ===== Темна тема ===== */
+html.dark .catalog-button {
+  background: linear-gradient(135deg, var(--color-bg), var(--color-accent));
+  color: var(--color-gold);
+  box-shadow: 0 4px 10px var(--color-shadow);
+}
+html.dark .catalog-button:hover {
+  background: linear-gradient(135deg, var(--color-accent), var(--color-bg));
+  color: var(--color-accent-light);
+}
+html.dark .catalog-button:active {
+  background: var(--color-bg);
+  color: var(--color-accent);
+}
+
+html.dark .rozetka-button {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+html.dark .rozetka-button:hover {
+  background: var(--color-gold-dark);
+  color: var(--color-bg);
+  box-shadow: 0 4px 12px var(--color-shadow);
+}
+
+html.dark .instagram-button {
+  background: linear-gradient(45deg, #444, #232323, #181818);
+  color: var(--color-gold);
+}
+html.dark .instagram-button:hover {
+  background: linear-gradient(45deg, var(--color-accent), var(--color-accent-light));
+  color: var(--color-bg);
+}
+
+html.dark .back-button {
+  background: var(--color-bg);
+  color: var(--color-gold);
+  box-shadow: 0 2px 6px var(--color-shadow);
+}
+html.dark .back-button:hover {
+  background: var(--color-accent-light);
+  color: var(--color-bg);
+  box-shadow: 0 4px 10px var(--color-shadow);
+}
+
+html.dark .honey-btn {
+  background: linear-gradient(to right, var(--color-accent-light), var(--color-accent));
+  color: var(--color-bg);
+  box-shadow: 0 4px 6px var(--color-shadow);
+}
+html.dark .honey-btn:hover {
+  background: linear-gradient(to right, var(--color-accent), var(--color-accent-light));
+  color: var(--color-gold);
+}
+html.dark .honey-btn.cancel {
+  background: #232323;
+  color: var(--color-accent-light);
+}
+html.dark .honey-btn.cancel:hover {
+  background: #181818;
+  color: var(--color-accent);
+}
+html.dark .honey-btn.secondary {
+  background: #232323;
+  color: var(--color-gold);
+  border: 1px solid var(--color-accent);
+}
+html.dark .honey-btn.secondary:hover {
+  background: #181818;
+  color: var(--color-accent);
 }

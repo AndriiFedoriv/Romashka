@@ -14,6 +14,50 @@ document.addEventListener("DOMContentLoaded", () => {
   // Підсвітити активне посилання меню
   if (typeof highlightActiveLink === "function") highlightActiveLink();
 
+  // перемикання теми
+function initThemeSwitcher() {
+  const themeBtn = document.getElementById('themeToggleBtn');
+  const themeIcon = themeBtn?.querySelector('.theme-icon');
+
+  // Встановлення теми
+  function setTheme(theme) {
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    if (themeIcon) themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    if (theme === 'auto') {
+      localStorage.removeItem('theme');
+    } else {
+      localStorage.setItem('theme', theme);
+    }
+  }
+
+  // Отримати тему (з localStorage або системи)
+  function getPreferredTheme() {
+    const stored = localStorage.getItem('theme');
+    if (stored) return stored;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  // Початкова ініціалізація
+  const initialTheme = getPreferredTheme();
+  setTheme(initialTheme);
+
+  // Слухач зміни системної теми
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+      setTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+
+  // Клік по кнопці – перемикання теми
+  if (themeBtn) {
+    themeBtn.onclick = () => {
+      const current = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    };
+  }
+}
+window.initThemeSwitcher = initThemeSwitcher;
+
   // Оновити лічильник кошика, коли елемент з'явиться
   const tryUpdateCartCount = () => {
     const el = document.getElementById("cartCount");

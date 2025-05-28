@@ -9,6 +9,7 @@ function initHeader() {
       const headerPlaceholder = document.getElementById("header-placeholder");
       if (headerPlaceholder) {
         headerPlaceholder.innerHTML = html;
+        if (typeof initThemeSwitcher === "function") initThemeSwitcher();
         setupHeaderBehavior();
         initProductLinks();
       }
