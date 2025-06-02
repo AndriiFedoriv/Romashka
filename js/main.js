@@ -52,7 +52,7 @@ document.body.addEventListener('click', function(e) {
 function updateLangIcon(lang) {
   const langBtn = document.querySelector('.lang-toggle');
   if (langBtn) {
-    langBtn.querySelector('.lang-icon').textContent = lang === 'uk' ? 'UA' : 'GB';
+    langBtn.querySelector('.lang-icon').textContent = lang === 'uk' ? 'укр' : 'en';
   }
 }
 
