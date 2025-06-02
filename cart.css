@@ -152,6 +152,12 @@
   color: #ffd700;
 }
 
+.cart-total,
+#cartModal .cart-total {
+  color: #b30000;
+  font-weight: bold;
+}
+
 /* Форма замовлення */
 #orderForm input {
   width: 100%;

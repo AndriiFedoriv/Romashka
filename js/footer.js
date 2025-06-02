@@ -18,9 +18,13 @@ function initFooter() {
 function loadFooterTags() {
   (async function() {
     try {
+      const lang = localStorage.getItem('lang') || 'uk';
+      const productsFile = lang === 'en' ? 'products-en.json' : 'products.json';
+      const blogFile = lang === 'en' ? 'blog-en.json' : 'blog.json';
+
       const [products, articles] = await Promise.all([
-        fetch('products.json').then(r => r.json()),
-        fetch('blog.json').then(r => r.json())
+        fetch(productsFile).then(r => r.json()),
+        fetch(blogFile).then(r => r.json())
       ]);
       const tagsCount = {};
       products.forEach(p => (p.hashtags || []).forEach(tag => tagsCount[tag] = (tagsCount[tag] || 0) + 1));
@@ -41,8 +45,7 @@ function loadFooterTags() {
       const tagsList = document.getElementById('footer-tags-list');
       if (tagsList) {
         tagsList.innerHTML = mixedTags
-.map(tag => {
-            // Гарантуємо, що тег має тільки один # на початку
+          .map(tag => {
             let cleanTag = tag && typeof tag === 'string' ? tag.replace(/^#+/, '').trim() : '';
             if (!cleanTag) return '';
             const tagWithHash = `#${cleanTag}`;
@@ -55,7 +58,10 @@ function loadFooterTags() {
       const tagsList = document.getElementById('footer-tags-list');
       if (tagsList) {
         tagsList.innerHTML = [
-          '#мед', '#горіхи', "#здоров'я", '#рецепти'
+          lang === 'en' ? '#honey' : '#мед',
+          lang === 'en' ? '#nuts' : '#горіхи',
+          lang === 'en' ? "#health" : "#здоров'я",
+          lang === 'en' ? '#recipes' : '#рецепти'
         ].map(tag => {
           const cleanTag = tag.replace(/^#+/, '');
           const tagWithHash = `#${cleanTag}`;

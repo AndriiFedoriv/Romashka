@@ -1,46 +1,50 @@
 <header>
-  <a href="index.html" class="logo">🍯 Медова Легенда</a>
-    <div class="header-actions">
+  <a href="index.html" class="logo" data-i18n="site_title">🍯 Медова Легенда</a>
+  <div class="header-actions">
 
-      <div class="cart-icon" onclick="openCart()">
-        🛒<span id="cartCount">0</span>
-      </div>
-      
-    <button id="themeToggleBtn" class="theme-toggle" aria-label="Перемкнути тему">
+    <div class="cart-icon" onclick="openCart()">
+      🛒<span id="cartCount">0</span>
+    </div>
+    
+    <button id="themeToggleBtn" class="theme-toggle" aria-label="Перемкнути тему" data-i18n-aria="theme_toggle">
       <span class="theme-icon">🌙</span>
     </button>
 
-      <div class="burger" id="burger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+    <!-- Перемикач мови -->
+    <button class="lang-toggle" type="button" aria-label="Змінити мову">
+      <span class="lang-icon">🇺🇦</span>
+    </button>
+
+    <div class="burger" id="burger">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
+  </div>
 </header>
 
 <nav class="nav" id="navLinks">
-  <a href="index.html">🏠 Головна</a>
+  <a href="index.html" data-i18n="footer_home">🏠 Головна</a>
 
   <div class="products-dropdown">
-    <button id="toggle-products" class="catalog-button">🍯 Медовий каталог</button>
+    <button id="toggle-products" class="catalog-button" data-i18n="catalog_button">🍯 Медовий каталог</button>
     <div id="products-links" style="display: none;"></div>
   </div>
 
-  <a href="blog.html">📝 Медовий Блог</a>
-  <a href="about-us.html">👨‍🌾 Про нас</a>
-  <a href="#footer">📞 Контакти</a>
-  <a href="privacy.html">🔒 Політика конфіденційності</a>
-  <a href="terms.html">📄 Умови використання</a>
+  <a href="blog.html" data-i18n="footer_blog">📝 Медовий Блог</a>
+  <a href="about-us.html" data-i18n="footer_about">👨‍🌾 Про нас</a>
+  <a href="#footer" data-i18n="header_contacts">📞 Контакти</a>
+  <a href="privacy.html" data-i18n="footer_privacy">🔒 Політика конфіденційності</a>
+  <a href="terms.html" data-i18n="footer_terms">📄 Умови використання</a>
 
-  <a href="https://rozetka.com.ua/" class="nav-link-with-icon" target="_blank">
+  <a href="https://rozetka.com.ua/" class="nav-link-with-icon" target="_blank" data-i18n="nav_rozetka">
     <img src="img/rozetkaSmile.webp" alt="Rozetka" loading="lazy"> Ми на Розетці
   </a>
 
-  <a href="https://www.instagram.com/medova.legenda" class="nav-link-with-icon" target="_blank">
+  <a href="https://www.instagram.com/medova.legenda" class="nav-link-with-icon" target="_blank" data-i18n="nav_instagram">
     <img src="img/Instagram_icon.webp" alt="Instagram" loading="lazy"> Ми в Instagram
   </a>
 </nav>
 
 <div class="overlay" id="overlay"></div>
-
 <div id="toast" class="toast"></div>

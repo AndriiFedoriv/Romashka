@@ -1,5 +1,7 @@
 // Ініціалізація товарів: рендер, фільтрація, деталі, хештеги, модалки
 function initProducts() {
+  const lang = localStorage.getItem('lang') || 'uk';
+  const blogFile = lang === 'en' ? 'blog-en.json' : 'blog.json';
   const productContainer = document.getElementById("products-placeholder");
   const productDetail = document.getElementById("product-detail");
   const relatedContainer = document.getElementById("related-products");
@@ -15,35 +17,37 @@ function initProducts() {
     return;
   }
 
-  fetch("/products.json")
-    .then(res => {
-      if (!res.ok) throw new Error("Помилка завантаження products.json");
-      return res.json();
-    })
+  fetch(window.productsFile || "products.json")
+    .then(res => res.json())
     .then(products => {
-      fetch("/blog.json")
+      if (!Array.isArray(products)) products = [];
+      fetch(blogFile)
         .then(res => res.json())
         .then(articles => {
-          const randomArticle = articles[Math.floor(Math.random() * articles.length)];
-          const insertIndex = Math.floor(Math.random() * (products.length + 1));
-          const blogCard = {
-            isBlog: true,
-            title: randomArticle.title,
-            date: randomArticle.date,
-            image: randomArticle.image,
-            excerpt: randomArticle.excerpt,
-            content: randomArticle.content
-          };
-          const productsWithBlog = [...products];
-          productsWithBlog.splice(insertIndex, 0, blogCard);
+          if (!Array.isArray(articles)) articles = [];
+          // Вставка однієї випадкової статті блогу у список товарів
+          let productsWithBlog = [...products];
+          if (articles.length > 0) {
+            const randomArticle = articles[Math.floor(Math.random() * articles.length)];
+            const insertIndex = Math.floor(Math.random() * (products.length + 1));
+            const blogCard = {
+              isBlog: true,
+              title: randomArticle.title,
+              date: randomArticle.date,
+              image: randomArticle.image,
+              excerpt: randomArticle.excerpt,
+              content: randomArticle.content
+            };
+            productsWithBlog.splice(insertIndex, 0, blogCard);
+          }
 
           if (productContainer) {
             let filtered;
             if (tag) {
               // Фільтруємо і товари, і статті
-              const filteredProducts = products.filter(p => p.hashtags?.includes(tag));
+              const filteredProducts = products.filter(p => Array.isArray(p.hashtags) && p.hashtags.includes(tag));
               const filteredArticles = articles
-                .filter(a => a.hashtags?.includes(tag))
+                .filter(a => Array.isArray(a.hashtags) && a.hashtags.includes(tag))
                 .map(article => ({
                   isBlog: true,
                   title: article.title,
@@ -56,7 +60,7 @@ function initProducts() {
             } else {
               filtered = productsWithBlog;
             }
-            renderProducts(filtered, productContainer, blogCard);
+            renderProducts(filtered, productContainer);
           }
 
           if (productDetail) {
@@ -73,20 +77,17 @@ function initProducts() {
           // Обробка кліків по хештегах
           document.addEventListener("click", e => {
             if (e.target.classList.contains("hashtag")) {
-              // Якщо є data-tag (тобто це не футер, а картка товару/статті)
               if (e.target.hasAttribute("data-tag")) {
                 e.preventDefault();
                 let selectedTag = e.target.dataset.tag;
                 saveRecentTag(selectedTag);
 
-                // Якщо на сторінці детального перегляду товару — редірект на index.html
                 if (document.getElementById("product-detail")) {
                   window.location.href = `index.html?tag=${encodeURIComponent(selectedTag)}`;
                 } else {
-                  // SPA-фільтрація на index.html
-                  const filteredProducts = products.filter(p => (p.hashtags || []).includes(selectedTag));
+                  const filteredProducts = products.filter(p => Array.isArray(p.hashtags) && p.hashtags.includes(selectedTag));
                   const filteredArticles = articles
-                    .filter(a => (a.hashtags || []).includes(selectedTag))
+                    .filter(a => Array.isArray(a.hashtags) && a.hashtags.includes(selectedTag))
                     .map(article => ({
                       isBlog: true,
                       title: article.title,
@@ -99,13 +100,10 @@ function initProducts() {
                   if (productContainer) renderProducts(filtered, productContainer);
                   history.pushState({ tag: selectedTag }, "", `?tag=${encodeURIComponent(selectedTag)}`);
                 }
-              }
-              // Якщо це футер (немає data-tag) — стандартний перехід, але збережемо тег для "останні використані"
-              else {
+              } else {
                 let selectedTag = e.target.textContent.replace(/^#/, '').trim();
                 selectedTag = '#' + selectedTag;
                 saveRecentTag(selectedTag);
-                // Не викликаємо e.preventDefault() — стандартний перехід!
               }
             }
           });
@@ -113,9 +111,9 @@ function initProducts() {
           window.addEventListener("popstate", e => {
             const poppedTag = e.state?.tag;
             if (poppedTag) {
-              const filteredProducts = products.filter(p => p.hashtags?.includes(poppedTag));
+              const filteredProducts = products.filter(p => Array.isArray(p.hashtags) && p.hashtags.includes(poppedTag));
               const filteredArticles = articles
-                .filter(a => a.hashtags?.includes(poppedTag))
+                .filter(a => Array.isArray(a.hashtags) && a.hashtags.includes(poppedTag))
                 .map(article => ({
                   isBlog: true,
                   title: article.title,
@@ -125,17 +123,34 @@ function initProducts() {
                   content: article.content
                 }));
               const filtered = [...filteredProducts, ...filteredArticles];
-              if (productContainer) renderProducts(filtered, productContainer, blogCard);
+              if (productContainer) renderProducts(filtered, productContainer);
             } else {
-              if (productContainer) renderProducts(productsWithBlog, productContainer, blogCard);
+              if (productContainer) renderProducts(productsWithBlog, productContainer);
             }
           });
         });
     });
 }
 
+//  функція для застосування перекладу до нових елементів
+function applyTranslations() {
+  const lang = localStorage.getItem('lang') || 'uk';
+  fetch(`lang/${lang}.json`)
+    .then(res => res.json())
+    .then(dict => {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) el.innerHTML = dict[key];
+      });
+      document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+        const key = el.getAttribute('data-i18n-aria');
+        if (dict[key]) el.setAttribute('aria-label', dict[key]);
+      });
+    });
+}
+
 // Рендер списку товарів/статей
-function renderProducts(products, container, blogCard) {
+function renderProducts(products, container) {
   container.style.opacity = "0";
   setTimeout(() => {
     container.innerHTML = products.map(product => {
@@ -157,42 +172,27 @@ function renderProducts(products, container, blogCard) {
         `;
       }
     }).join("");
-  // Плавне поетапне появлення
-  const productEls = container.querySelectorAll('.product');
-  productEls.forEach((el, i) => {
-    setTimeout(() => {
-      el.classList.add('visible');
-    }, 120 * i); // 120мс затримка між товарами, можна змінити
-  });
-}, 100); // Затримка перед рендером, щоб уникнути мерехтіння
-  container.style.opacity = "1";
-
-  // Якщо це контейнер для товарів, то додаємо клас для стилізації
-  if (container.id === "products-placeholder") {
-    container.classList.add("products-grid");
-  }
-
-  // Якщо це контейнер для статей, то додаємо клас для стилізації
-  if (container.id === "related-products" && blogCard) {
-    const blogCardHtml = `
-      <div class="blog-card">
-        <img src="${blogCard.image}" alt="${blogCard.title}" loading="lazy">
-        <h3>${blogCard.title}</h3>
-        <p>${blogCard.excerpt}</p>
-        <a href="blog-post.html?title=${encodeURIComponent(blogCard.title)}" class="read-more">Читати далі</a>
-      </div>
-    `;
-    container.innerHTML += blogCardHtml;
-  }
+    // Плавне поетапне появлення
+    const productEls = container.querySelectorAll('.product');
+    productEls.forEach((el, i) => {
+      setTimeout(() => {
+        el.classList.add('visible');
+      }, 120 * i);
+    });
+    container.style.opacity = "1";
+    if (container.id === "products-placeholder") {
+      container.classList.add("products-grid");
+    }
+  }, 100);
 }
 
-// Рендер детальної сторінки товару
+// Рендер детальної сторінки товару з data-i18n для підписів
 function renderProductDetail(product, detailContainer, modalsPlaceholder) {
   const mainImage = product.images?.[0] || product.img;
   const additionalImages = product.images?.slice(1) || [];
   const allImages = [product.img, ...(product.images || [])];
 
-  fetch('/products.json')
+  fetch(window.productsFile || "products.json")
     .then(res => res.json())
     .then(products => {
       const idx = products.findIndex(p => p.url === product.url);
@@ -202,12 +202,12 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
       const next = products[nextIdx];
 
       detailContainer.innerHTML = `
-        <a href="${prev.url}" class="product-arrow product-arrow-left" aria-label="Попередній товар">
+        <a href="${prev.url}" class="product-arrow product-arrow-left" aria-label="Попередній товар" data-i18n-aria="prev_product">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
             <polyline points="15 18 9 12 15 6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
-        <a href="${next.url}" class="product-arrow product-arrow-right" aria-label="Наступний товар">
+        <a href="${next.url}" class="product-arrow product-arrow-right" aria-label="Наступний товар" data-i18n-aria="next_product">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
             <polyline points="9 6 15 12 9 18" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -227,10 +227,10 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
             </div>
           </div>
           <div class="text">
-            <p><strong>Вага:</strong> ${product.weight || "470"} <i>грамів</i></p>
-            <p><strong>Склад:</strong> ${product.ingredients || "Натуральний мед, горішки"}</p>
-            <p><strong>Опис:</strong> ${product.description}</p>
-            <h3>Переваги:</h3>
+            <p><strong data-i18n="weight">Вага:</strong> ${product.weight || "470"} <i data-i18n="grams">грамів</i></p>
+            <p><strong data-i18n="ingredients">Склад:</strong> ${product.ingredients || "Натуральний мед, горішки"}</p>
+            <p><strong data-i18n="description">Опис:</strong> ${product.description}</p>
+            <h3 data-i18n="benefits">Переваги:</h3>
             <ul>
               ${(product.benefits || [
                 "Натуральний продукт",
@@ -250,8 +250,8 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
             <div class="price-section">
               ${product.oldPrice ? `
                 <p class="price">
-                  <span class="old-price">${product.oldPrice} грн</span>
-                  <span class="new-price">${product.price} грн</span>
+                  <span class="old-price">${product.oldPrice} <span data-i18n="currency">грн</span></span>
+                  <span class="new-price">${product.price} <span data-i18n="currency">грн</span></span>
                 </p>
               ` : `
                 <p class="price">
@@ -259,18 +259,18 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
                 </p>
               `}
               <div class="product-actions">
-                <button class="honey-btn" onclick='addToCart({name: "${product.name}", price: "${product.price}"})'>Додати до кошика</button>
-                <button class="honey-btn secondary" onclick='openCart()'>Відкрити кошик</button>
+                <button class="honey-btn" onclick='addToCart({url: "${product.url}", price: "${product.price}"})' data-i18n="add_to_cart">Додати до кошика</button>
+                <button class="honey-btn secondary" onclick='openCart()' data-i18n="open_cart">Відкрити кошик</button>
               </div>
             </div>
             <p>
-              <a href="${product.buyLink || 'https://rozetka.com.ua/'}" class="rozetka-button" target="_blank">
+              <a href="${product.buyLink || 'https://rozetka.com.ua/'}" class="rozetka-button" target="_blank" data-i18n="buy_on_rozetka">
                 <img src="img/rozetkaSmile.webp" alt="Купити на Rozetka" loading="lazy">
                 Купити на Rozetka
               </a>
             </p>
             <p>
-              <a href="${product.instagram || 'https://instagram.com/'}" class="instagram-button" target="_blank">
+              <a href="${product.instagram || 'https://instagram.com/'}" class="instagram-button" target="_blank" data-i18n="we_are_on_instagram">
                 <img src="img/Instagram_icon.webp" alt="Ми в Instagram" loading="lazy">
                 Ми в Instagram
               </a>
@@ -278,6 +278,7 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
           </div>
         </div>
       `;
+      applyTranslations();
 
       if (modalsPlaceholder) {
         modalsPlaceholder.innerHTML = allImages.map((img, i) => `
@@ -295,7 +296,6 @@ function renderProductDetail(product, detailContainer, modalsPlaceholder) {
       // --- Свайп для мобільних ---
       let touchStartX = null;
       detailContainer.addEventListener('touchstart', function(e) {
-        // Якщо свайп почався на .hashtags — ігноруємо
         if (e.target.closest('.hashtags')) return;
         touchStartX = e.changedTouches[0].screenX;
       });
@@ -331,7 +331,6 @@ function setupModals() {
     modal.querySelector(".modal-overlay")?.addEventListener("click", close);
     modal.querySelector(".close")?.addEventListener("click", close);
 
-    // Додаємо закриття по кліку на фон (сам .modal)
     modal.addEventListener("click", function(e) {
       if (e.target === modal) {
         close(e);
@@ -384,35 +383,34 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-  // --- Захист від випадкового кліку при скролі хештегів ---
-  document.querySelectorAll('.hashtags').forEach(container => {
-    let startX = null;
-    container.addEventListener('touchstart', e => {
-      if (e.touches.length === 1) startX = e.touches[0].clientX;
-    });
-    container.addEventListener('touchend', e => {
-      if (startX !== null && e.changedTouches.length === 1) {
-        const endX = e.changedTouches[0].clientX;
-        if (Math.abs(endX - startX) > 10) {
-          // Якщо був горизонтальний свайп — блокуємо клік
-          container.classList.add('no-click');
-          setTimeout(() => container.classList.remove('no-click'), 300);
-        }
-        startX = null;
-      }
-    });
+// --- Захист від випадкового кліку при скролі хештегів ---
+document.querySelectorAll('.hashtags').forEach(container => {
+  let startX = null;
+  container.addEventListener('touchstart', e => {
+    if (e.touches.length === 1) startX = e.touches[0].clientX;
   });
-
-  // Блокуємо клік по хештегу, якщо був скрол
-  document.addEventListener('click', e => {
-    if (
-      e.target.classList.contains('hashtag') &&
-      e.target.closest('.hashtags')?.classList.contains('no-click')
-    ) {
-      e.preventDefault();
-      e.stopPropagation();
+  container.addEventListener('touchend', e => {
+    if (startX !== null && e.changedTouches.length === 1) {
+      const endX = e.changedTouches[0].clientX;
+      if (Math.abs(endX - startX) > 10) {
+        container.classList.add('no-click');
+        setTimeout(() => container.classList.remove('no-click'), 300);
+      }
+      startX = null;
     }
-  }, true);
+  });
+});
+
+// Блокуємо клік по хештегу, якщо був скрол
+document.addEventListener('click', e => {
+  if (
+    e.target.classList.contains('hashtag') &&
+    e.target.closest('.hashtags')?.classList.contains('no-click')
+  ) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+}, true);
 
 // Глобалізація функцій (якщо потрібно)
 window.initProducts = initProducts;

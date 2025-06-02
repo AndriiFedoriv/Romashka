@@ -310,3 +310,48 @@ html.dark .nav img:hover {
   filter: brightness(1.5) drop-shadow(0 0 8px var(--color-accent));
   background: #181818;
 }
+
+.lang-toggle {
+  background: none;
+  border: none;
+  color: var(--color-accent, #ffd700);
+  cursor: pointer;
+  padding: 0 6px;
+  border-radius: 6px;
+  font-size: 1.5rem;
+  min-width: 2.2em;
+  min-height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  transition: color 0.2s;
+}
+.lang-toggle:hover, .lang-toggle:focus {
+  color: var(--color-accent, #ffd700);
+  outline: none;
+  border: none;
+  /* Додаємо легку тінь для видимості */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+html.dark .lang-toggle {
+  color: var(--color-gold, #ffd700);
+  background: none;
+  border: none;
+}
+html.dark .lang-toggle:hover, html.dark .lang-toggle:focus {
+  color: var(--color-accent, #ffd700);
+  background: none;
+  border: none;
+}
+.lang-icon {
+  font-size: 1.5em;
+  width: 1.7em;
+  height: 1.7em;
+  line-height: 1.7em;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  transition: color 0.2s;
+}

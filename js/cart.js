@@ -6,19 +6,19 @@ function insertCartModal() {
     <div id="cartOverlay" class="cart-overlay">
       <div id="cartModal" class="cart-modal">
         <button class="close" onclick="closeCart()">&times;</button>
-        <h2>🛒 Ваш кошик</h2>
+        <h2 data-i18n="cart_title">🛒 Ваш кошик</h2>
         <div id="cartItems" class="cart-items"></div>
-        <p class="cart-total"><span id="totalPrice">0 грн</span></p>
+        <p class="cart-total"><span id="totalPrice"><span data-i18n="cart_total">Разом:</span> 0 <span data-i18n="currency">грн</span></span></p>
         <hr>
-        <h3>📦 Інформація про замовника</h3>
+        <h3 data-i18n="cart_customer_info">📦 Інформація про замовника</h3>
         <form id="orderForm" autocomplete="on">
-          <input type="text" id="customerName" placeholder="Ім’я та Прізвище" required>
-          <input type="tel" id="customerPhone" placeholder="Номер телефону" required pattern="^\\+?[\\d\\s\\-]{10,15}$">
-          <input type="text" id="customerCity" placeholder="Місто" required>
-          <input type="text" id="customerAddress" placeholder="Номер відділення" required>
-          <div class="cart-buttons">
-            <button type="button" class="honey-btn" onclick="sendOrder()">🍯 Замовити</button>
-            <button type="button" class="honey-btn cancel" onclick="closeCart()">❌ Закрити</button>
+        <input type="text" id="customerName" placeholder="Ім’я та Прізвище" data-i18n-placeholder="cart_name" required>
+        <input type="tel" id="customerPhone" placeholder="Номер телефону" data-i18n-placeholder="cart_phone" required pattern="^\\+?[\\d\\s\\-]{10,15}$">
+        <input type="text" id="customerCity" placeholder="Місто" data-i18n-placeholder="cart_city" required>
+        <input type="text" id="customerAddress" placeholder="Номер відділення" data-i18n-placeholder="cart_address" required>
+        <div class="cart-buttons">
+            <button type="button" class="honey-btn" onclick="sendOrder()" data-i18n="cart_order_btn">🍯 Замовити</button>
+            <button type="button" class="honey-btn cancel" onclick="closeCart()" data-i18n="cart_close_btn">❌ Закрити</button>
           </div>    
         </form>
       </div>
@@ -37,6 +37,16 @@ function insertCartModal() {
   document.getElementById("cartOverlay").addEventListener("click", function(e) {
     if (e.target === this) closeCart();
   });
+}
+
+// Отримати переклад з langDict у localStorage
+function getTranslation(key, fallback = "") {
+  try {
+    const dict = JSON.parse(localStorage.getItem('langDict') || '{}');
+    return dict[key] || fallback;
+  } catch {
+    return fallback;
+  }
 }
 
 // Відновлення даних форми
@@ -64,28 +74,36 @@ function openCart() {
     return;
   }
 
-  cartItems.innerHTML = "";
-  let total = 0;
+  // Підтягуємо актуальні назви з products.json/products-en.json
+  fetch(window.productsFile || "products.json")
+    .then(res => res.json())
+    .then(products => {
+      cartItems.innerHTML = "";
+      let total = 0;
+      const currency = getTranslation('currency', 'грн');
 
-  cart.forEach((item, i) => {
-    const itemTotal = item.price * item.quantity;
-    total += itemTotal;
-    cartItems.innerHTML += `
-      <div>
-        <strong>${item.name}</strong> — ${item.price} грн × ${item.quantity} = ${itemTotal} грн
-        <span class="cart-actions">
-          <button onclick="decreaseQuantity(${i})">➖</button>
-          <button onclick="increaseQuantity(${i})">➕</button>
-          <button onclick="removeItem(${i})">🗑️</button>
-        </span>
-      </div>`;
-  });
+      cart.forEach((item, i) => {
+        const prod = products.find(p => p.url === item.url);
+        const name = prod ? prod.name : getTranslation('cart_unknown', 'Товар');
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        cartItems.innerHTML += `
+          <div>
+            <strong>${name}</strong> — ${item.price} ${currency} × ${item.quantity} = ${itemTotal} ${currency}
+            <span class="cart-actions">
+              <button onclick="decreaseQuantity(${i})">➖</button>
+              <button onclick="increaseQuantity(${i})">➕</button>
+              <button onclick="removeItem(${i})">🗑️</button>
+            </span>
+          </div>`;
+      });
 
-  totalPriceEl.textContent = `Разом: ${total} грн`;
+      totalPriceEl.innerHTML = `<span data-i18n="cart_total">${getTranslation('cart_total', 'Разом:')}</span> ${total} <span data-i18n="currency">${currency}</span>`;
 
-  cartOverlay.classList.add("open");
-  cartModal.classList.add("open");
-  hideArrows();
+      cartOverlay.classList.add("open");
+      cartModal.classList.add("open");
+      hideArrows();
+    });
 }
 
 // Закриття кошика
@@ -100,20 +118,17 @@ function closeCart() {
 }
 
 // Додавання товару до кошика
-function addToCart(product) {
+function addToCart({ url, price }) {
   let cart = JSON.parse(localStorage.getItem("cart") || "[]");
-  const existingIndex = cart.findIndex(p => p.name === product.name);
-
+  const existingIndex = cart.findIndex(p => p.url === url);
   if (existingIndex !== -1) {
     cart[existingIndex].quantity++;
   } else {
-    product.quantity = 1;
-    cart.push(product);
+    cart.push({ url, price, quantity: 1 });
   }
-
   localStorage.setItem("cart", JSON.stringify(cart));
   updateCartCount();
-  showToast("Додано до кошика!");
+  showToast(getTranslation("cart_added", "Додано до кошика!"));
 }
 
 // Видалення товару з кошика
@@ -150,7 +165,7 @@ function decreaseQuantity(index) {
 // Оформлення замовлення
 function sendOrder() {
   const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-  if (!cart.length) return showToast("Кошик порожній!");
+  if (!cart.length) return showToast(getTranslation("cart_empty_msg", "Кошик порожній!"));
 
   const name = document.getElementById("customerName").value.trim();
   const phone = document.getElementById("customerPhone").value.trim();
@@ -158,27 +173,34 @@ function sendOrder() {
   const address = document.getElementById("customerAddress").value.trim();
 
   if (!name || !phone || !city || !address) {
-    showToast("Будь ласка, заповніть всі поля.");
+    showToast(getTranslation("cart_fill_all", "Будь ласка, заповніть всі поля."));
     return;
   }
 
-  let message = `Замовлення від ${name}\n📞 ${phone}\n🏙️ ${city}, 📦 ${address}\n\n`;
-  let total = 0;
+  fetch(window.productsFile || "products.json")
+    .then(res => res.json())
+    .then(products => {
+      let message = `${getTranslation('order_from', 'Замовлення від')} ${name}\n📞 ${phone}\n🏙️ ${city}, 📦 ${address}\n\n`;
+      let total = 0;
+      const currency = getTranslation('currency', 'грн');
 
-  cart.forEach(p => {
-    const itemTotal = p.price * p.quantity;
-    message += `• ${p.name} — ${p.price} грн × ${p.quantity} = ${itemTotal} грн\n`;
-    total += itemTotal;
-  });
-  message += `\nРазом: ${total} грн`;
+      cart.forEach(p => {
+        const prod = products.find(prod => prod.url === p.url);
+        const prodName = prod ? prod.name : getTranslation('cart_unknown', 'Товар');
+        const itemTotal = p.price * p.quantity;
+        message += `• ${prodName} — ${p.price} ${currency} × ${p.quantity} = ${itemTotal} ${currency}\n`;
+        total += itemTotal;
+      });
+      message += `\n${getTranslation('cart_total', 'Разом:')} ${total} ${currency}`;
 
-  const mail = `mailto:dima.soltus1998@gmail.com?subject=Замовлення&body=${encodeURIComponent(message)}`;
-  window.open(mail, "_blank");
+      const mail = `mailto:dima.soltus1998@gmail.com?subject=${encodeURIComponent(getTranslation('order_subject', 'Замовлення'))}&body=${encodeURIComponent(message)}`;
+      window.open(mail, "_blank");
 
-  localStorage.removeItem("cart");
-  localStorage.removeItem("orderForm");
-  updateCartCount();
-  closeCart();
+      localStorage.removeItem("cart");
+      localStorage.removeItem("orderForm");
+      updateCartCount();
+      closeCart();
+    });
 }
 
 // Оновлення лічильника кошика
