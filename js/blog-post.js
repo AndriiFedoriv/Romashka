@@ -83,6 +83,7 @@ function renderBlogPost() {
               link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const tag = this.dataset.tag;
+                window.location.href = `index.html?tag=${encodeURIComponent(tag)}`;
                 saveRecentTag(tag);
                 renderTagList(tag);
               });
