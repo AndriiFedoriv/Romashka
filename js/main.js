@@ -28,6 +28,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (typeof initThemeSwitcher === "function") initThemeSwitcher();
 
+  document.addEventListener("DOMContentLoaded", () => {
+  const savedLang = localStorage.getItem("lang") || detectLanguage();
+  setLanguage(savedLang, () => {
+    updateLangIcon(savedLang);
+    loadProducts();
+  });
+});
+
+// Функція для визначення мови за налаштуваннями пристрою
+function detectLanguage() {
+  const userLang = navigator.language || navigator.userLanguage;
+  const ukLangs = ["uk", "ru", "be", "kk", "bg"]; // список мов, для яких встановлюємо українську
+  return ukLangs.some(lang => userLang.startsWith(lang)) ? "uk" : "en";
+}
+
   // Встановити мову при старті і після цього оновити іконку та завантажити товари
   const savedLang = localStorage.getItem('lang') || 'uk';
   setLanguage(savedLang, () => {

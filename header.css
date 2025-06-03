@@ -312,46 +312,41 @@ html.dark .nav img:hover {
 }
 
 .lang-toggle {
-  background: none;
+  background: #ffd700;
   border: none;
-  color: var(--color-accent, #ffd700);
+  color: #333;
   cursor: pointer;
-  padding: 0 6px;
-  border-radius: 6px;
-  font-size: 1.5rem;
-  min-width: 2.2em;
-  min-height: 2em;
+  padding: 4px 8px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  width: 2em;
+  height: 2em;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: none;
-  transition: color 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: background 0.3s, transform 0.2s;
 }
+
 .lang-toggle:hover, .lang-toggle:focus {
-  color: var(--color-accent, #ffd700);
-  outline: none;
-  border: none;
-  /* Додаємо легку тінь для видимості */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  background: var(--color-hover, #ffcc00);
+  transform: scale(1.1);
 }
-html.dark .lang-toggle {
-  color: var(--color-gold, #ffd700);
-  background: none;
-  border: none;
-}
-html.dark .lang-toggle:hover, html.dark .lang-toggle:focus {
-  color: var(--color-accent, #ffd700);
-  background: none;
-  border: none;
-}
+
 .lang-icon {
-  font-size: 1.5em;
-  width: 1.7em;
-  height: 1.7em;
-  line-height: 1.7em;
+  font-size: 1em;
+  width: 1.5em;
+  height: 1.5em;
+  line-height: 1.5em;
   text-align: center;
   display: inline-block;
-  vertical-align: middle;
-  overflow: hidden;
-  transition: color 0.2s;
+}
+
+html.dark .lang-toggle {
+  background: var(--color-dark-accent, #333);
+  color: var(--color-gold, #ffd700);
+}
+
+html.dark .lang-toggle:hover {
+  background: var(--color-dark-hover, #444);
 }
