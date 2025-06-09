@@ -3,8 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (typeof initHeader === "function") initHeader();
   if (typeof initFooter === "function") initFooter();
   if (typeof highlightActiveLink === "function") highlightActiveLink();
+  if (typeof initThemeSwitcher === "function") initThemeSwitcher();
 
-  // Додаємо перемикач мови з іконкою у header-actions, якщо ще немає
+  // Додаємо перемикач мови у header-actions, якщо ще немає
   const headerActions = document.querySelector('.header-actions');
   if (headerActions && !headerActions.querySelector('.lang-toggle')) {
     const langBtn = document.createElement('button');
@@ -15,7 +16,14 @@ document.addEventListener("DOMContentLoaded", () => {
     headerActions.appendChild(langBtn);
   }
 
-  // Оновити лічильник кошика, коли елемент з'явиться
+  // Визначення мови автоматично або з localStorage
+  const savedLang = localStorage.getItem("lang") || detectLanguage();
+  setLanguage(savedLang, () => {
+    updateLangIcon(savedLang);
+    loadProducts();
+  });
+
+  // Оновлення лічильника кошика (асинхронна поява елемента)
   const tryUpdateCartCount = () => {
     const el = document.getElementById("cartCount");
     if (el && typeof updateCartCount === "function") {
@@ -25,15 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
   tryUpdateCartCount();
-
-  if (typeof initThemeSwitcher === "function") initThemeSwitcher();
-
-  document.addEventListener("DOMContentLoaded", () => {
-  const savedLang = localStorage.getItem("lang") || detectLanguage();
-  setLanguage(savedLang, () => {
-    updateLangIcon(savedLang);
-    loadProducts();
-  });
 });
 
 // Функція для визначення мови за налаштуваннями пристрою
@@ -42,14 +41,6 @@ function detectLanguage() {
   const ukLangs = ["uk", "ru", "be", "kk", "bg"]; // список мов, для яких встановлюємо українську
   return ukLangs.some(lang => userLang.startsWith(lang)) ? "uk" : "en";
 }
-
-  // Встановити мову при старті і після цього оновити іконку та завантажити товари
-  const savedLang = localStorage.getItem('lang') || 'uk';
-  setLanguage(savedLang, () => {
-    updateLangIcon(savedLang);
-    loadProducts();
-  });
-});
 
 // Делегування для перемикача мови (працює навіть якщо кнопка з'явиться пізніше)
 document.body.addEventListener('click', function(e) {
@@ -92,13 +83,24 @@ function setLanguage(lang, callback) {
         const key = el.getAttribute('data-i18n-placeholder');
         if (dict[key]) el.setAttribute('placeholder', dict[key]);
       });
+
       localStorage.setItem('lang', lang);
       document.documentElement.setAttribute('lang', lang);
-      if (typeof callback === "function") callback();
+
+      // ✅ Оновлюємо шлях до файлу товарів:
+      window.productsFile = lang === 'en' ? 'products-en.json' : 'products.json';
+
+      // ✅ Ініціалізуємо товари заново:
+      if (typeof initProducts === "function") initProducts();
+
+      // ✅ Оновлюємо інші компоненти
       if (typeof renderBlog === "function") renderBlog();
       if (typeof renderBlogPost === "function") renderBlogPost();
-      if (typeof initProducts === "function") initProducts();
       if (typeof loadFooterTags === "function") loadFooterTags();
+
+      // Викликаємо переданий колбек
+      if (typeof callback === "function") callback();
+
     })
     .catch(err => {
       console.error('Language loading error:', err.message);

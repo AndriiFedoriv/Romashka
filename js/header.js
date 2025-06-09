@@ -92,7 +92,10 @@ function initProductLinks() {
   const toggleButton = document.getElementById("toggle-products");
   if (!linksContainer || !toggleButton) return;
 
-  fetch("/products.json")
+  const lang = localStorage.getItem('lang') || 'uk';
+  const productsFile = lang === 'en' ? '/products-en.json' : '/products.json';
+
+  fetch(productsFile)
     .then(res => res.json())
     .then(products => {
       linksContainer.innerHTML = products.map(product => `
@@ -108,6 +111,7 @@ function initProductLinks() {
     linksContainer.style.display = isVisible ? "none" : "block";
   });
 }
+
 
 // Підсвітка при зміні історії браузера
 window.addEventListener("popstate", highlightActiveLink);
