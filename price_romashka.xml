@@ -10,7 +10,7 @@
             <offers>
                 <offer id="1" available="true">
                     <price>380</price>
-                    <old_price>4200</old_price>
+                    <old_price>420</old_price>
                     <promo_price>330</promo_price>
                     <currencyId>UAH</currencyId>
                     <categoryId>4645608</categoryId>
