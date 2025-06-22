@@ -25,10 +25,17 @@ function renderBlogPost() {
           const next = articles[nextIdx];
 
           function renderArticle(article) {
+            const amazonUrl = article.amazon || article.amazon_url || null;
+
             document.getElementById('blog-post-content').innerHTML = `
               <article class="blog-article blog-article-page">
                 <img src="${article.image}" alt="${article.title}" class="blog-image" loading="lazy">
                 <h1>${article.title}</h1>
+                ${amazonUrl ? `
+                <div class="product-actions">
+                  <a href="${amazonUrl}" target="_blank" rel="noopener noreferrer" class="honey-btn">🛒 ${lang === 'en' ? 'Buy on Amazon' : 'Купити на Amazon'}</a>
+                </div>
+              ` : ''}
                 <div class="blog-date">${article.date}</div>
                 <p class="blog-excerpt">${article.excerpt}</p>
                 <div class="blog-content">${article.content.replace(/\n/g, '<br>')}</div>
