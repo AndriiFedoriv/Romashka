@@ -95,6 +95,7 @@ function initProductLinks() {
   const lang = localStorage.getItem('lang') || 'uk';
   const productsFile = lang === 'en' ? '/products-en.json' : '/products.json';
 
+  // Завантажити продукти
   fetch(productsFile)
     .then(res => res.json())
     .then(products => {
@@ -106,11 +107,13 @@ function initProductLinks() {
     })
     .catch(err => console.error("Не вдалося завантажити товари у меню:", err));
 
-  toggleButton.addEventListener("click", () => {
+  // ДОДАЙТЕ ЦЕ ПІСЛЯ fetch — обробник завжди має бути актуальний
+  toggleButton.onclick = () => {
     const isVisible = linksContainer.style.display === "block";
     linksContainer.style.display = isVisible ? "none" : "block";
-  });
+  };
 }
+
 
 
 // Підсвітка при зміні історії браузера

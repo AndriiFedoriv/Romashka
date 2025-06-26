@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (typeof highlightActiveLink === "function") highlightActiveLink();
   if (typeof initThemeSwitcher === "function") initThemeSwitcher();
 
-  // Додаємо перемикач мови у header-actions, якщо ще немає
+  // Додаємо перемикач мови у header-actions
   const headerActions = document.querySelector('.header-actions');
   if (headerActions && !headerActions.querySelector('.lang-toggle')) {
     const langBtn = document.createElement('button');
@@ -50,6 +50,7 @@ document.body.addEventListener('click', function(e) {
     setLanguage(next, () => {
       updateLangIcon(next);
       loadProducts();
+      initProductLinks();
     });
   }
 });
