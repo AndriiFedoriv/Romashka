@@ -1,5 +1,6 @@
 [
   {
+    "id": "honey-natures-gold-for-your-health",
     "title": "Honey: Nature’s Gold for Your Health",
     "date": "2025-05-20",
     "image": "img/blog/MedVSkloBanci.webp",
@@ -19,6 +20,7 @@
     ]
   },
   {
+    "id": "honey-recipes-3-simple-ideas",
     "title": "Honey Recipes: 3 Simple Ideas",
     "date": "2025-05-15",
     "image": "img/blog/MedGorihyBee.webp",
@@ -38,6 +40,7 @@
     ]
   },
   {
+    "id": "10-incredible-uses-for-honey-you-didnt-know-about",
     "title": "10 Incredible Uses for Honey You Didn’t Know About",
     "date": "2025-05-24",
     "image": "img/blog/SotyMedBanka.webp",
@@ -57,6 +60,7 @@
     ]
   },
   {
+    "id": "5-folk-honey-remedies-that-work",
     "title": "5 Folk Honey Remedies That Work",
     "date": "2025-05-23",
     "image": "img/blog/MedBankaApelsyn.webp",
@@ -76,6 +80,7 @@
     ]
   },
   {
+    "id": "honey-energy-drink-natures-secret-power",
     "title": "Honey Energy Drink: Nature’s Secret Power",
     "date": "2025-05-25",
     "image": "img/blog/energy_drink_med.webp",
@@ -93,8 +98,9 @@
       "#ecoenergy",
       "#tasteofnature"
     ]
- },
+  },
   {
+    "id": "local-hive-honey-southern-california-raw",
     "title": "Local Hive Honey – A Taste of Southern California",
     "date": "2025-06-09",
     "image": "img/blog/LocalHiveSouthernCaliforniaRawUnfilteredHoney100.webp",
@@ -113,6 +119,28 @@
       "#americanhoney",
       "#superfood"
     ]
-  }
+  },
+  {
+  "id": "comvita-manuka-honey-umf-10-250g-uk",
+  "title": "Comvita Manuka Honey UMF 10+ (MGO 263+) – Raw Manuka Honey New Zealand",
+  "date": "2025-07-06",
+  "image": "img/blog/comvita-manuka-honey-umf-10-250g-uk.webp",
+  "excerpt": "Not just honey – a powerful superfood. UMF 10+ and MGO 263+ certified Manuka honey for immune support, wellness, and everyday health.",
+  "content": "Comvita is one of the most trusted Manuka honey brands in the world, and their UMF 10+ (MGO 263+) honey is a top-tier product for those who value purity, potency, and health benefits.\n\nHarvested in the remote forests of New Zealand, this raw, unpasteurized honey is made from the nectar of the wild Manuka flower – a plant known for its powerful antibacterial and therapeutic properties.\n\n🔸 **UMF 10+ Certified** – independently verified for potency, purity, and authenticity. \n🔸 **MGO 263+** – provides strong antibacterial activity to support your immune system. \n🔸 **Monofloral & Non-GMO** – sourced solely from Manuka blossoms, with no additives. \n🔸 **Rich in enzymes, antioxidants, and nutrients** – ideal for holistic wellness. \n🔸 **Convenient 250g jar (8.8 oz)** – great for daily use.\n\nUse it on an empty stomach, in warm tea (not boiling), on toast, or even in DIY skincare routines. Its smooth, dense texture and earthy-sweet flavor make every spoonful a pleasure.\n\nWhether you're boosting your immune health, supporting digestion, or just looking for a healthier sweetener – **Comvita Manuka Honey UMF 10+ delivers premium quality and proven benefits.**\n\n👉 [Order on Amazon](https://amzn.to/4ks5Gz7)",
+  "amazon": "https://amzn.to/4ks5Gz7",
+  "hashtags": [
+    "#Comvita",
+    "#ManukaHoney",
+    "#UMF10",
+    "#RawHoney",
+    "#Superfood",
+    "#ImmuneHealth",
+    "#NewZealandHoney",
+    "#NaturalSweetener",
+    "#NonGMO",
+    "#MGO263"
+  ]
+}
+
 
 ]

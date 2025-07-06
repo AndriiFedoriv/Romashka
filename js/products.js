@@ -32,6 +32,7 @@ function initProducts() {
             const insertIndex = Math.floor(Math.random() * (products.length + 1));
             const blogCard = {
               isBlog: true,
+              id: randomArticle.id,
               title: randomArticle.title,
               date: randomArticle.date,
               image: randomArticle.image,
@@ -155,18 +156,16 @@ function renderProducts(products, container) {
   setTimeout(() => {
     container.innerHTML = products.map(product => {
       if (product.isBlog) {
-        // Блог-картка у стилі товару
         return `
-         <a href="blog-post.html?title=${encodeURIComponent(product.title)}" class="product blog-product">
-          <img src="${product.image}" alt="${product.title}" loading="lazy">
-          <p><strong>${product.title}</strong></p>
-        </a>
+          <a href="blog-post.html?id=${encodeURIComponent(product.id)}" class="product blog-product">
+            <img src="${product.image}" alt="${product.title}" loading="lazy">
+            <p><strong>${product.title}</strong></p>
+          </a>
         `;
       } else {
-        // Звичайний товар
         return `
           <a href="${product.url}" class="product">
-            <img src="${product.img}" alt="${product.alt}" loading="lazy">
+            <img src="${product.img}" alt="${product.alt || product.name}" loading="lazy">
             <p><strong>${product.name}</strong></p>
           </a>
         `;
