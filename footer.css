@@ -161,3 +161,12 @@ html.dark .footer-tags a:hover {
   box-shadow: 0 4px 12px var(--color-accent);
   cursor: pointer;
 }
+
+.footer-bottom-bar a {
+  color: var(--color-gold-dark);
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+.footer-bottom-bar a:hover {
+  color: var(--color-accent);
+}

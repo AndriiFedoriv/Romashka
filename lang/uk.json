@@ -108,5 +108,8 @@
   "currency": "грн",
 
   "order_from": "Замовлення від",
-  "order_subject": "Замовлення"
+  "order_subject": "Замовлення",
+
+  "footer_developer": "Розроблено <a href='https://www.upwork.com/freelancers/~0126948e55b02e567e' target='_blank' rel='noopener'> Андрій Федорів</a>"
+
 }

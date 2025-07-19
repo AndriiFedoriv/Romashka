@@ -108,5 +108,8 @@
   "currency": "UAH",
 
   "order_from": "Order from",
-  "order_subject": "Order"
+  "order_subject": "Order",
+
+  "footer_developer": "Developed by <a href='https://www.upwork.com/freelancers/~0126948e55b02e567e' target='_blank' rel='noopener'> Andrii Fedoriv</a>"
+
 }
